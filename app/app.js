@@ -19,13 +19,13 @@ app.controller('loginCtrl', ['$scope', '$location', function($scope, $location){
 app.config(function($routeProvider){
     $routeProvider
         .when('/public', {
-            templateUrl: '../partials/public.html'
+            templateUrl: 'partials/public.html'
         })
         .when('/operator', {
-            templateUrl: '../partials/operator.html'
+            templateUrl: 'partials/operator.html'
         })
         .when('/login', {
-            templateUrl: '../partials/login.html',
+            templateUrl: 'partials/login.html',
             controller: 'loginCtrl'
         })
         .otherwise({

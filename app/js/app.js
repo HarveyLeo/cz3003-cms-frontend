@@ -43,7 +43,7 @@ cmsApp.run(function ($rootScope, AUTH_EVENTS, AuthService) {
     $rootScope.$on('$stateChangeStart', function (event, next) {
         if (next.data !== undefined) {
             var authorizedRoles = next.data.authorizedRoles;
-            if (!AuthService.isAuthorized(authorizedRoles)) {
+            if (authorizedRoles !== undefined && !AuthService.isAuthorized(authorizedRoles)) {
                 event.preventDefault();
                 if (AuthService.isAuthenticated()) {
                     // user is not allowed

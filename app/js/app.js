@@ -2,6 +2,8 @@
  * Created by Haihui on 6/2/2016.
  */
 
+"use strict";
+
 var cmsApp = angular.module('cmsApp',[
     'ngRoute',
     'cmsControllers'

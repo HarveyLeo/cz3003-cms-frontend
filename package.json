@@ -4,7 +4,8 @@
   "description": "The frontend development for the crisis management system project",
   "main": "index.js",
   "scripts": {
-    "start": "http-server -a 0.0.0.0 -p 8080"
+    "start": "http-server -a 0.0.0.0 -p 8080",
+    "test": "node node_modules/karma/bin/karma start test/karma.conf.js"
   },
   "author": "Haihui",
   "license": "MIT",
@@ -13,6 +14,7 @@
     "http-server": "^0.8.5",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.19",
-    "karma-chrome-launcher": "^0.2.2"
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-jasmine": "^0.3.7"
   }
 }

@@ -39,21 +39,23 @@ cmsApp.config(['$stateProvider', '$urlRouterProvider', 'USER_ROLES',
     }
 ]);
 
-cmsApp.run(function ($rootScope, AUTH_EVENTS, AuthService) {
-    $rootScope.$on('$stateChangeStart', function (event, next) {
-        if (next.data !== undefined) {
-            var authorizedRoles = next.data.authorizedRoles;
-            if (authorizedRoles !== undefined && !AuthService.isAuthorized(authorizedRoles)) {
-                event.preventDefault();
-                if (AuthService.isAuthenticated()) {
-                    // user is not allowed
-                    $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
-                } else {
-                    // user is not logged in
-                    $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+cmsApp.run(['$rootScope', 'AUTH_EVENTS', 'AuthService',
+    function ($rootScope, AUTH_EVENTS, AuthService) {
+        $rootScope.$on('$stateChangeStart', function (event, next) {
+            if (next.data !== undefined) {
+                var authorizedRoles = next.data.authorizedRoles;
+                if (authorizedRoles !== undefined && !AuthService.isAuthorized(authorizedRoles)) {
+                    event.preventDefault();
+                    if (AuthService.isAuthenticated()) {
+                        // user is not allowed
+                        $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+                    } else {
+                        // user is not logged in
+                        $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+                    }
                 }
             }
-        }
-    });
-});
+        });
+    }
+]);
 

@@ -11,6 +11,7 @@ var cmsApp = angular.module('cmsApp',[
 
 cmsApp.config(['$stateProvider', '$urlRouterProvider', 'USER_ROLES',
     function($stateProvider, $urlRouterProvider, USER_ROLES){
+        $urlRouterProvider.when('/operator', '/operator/create-new-incident');
         $urlRouterProvider.otherwise('/public');
         $stateProvider
             .state('public', {
@@ -19,7 +20,23 @@ cmsApp.config(['$stateProvider', '$urlRouterProvider', 'USER_ROLES',
             })
             .state('operator', {
                 url: '/operator',
+                abstract: true,
                 templateUrl: 'partials/operator.html'//,
+                //data: {
+                //    authorizedRoles: [USER_ROLES.operator]
+                //}
+            })
+            .state('operator.create-new-incident', {
+                url:'/create-new-incident',
+                templateUrl: 'partials/operator.create-new-incident.html',
+                controller: 'createNewIncidentCtrl'//,
+                //data: {
+                //    authorizedRoles: [USER_ROLES.operator]
+                //}
+            })
+            .state('operator.update-incident', {
+                url:'/update-incident',
+                templateUrl: 'partials/operator.update-incident.html'//,
                 //data: {
                 //    authorizedRoles: [USER_ROLES.operator]
                 //}

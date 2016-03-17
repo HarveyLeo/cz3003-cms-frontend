@@ -37,12 +37,12 @@
                 <ul class="sidebar-menu">
                     <li class="header">INCIDENT MANAGEMENT</li>
                     <li>
-                        <a href="#">
+                        <a href="#" ui-sref=".create-new-incident">
                             <i class="fa fa-edit"></i> <span>Create new incident</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="#" ui-sref=".update-incident">
                             <i class="fa fa-refresh"></i> <span>Update incident</span>
                         </a>
                     </li>
@@ -53,103 +53,13 @@
             <!-- /.sidebar -->
         </aside>
 
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <h1>
-                    Create new incident
-                </h1>
-            </section>
+        <div ui-view></div>
 
-            <!-- Main content -->
-            <section class="content">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="box box-danger">
-                            <div class="box-body">
-                                <div class="form-group">
-                                    <label>Incident Type:</label>
-                                    <select class="form-control" style="width: 100%;">
-                                        <option selected="selected">Alabama</option>
-                                        <option>Alaska</option>
-                                        <option>California</option>
-                                        <option>Delaware</option>
-                                        <option>Tennessee</option>
-                                        <option>Texas</option>
-                                        <option>Washington</option>
-                                    </select>
-                                </div><!-- /.form-group -->
-                                <div class="form-group">
-                                    <label>Incident Name:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-warning"></i>
-                                        </div>
-                                        <input type="text" class="form-control">
-                                    </div><!-- /.input group -->
-
-                                </div><!-- /.form group -->
-                                <div class="bootstrap-timepicker">
-                                    <div class="form-group">
-                                        <label>Time:</label>
-                                        <div class="input-group">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-clock-o"></i>
-                                            </div>
-                                            <input type="text" class="form-control timepicker">
-                                        </div><!-- /.input group -->
-                                    </div><!-- /.form group -->
-                                </div>
-                                <div class="form-group">
-                                    <label>Location:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-location-arrow"></i>
-                                        </div>
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div><!-- /.form group -->
-                                <div class="form-group">
-                                    <label>Contact Name:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-user"></i>
-                                        </div>
-                                        <input type="text" class="form-control">
-                                    </div>
-
-                                </div><!-- /.form group -->
-                                <!-- phone mask -->
-                                <div class="form-group">
-                                    <label>Contact Number:</label>
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-phone"></i>
-                                        </div>
-                                        <input id="phoneInput" type="text" class="form-control" data-inputmask='"mask": "9999 9999"' />
-                                    </div><!-- /.input group -->
-                                </div><!-- /.form group -->
-                                <div class="form-group">
-                                    <label>Description (optional):</label>
-                                    <textarea class="form-control"></textarea>
-                                </div><!-- /.form group -->
-                            </div><!-- /.box-body -->
-                        </div><!-- /.box -->
-                    </div><!-- /.col (left) -->
-                </div><!-- /.row -->
-
-            </section><!-- /.content -->
-        </div><!-- /.content-wrapper -->
     </div><!-- ./wrapper -->
 </div>
 
 <script>
     $(function () {
-        $(".timepicker").timepicker({
-            showInputs: false
-        });
-        $("#phoneInput").inputmask();
         $("#divButton").click(function(){
             var screenSizes = $.AdminLTE.options.screenSizes;
             if ($(window).width() > (screenSizes.sm - 1)) {

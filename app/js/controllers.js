@@ -58,3 +58,9 @@ cmsControllers.controller('loginCtrl', ['$scope', '$rootScope', 'AUTH_EVENTS', '
     }
 ]);
 
+cmsControllers.controller('createNewIncidentCtrl', ['$scope',
+    function($scope) {
+        $scope.incidentTypes = ['Type A', 'Type B', 'Type C'];
+    }
+]);
+

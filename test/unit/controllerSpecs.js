@@ -48,4 +48,49 @@ describe('cmsControllers', function(){
     });
 
 
+    describe('createNewIncidentCtrl', function(){
+
+        var mainScope, childScope, $httpBackend;
+
+        beforeEach(module('cmsApp'));
+
+        beforeEach(inject(function(_$httpBackend_, $rootScope, $controller) {
+            $httpBackend = _$httpBackend_;
+            $httpBackend
+                .when('POST', 'http://localhost/incidents', {
+                    incidentType: 'Traffic Accident',
+                    incidentName: 'Traffic Accident @Boon Lay',
+                    time: '11:35 AM',
+                    location: 'Boon Lay',
+                    contactName: 'Ah Bing',
+                    contactNumber: '93654562',
+                    Description: ''
+                })
+                .respond({
+                    incidentName: 'Traffic Accident @Boon Lay'
+                });
+
+            mainScope = $rootScope.$new();
+            $controller('appCtrl', {$scope: mainScope});
+            childScope = mainScope.$new();
+            $controller('createNewIncidentCtrl', {$scope: childScope});
+        }));
+
+        it('should return a http response', function() {
+            childScope.submit({
+                incidentType: 'Traffic Accident',
+                incidentName: 'Traffic Accident @Boon Lay',
+                time: '11:35 AM',
+                location: 'Boon Lay',
+                contactName: 'Ah Bing',
+                contactNumber: '93654562',
+                Description: ''
+            });
+            $httpBackend.flush();
+            expect(childScope.message).toEqual("Submitted");
+        });
+
+    });
+
+
 });

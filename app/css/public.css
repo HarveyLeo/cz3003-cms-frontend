@@ -1,0 +1,93 @@
+.infobox.col-md-3 {
+    width: 33.3%;
+}
+
+
+span.info-box-text {
+    font-weight: bold;
+}
+
+span.info-box-number {
+    font-weight: normal;
+}
+
+span.info-box-number.weather {
+    font-size: 14px;
+}
+
+span.info-box-number.crisis {
+    font-size: 30px;
+    font-weight: lighter;
+}
+
+span.info-box-number.psi {
+    font-size: 14px;
+}
+
+span.info-box-number.psi span {
+    width: 50%;
+    float: left;
+    font-weight: lighter;
+}
+
+span.info-box-number.psi span div{
+    display: inline;
+    padding-left: 6px;
+    font-weight: normal;
+}
+
+div#map-container {
+    width: 100%;
+}
+
+div#map-label-container {
+    width: 100%;
+}
+
+div#map-label {
+    border-bottom-left-radius: 3px;
+    min-height: 60px;
+    padding: 0;
+}
+
+div#map-label div.map-label{
+    width: 20%;
+    height: 60px;
+    padding: 10px;
+    float: left;
+    background: rgba(255, 255, 255, 0);
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+}
+
+div#map-label div.map-label-number{
+    width: 18px;
+    height: 15px;
+    position: absolute;
+    top: 10px;
+    left: 21px;
+    font-size: 11px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+}
+
+div#map-label div.map-label.active {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+div#map-label div.map-label img{
+    float: left;
+}
+
+div#map-label div.map-label span{
+    float: left;
+    width: 100%;
+}
+
+div#map-label div.map-label#map-label-fire span, div#map-label div.map-label#map-label-accident span,
+div#map-label div.map-label#map-label-riot span, div#map-label div.map-label#map-label-gas span,
+div#map-label div.map-label#map-label-all span {
+    line-height: 2.8;
+}

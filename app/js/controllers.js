@@ -59,11 +59,14 @@ cmsControllers.controller('loginCtrl', ['$scope', '$rootScope', 'AUTH_EVENTS', '
 ]);
 
 cmsControllers.controller('publicCtrl',['$scope','$rootScope',
-    function($scope,$rootScope){
+    function($scope, $rootScope){
         if (!$scope.NEAAPIInitialized) {
             initNEAAPI($scope);
             $scope.NEAAPIInitialized = true;
         }
+
+        getCrisis($rootScope);
+        initMap($rootScope);
     }
 ]);
 

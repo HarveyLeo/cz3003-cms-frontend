@@ -9,6 +9,7 @@ var cmsApp = angular.module('cmsApp',[
     'cmsControllers'
 ]);
 
+
 cmsApp.config(['$stateProvider', '$urlRouterProvider', 'USER_ROLES',
     function($stateProvider, $urlRouterProvider, USER_ROLES){
         $urlRouterProvider.when('/operator', '/operator/create-new-incident');
@@ -56,8 +57,8 @@ cmsApp.config(['$stateProvider', '$urlRouterProvider', 'USER_ROLES',
     }
 ]);
 
-cmsApp.run(['$rootScope', 'AUTH_EVENTS', 'AuthService',
-    function ($rootScope, AUTH_EVENTS, AuthService) {
+cmsApp.run(['$rootScope', 'AUTH_EVENTS', 'AuthService','$window',
+    function ($rootScope, AUTH_EVENTS, AuthService, $window) {
         $rootScope.$on('$stateChangeStart', function (event, next) {
             if (next.data !== undefined) {
                 var authorizedRoles = next.data.authorizedRoles;
@@ -66,9 +67,11 @@ cmsApp.run(['$rootScope', 'AUTH_EVENTS', 'AuthService',
                     if (AuthService.isAuthenticated()) {
                         // user is not allowed
                         $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+                        $window.alert("You don't have access to the page.");
                     } else {
                         // user is not logged in
                         $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+                        $window.location.href = '../app/index.html#/login';
                     }
                 }
             }

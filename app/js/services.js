@@ -11,9 +11,9 @@ cmsServices.factory('AuthService', ['$http', 'Session',
         var authService = {};
         authService.login = function(credentials) {
             return $http
-                .post('http://localhost/auth', credentials)
+                .post('http://cms-torophp.rhcloud.com/verify/', credentials)
                 .then(function (res) {
-                    Session.create(res.data.username, res.data.userId, res.data.userRole);
+                    Session.create(res.data.user_name, res.data.user_id, res.data.user_role);
                     return res.data;
                 });
         };
@@ -31,6 +31,19 @@ cmsServices.factory('AuthService', ['$http', 'Session',
     }
 ]);
 
+cmsServices.factory('FormService',['$http',
+    function($http) {
+        var formService = {};
+        formService.submit = function(formdata) {
+            return $http
+                .post('http://cms-torophp.rhcloud.com/incident/', formdata)
+                .then(function(res){
+                   return res.data;
+                });
+        };
+        return formService;
+    }
+]);
 
 cmsServices.service('Session', function () {
     this.create = function (username, userId, userRole) {

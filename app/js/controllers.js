@@ -41,25 +41,27 @@ cmsControllers.controller('appCtrl', ['$scope', 'USER_ROLES', 'AuthService',
 cmsControllers.controller('loginCtrl', ['$scope', '$rootScope', 'AUTH_EVENTS', 'AuthService',
     function($scope, $rootScope, AUTH_EVENTS, AuthService){
         $scope.credentials = {
-            username: '',
-            password: ''
+            user_email: '',
+            user_password: ''
         };
         $scope.login = function(credentials) {
             AuthService.login(credentials).then(
                 function(user){
                     $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                     $scope.setCurrentUser(user);
+                    console.log("login success");
                 },
                 function(){
                     $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+                    console.log("login failure");
                 }
             );
         };
     }
 ]);
 
-cmsControllers.controller('createNewIncidentCtrl', ['$scope',
-    function($scope) {
+cmsControllers.controller('createNewIncidentCtrl', ['$scope','FormService',
+    function($scope,FormService) {
         $scope.incidentTypes = ['Type A', 'Type B', 'Type C'];
         $scope.incidentDetails = {
             incidentType: '',
@@ -69,6 +71,13 @@ cmsControllers.controller('createNewIncidentCtrl', ['$scope',
             contactName: '',
             contactNumber: '',
             Description: ''
+        };
+        $scope.submitNewIncident = function(incidentDetails) {
+            FormService.submit(incidentDetails).then(function(data) {
+                $scope.response = data;
+            }, function() {
+                $scope.response = "error";
+            });
         };
     }
 ]);

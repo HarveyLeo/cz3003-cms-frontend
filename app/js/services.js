@@ -6,27 +6,34 @@
 
 var cmsServices = angular.module('cmsServices', []);
 
-cmsServices.factory('AuthService', ['$http', 'Session',
-    function($http, Session){
+cmsServices.factory('AuthService', ['Session','$http',
+    function(Session, $http){
         var authService = {};
         authService.login = function(credentials) {
-            return $http
-                .post('http://cms-torophp.rhcloud.com/verify/', credentials)
-                .then(function (res) {
-                    Session.create(res.data.user_name, res.data.user_id, res.data.user_role);
-                    return res.data;
-                });
+            return $http({
+                method: 'POST',
+                url: 'http://cms-torophp.rhcloud.com/verify/',
+                data: $.param(credentials),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (res) {
+                Session.create(res.data.user_name, res.data.user_id, res.data.user_role);
+                return res.data;
+            });
         };
+
         authService.isAuthenticated = function () {
             return !!Session.userId;
         };
+
         authService.isAuthorized = function (authorizedRoles) {
             if (!angular.isArray(authorizedRoles)) {
                 authorizedRoles = [authorizedRoles];
             }
+
             return (authService.isAuthenticated() &&
                 authorizedRoles.indexOf(Session.userRole) !== -1);
         };
+
         return authService;
     }
 ]);
@@ -35,11 +42,14 @@ cmsServices.factory('FormService',['$http',
     function($http) {
         var formService = {};
         formService.submit = function(formdata) {
-            return $http
-                .post('http://cms-torophp.rhcloud.com/incident/', formdata)
-                .then(function(res){
-                   return res.data;
-                });
+            return $http({
+                method: 'POST',
+                url: 'http://cms-torophp.rhcloud.com/incident/',
+                data: $.param(formdata),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (res) {
+                return res.data;
+            });
         };
         return formService;
     }

@@ -16,7 +16,7 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label>Incident Type:</label>
-                            <select class="form-control" style="width: 100%;" ng-model="incidentDetails.incidentType">
+                            <select class="form-control" style="width: 100%;" ng-model="incidentDetails.incident_type">
                                 <option ng-repeat="type in incidentTypes">{{type}}</option>
                             </select>
                         </div><!-- /.form-group -->
@@ -37,7 +37,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-clock-o"></i>
                                     </div>
-                                    <input type="text" class="form-control timepicker" ng-model="incidentDetails.time">
+                                    <input type="text" class="form-control timepicker" ng-model="incidentTime">
                                 </div><!-- /.input group -->
                             </div><!-- /.form group -->
                         </div>
@@ -47,7 +47,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-location-arrow"></i>
                                 </div>
-                                <input id="autocomplete" type="text" class="form-control" ng-model="incidentDetails.location">
+                                <input id="autocomplete" type="text" class="form-control" ng-model="incidentDetails.incident_address">
                             </div>
                         </div><!-- /.form group -->
                         <div class="form-group">
@@ -56,7 +56,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-user"></i>
                                 </div>
-                                <input type="text" class="form-control" ng-model="incidentDetails.contactName">
+                                <input type="text" class="form-control" ng-model="incidentDetails.incident_contactName">
                             </div>
 
                         </div><!-- /.form group -->
@@ -68,12 +68,12 @@
                                     <i class="fa fa-phone"></i>
                                 </div>
                                 <input id="phoneInput" type="text" class="form-control"
-                                       data-inputmask='"mask": "9999 9999"' ng-model="incidentDetails.contactNumber">
+                                       data-inputmask='"mask": "9999 9999"' ng-model="incidentDetails.incident_contactNo">
                             </div><!-- /.input group -->
                         </div><!-- /.form group -->
                         <div class="form-group">
                             <label>Description (optional):</label>
-                            <textarea class="form-control" ng-model="incidentDetails.description"></textarea>
+                            <textarea class="form-control" ng-model="incidentDetails.incident_description"></textarea>
                         </div><!-- /.form group -->
                         <div class="row">
                             <div class="col-md-5"></div>

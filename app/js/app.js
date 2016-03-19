@@ -30,10 +30,10 @@ cmsApp.config(['$stateProvider', '$urlRouterProvider', 'USER_ROLES',
             .state('operator.create-new-incident', {
                 url:'/create-new-incident',
                 templateUrl: 'partials/operator.create-new-incident.html',
-                controller: 'createNewIncidentCtrl'//,
-                //data: {
-                //    authorizedRoles: [USER_ROLES.operator]
-                //}
+                controller: 'createNewIncidentCtrl',
+                data: {
+                    authorizedRoles: [USER_ROLES.operator]
+                }
             })
             .state('operator.update-incident', {
                 url:'/update-incident',
@@ -57,8 +57,8 @@ cmsApp.config(['$stateProvider', '$urlRouterProvider', 'USER_ROLES',
     }
 ]);
 
-cmsApp.run(['$rootScope', 'AUTH_EVENTS', 'AuthService','$window',
-    function ($rootScope, AUTH_EVENTS, AuthService, $window) {
+cmsApp.run(['$rootScope', 'AUTH_EVENTS', 'AuthService','$window','$state',
+    function ($rootScope, AUTH_EVENTS, AuthService, $window, $state) {
         $rootScope.$on('$stateChangeStart', function (event, next) {
             if (next.data !== undefined) {
                 var authorizedRoles = next.data.authorizedRoles;
@@ -71,7 +71,7 @@ cmsApp.run(['$rootScope', 'AUTH_EVENTS', 'AuthService','$window',
                     } else {
                         // user is not logged in
                         $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
-                        $window.location.href = '../app/index.html#/login';
+                        $state.go('login');
                     }
                 }
             }

@@ -5,8 +5,7 @@
 "use strict";
 
 var cmsControllers = angular.module('cmsControllers', [
-    'cmsServices',
-    'ngMaterial'
+    'cmsServices'
 ]);
 
 cmsControllers.constant('AUTH_EVENTS', {
@@ -27,8 +26,8 @@ cmsControllers.constant('USER_ROLES', {
 });
 
 
-cmsControllers.controller('appCtrl', ['$scope', 'USER_ROLES', 'AuthService', '$mdDialog',
-    function ($scope, USER_ROLES, AuthService, $mdDialog) {
+cmsControllers.controller('appCtrl', ['$scope', 'USER_ROLES', 'AuthService',
+    function ($scope, USER_ROLES, AuthService) {
         $scope.currentUser = null;
         $scope.userRoles = USER_ROLES;
         $scope.isAuthorized = AuthService.isAuthorized;
@@ -37,20 +36,6 @@ cmsControllers.controller('appCtrl', ['$scope', 'USER_ROLES', 'AuthService', '$m
             $scope.currentUser = user;
         };
 
-        $scope.showAlert = function() {
-            // Appending dialog to document.body to cover sidenav in docs app
-            // Modal dialogs should fully cover application
-            // to prevent interaction outside of dialog
-            $mdDialog.show(
-                $mdDialog.alert()
-                    .parent(angular.element(document.querySelector('#popupContainer')))
-                    .clickOutsideToClose(true)
-                    .title('This is an alert title')
-                    .textContent('You can specify some description text in here.')
-                    .ariaLabel('Alert Dialog Demo')
-                    .ok('Got it!')
-            );
-        };
     }
 ]);
 

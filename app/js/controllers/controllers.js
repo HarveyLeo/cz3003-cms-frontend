@@ -56,8 +56,6 @@ cmsControllers.controller('publicCtrl',['$scope','$rootScope','$uibModal',
 
         $rootScope.openMapModal = function(incident) {
 
-            console.log(incident);
-
             var modalInstance;
             modalInstance = $uibModal.open({
                 animation: true,
@@ -161,4 +159,13 @@ cmsControllers.controller('updateIncidentCtrl', ['$scope','IncidentService','$st
             });
         };
     }
+]);
+
+cmsControllers.controller('managerCtrl', ['$scope', '$rootScope', 'AUTH_EVENTS', 'AuthService',
+    function($scope, $rootScope, AUTH_EVENTS, AuthService){
+        getCrisis($rootScope);
+        getSyslog();
+        initMap($rootScope);
+    }
+
 ]);

@@ -25,6 +25,29 @@ function getCrisis($rootScope){
     });
 }
 
+function getManagerCrisis($rootScope){
+    $.ajax({
+        type: 'GET',
+        dataType: "json",
+        processData: false,
+        crossDomain: true,
+        jsonp: false,
+        url: "http://cms-torophp.rhcloud.com/incident/",
+        success: function (responseData, textStatus, jqXHR) {
+
+            $rootScope.incidents = responseData;
+
+            resetMarkers($rootScope, responseData);
+
+            $(".crisis").text(responseData.length);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus);
+            console.log(errorThrown);
+        }
+    });
+}
+
 function getSyslog(){
     $.ajax({
         type: 'GET',
@@ -44,4 +67,8 @@ function getSyslog(){
             console.log(errorThrown);
         }
     });
+}
+
+function getToDoList(){
+
 }

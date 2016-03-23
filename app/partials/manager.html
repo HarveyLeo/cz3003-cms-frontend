@@ -1,4 +1,218 @@
+<div id="divMain" class="skin-blue sidebar-mini">
+    <div class="wrapper">
+        <header class="main-header">
+            <!-- Logo -->
+            <span class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini">CMS</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg">Crisis Management</span>
+            </span>
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <div id="divButton" class="sidebar-toggle" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </div>
+            </nav>
+        </header>
 
-<div>
-    <h1>This is the manager page.</h1>
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="../../admin_lte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-left info">
+                        <p>Alexander Pierce</p>
+                        <p>UserID: ***</p>
+                    </div>
+                </div>
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu">
+                    <li class="header">INCIDENT MANAGEMENT</li>
+                    <li>
+                        <a href="#" ui-sref=".create-new-incident">
+                            <i class="fa fa-edit"></i> <span>Create new incident</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" ui-sref=".update-incident">
+                            <i class="fa fa-refresh"></i> <span>Update incident</span>
+                        </a>
+                    </li>
+                    <li class="header">USER ACCESS</li>
+                    <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Log out</span></a></li>
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+        <div class="content-wrapper">
+            <section class="content-header">
+                <h1>Crisis Management System <small>Dashboard (public)</small></h1>
+            </section>
+
+            <section class="content">
+                <div class="row">
+                    <div class="infobox col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-aqua">
+                                <img src="images/crisis.png" />
+                            </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Current Crisis</span>
+                                <span class="info-box-number current-crisis">1</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="infobox col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-red">
+                                <img src="images/crisis.png" />
+                            </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Undecalared Crisis</span>
+                                <span class="info-box-number undeclared-crisis">1</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="infobox col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-green">
+                                <img src="images/crisis.png" />
+                            </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Solved Crisis</span>
+                                <span class="info-box-number solved-crisis">1</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="box">
+                            <div class="box box-success">
+                                <div class="box-header with-border">
+                                    <i class="fa fa-map-o"></i>
+                                    <h3 class="box-title">Crisis Map</h3>
+                                </div>
+
+                                <div class="box-body no-padding">
+                                    <div class="row" style="margin: 0px">
+                                        <div id="map-container" >
+                                            <div class="pad">
+                                                <div id="crisis-google-map" style="height: 325px; position: relative; overflow: hidden;">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin: 0px">
+                                        <div id="map-label-container" style="text-align: center">
+                                            <div id="map-label" class="pad box-pane-right bg-green">
+                                                <div class="map-label active col-md-3" id="map-label-all">
+                                                    <span>Show All</span>
+                                                </div>
+
+                                                <div id="map-label-accident" class="pad box-pane-right bg-green col-md-3">
+                                                    <div class="map-label-number"></div>
+                                                    <span>
+                                                        <img src="images/Traffic Accident-pin.png" />
+                                                        Accident
+                                                    </span>
+                                                </div>
+
+                                                <div id="map-label-fire" class="pad box-pane-right bg-green col-md-3">
+                                                    <div class="map-label-number"></div>
+                                                    <span>
+                                                        <img src="images/Fire-pin.png" />
+                                                        Fire
+                                                    </span>
+                                                </div>
+
+                                                <div id="map-label-dengue" class="pad box-pane-right bg-green col-md-3">
+                                                    <div class="map-label-number"></div>
+                                                    <span>
+                                                        <img src="images/Gas Leak-pin.png" />
+                                                        Dengue
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box box-info">
+                            <div class="box-header with-border ng-scope">
+                                <i class="fa fa-file-text"></i>
+                                <h3 class="box-title">System Log</h3>
+                            </div>
+
+                            <div class="box-body ng-scope">
+                                <div class="table-responsive">
+                                    <table id="syslog" class="table no-margin">
+                                        <thead ng-hide="$root.systemLogs &amp;&amp; $root.systemLogs.length!=0" class="">
+                                        <tr>
+                                            <th>Message</th>
+                                            <th>Time</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="syslog-body">
+
+                                        </tbody>
+                                    </table>
+                                </div><!-- /.table-responsive -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="box box-primary">
+                            <div class="box-header">
+                                <i class="ion ion-clipboard"></i>
+                                <h3 class="box-title">To Do List</h3>
+                            </div><!-- /.box-header -->
+                            <div class="box-body">
+                                <ul class="todo-list">
+                                    <li ng-repeat="">
+
+                                    </li>
+                                </ul>
+                            </div><!-- /.box-body -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+
 </div>
+
+<script>
+    $(function () {
+        $("#divButton").click(function(){
+            var screenSizes = $.AdminLTE.options.screenSizes;
+            if ($(window).width() > (screenSizes.sm - 1)) {
+                $("#divMain").toggleClass("sidebar-collapse");
+            }
+            //Handle sidebar push menu for small screens
+            else {
+                $("#divMain").toggleClass("sidebar-open");
+            }
+        });
+    });
+</script>

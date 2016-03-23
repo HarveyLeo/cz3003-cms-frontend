@@ -56,9 +56,10 @@ cmsApp.config(['$stateProvider', '$urlRouterProvider', 'USER_ROLES',
             .state('manager', {
                 url: '/manager',
                 templateUrl: 'partials/manager.html',
-                data: {
-                    authorizedRoles: [USER_ROLES.manager]
-                }
+                controller: 'managerCtrl',
+                //data: {
+                //    authorizedRoles: [USER_ROLES.manager]
+                //}
             })
             .state('login', {
                 url: '/login',

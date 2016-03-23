@@ -1,0 +1,66 @@
+
+<div class="col-md-6" ng-init="getIncidentbyID(incidentID)">
+    <div class="box box-danger">
+        <div class="box-body">
+            <div class="form-group">
+                <label>Incident Type:</label>
+                <select class="form-control" style="width: 100%;" ng-model="incident.incident_type">
+                    <option ng-repeat="type in incidentTypes">{{type}}</option>
+                </select>
+            </div><!-- /.form-group -->
+            <div class="bootstrap-timepicker">
+                <div class="form-group">
+                    <label>Time:</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-clock-o"></i>
+                        </div>
+                        <input type="text" class="form-control timepicker" ng-model="incidentTime">
+                    </div><!-- /.input group -->
+                </div><!-- /.form group -->
+            </div>
+            <div class="form-group">
+                <label>Location:</label>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-location-arrow"></i>
+                    </div>
+                    <input id="autocomplete" type="text" class="form-control" ng-model="incident.incident_address">
+                </div>
+            </div><!-- /.form group -->
+            <div class="form-group">
+                <label>Contact Name:</label>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <input type="text" class="form-control" ng-model="incident.incident_contactName">
+                </div>
+
+            </div><!-- /.form group -->
+            <!-- phone mask -->
+            <div class="form-group">
+                <label>Contact Number:</label>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-phone"></i>
+                    </div>
+                    <input id="phoneInput" type="text" class="form-control"
+                           data-inputmask='"mask": "9999 9999"' ng-model="incidentDetails.incident_contactNo">
+                </div><!-- /.input group -->
+            </div><!-- /.form group -->
+            <div class="form-group">
+                <label>Description (optional):</label>
+                <textarea class="form-control" ng-model="incident.incident_description"></textarea>
+            </div><!-- /.form group -->
+            <div class="row">
+                <div class="col-md-5"></div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary btn-block btn-flat" ng-click="submitNewIncident(incidentDetails)">Submit</button>
+                </div>
+                <div class="col-md-5"></div>
+            </div>
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
+</div>
+

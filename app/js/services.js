@@ -55,6 +55,33 @@ cmsServices.factory('FormService',['$http',
     }
 ]);
 
+
+cmsServices.factory('IncidentService',['$http',
+    function($http) {
+        var incidentService = {};
+        incidentService.getAllIncidents = function() {
+            return $http({
+                method: 'GET',
+                url: 'http://cms-torophp.rhcloud.com/incident/'
+            }).then(function (res) {
+                return res.data;
+            });
+        };
+
+        incidentService.getIncidentbyID = function(id) {
+            return $http({
+                method: 'GET',
+                url: 'http://cms-torophp.rhcloud.com/incident/' + id
+            }).then(function (res) {
+                console.log(res);
+                return res.data;
+            });
+        };
+        return incidentService;
+    }
+]);
+
+
 cmsServices.service('Session', function () {
     this.create = function (username, userId, userRole) {
         this.username = username;

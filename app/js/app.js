@@ -37,7 +37,16 @@ cmsApp.config(['$stateProvider', '$urlRouterProvider', 'USER_ROLES',
             })
             .state('operator.update-incident', {
                 url:'/update-incident',
-                templateUrl: 'partials/operator.update-incident.html'//,
+                templateUrl: 'partials/operator.update-incident.html',
+                controller: 'updateIncidentCtrl'//,
+                //data: {
+                //    authorizedRoles: [USER_ROLES.operator]
+                //}
+            })
+            .state('operator.update-incident.edit', {
+                url:'/update-incident/:incidentID',
+                templateUrl: 'partials/operator.update-incident.edit.html',
+                controller: 'updateIncidentCtrl'//,
                 //data: {
                 //    authorizedRoles: [USER_ROLES.operator]
                 //}

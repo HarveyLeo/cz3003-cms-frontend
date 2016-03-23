@@ -31,6 +31,7 @@ cmsControllers.controller('appCtrl', ['$scope', 'USER_ROLES', 'AuthService',
         $scope.currentUser = null;
         $scope.userRoles = USER_ROLES;
         $scope.isAuthorized = AuthService.isAuthorized;
+        $scope.incidentTypes = ['Traffic Accident', 'Fire', 'Gas Leak', 'Riot'];
 
         $scope.setCurrentUser = function (user) {
             $scope.currentUser = user;
@@ -70,8 +71,7 @@ cmsControllers.controller('loginCtrl', ['$scope', '$rootScope', 'AUTH_EVENTS', '
 
 cmsControllers.controller('createNewIncidentCtrl', ['$scope','FormService',
     function($scope, FormService) {
-        $scope.incidentTypes = ['Traffic Accident', 'Fire', 'Gas Leak'];
-        $scope.incidentDetails = {
+            $scope.incidentDetails = {
             incident_timestamp: '1458380218',
             incident_type: '',
             incident_address: '',
@@ -100,3 +100,24 @@ cmsControllers.controller('createNewIncidentCtrl', ['$scope','FormService',
     }
 ]);
 
+cmsControllers.controller('updateIncidentCtrl', ['$scope','IncidentService','$stateParams',
+    function($scope, IncidentService, $stateParams) {
+        $scope.incidentID = $stateParams.incidentID;
+        $scope.getAllIncidents = function() {
+            IncidentService.getAllIncidents().then(function(data) {
+                $scope.allIncidents = data;
+            }, function() {
+                console.log("error: getting all incidents");
+            });
+        };
+
+        $scope.getIncidentbyID = function(id) {
+            IncidentService.getIncidentbyID(id).then(function(data) {
+                $scope.incident = data;
+                console.log(data);
+            }, function() {
+                console.log("error: getting all incidents");
+            });
+        };
+    }
+]);

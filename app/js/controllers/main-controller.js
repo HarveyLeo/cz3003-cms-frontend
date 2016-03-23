@@ -1,6 +1,6 @@
 "use strict";
 
-cmsControllers.controller('appCtrl', ['$scope', 'USER_ROLES', 'AuthService',
+cmsControllers.controller('mainCtrl', ['$scope', 'USER_ROLES', 'AuthService',
     function ($scope, USER_ROLES, AuthService) {
         $scope.currentUser = null;
         $scope.userRoles = USER_ROLES;

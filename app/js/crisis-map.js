@@ -65,7 +65,7 @@ function initMap($rootScope, callback) {
     }, 600);
 }
 
-function resetMarkers($rootScope) {
+function resetMarkers($rootScope, responseData) {
     var container = document.getElementById('crisis-google-map');
 
     if (container != null) {
@@ -100,33 +100,34 @@ function resetMarkers($rootScope) {
 
         var incidentList = $rootScope.incidents;
 
-        for (var i = 0; i < incidentList.length; i++) {
-            var incident = incidentList[i];
+        for (var i = 0; i < responseData.length; i++) {
+            var incident = responseData[i];
+            //console.log(incident);
             if ($rootScope.isPublic && incident.incident_status == 'initiated') {
                 continue;
             }
             var marker = new google.maps.Marker({
                 position: {lat: parseFloat(incident.incident_latitude), lng: parseFloat(incident.incident_longitude)},
-                title: incident.incident_type,
+                title: incident.incident_id,
                 icon: 'images/' + incident.incident_type + '-pin' + '.png'
             });
 
             marker.incident = incident;
 
             switch (incident.incident_type) {
-                case "accident":
+                case "Traffic Accident":
                     incidents.accident.push(incident);
                     incidentMarkers.accident.push(marker);
                     break;
-                case "fire":
+                case "Fire":
                     incidents.fire.push(incident);
                     incidentMarkers.fire.push(marker);
                     break;
-                case "gas_leak":
+                case "Gas Leak":
                     incidents.gas.push(incident);
                     incidentMarkers.gas.push(marker);
                     break;
-                case "riot":
+                case "Riot":
                     incidents.riot.push(incident);
                     incidentMarkers.riot.push(marker);
                     break;
@@ -134,8 +135,18 @@ function resetMarkers($rootScope) {
 
             marker.setMap(map);
 
-            google.maps.event.addListener(marker, "click", function (event) {
-                $rootScope.openMapModal(this.incident.incident_id);
+            marker.addListener("click", function (event) {
+                var latLng = event.latLng;
+
+                console.log(latLng.lat().toFixed(4));
+
+                for (var j = 0 ;j<$rootScope.incidents.length;j++){
+                    if(parseFloat($rootScope.incidents[j].incident_latitude).toFixed(4) == latLng.lat().toFixed(4) && parseFloat($rootScope.incidents[j].incident_longitude).toFixed(4) == latLng.lng().toFixed(4)){
+                        $rootScope.openMapModal($rootScope.incidents[j]);
+                        break;
+                    }
+
+                }
             });
         }
 

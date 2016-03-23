@@ -6,6 +6,7 @@
 
 var cmsApp = angular.module('cmsApp',[
     'ui.router',
+    'ui.bootstrap',
     'cmsControllers'
 ]);
 

@@ -5,7 +5,7 @@
 "use strict";
 
 var cmsControllers = angular.module('cmsControllers', [
-    'cmsServices'
+    'cmsServices',
 ]);
 
 cmsControllers.constant('AUTH_EVENTS', {
@@ -58,14 +58,43 @@ cmsControllers.controller('loginCtrl', ['$scope', '$rootScope', 'AUTH_EVENTS', '
     }
 ]);
 
-cmsControllers.controller('publicCtrl',['$scope','$rootScope',
-    function($scope, $rootScope){
+cmsControllers.controller('mapIncidentModalCtrl',
+    function($scope, $uibModalInstance, incident){
+        $scope.incident = incident;
+        $scope.close = function(){$uibModalInstance.close();}
+    }
+);
+
+cmsControllers.controller('publicCtrl',['$scope','$rootScope','$uibModal',
+    function($scope, $rootScope, $uibModal){
         if (!$scope.NEAAPIInitialized) {
             initNEAAPI($scope);
             $scope.NEAAPIInitialized = true;
         }
 
+        $rootScope.openMapModal = function(incident) {
+
+            console.log(incident);
+
+            var modalInstance;
+            modalInstance = $uibModal.open({
+                    animation: true,
+                    templateUrl: 'partials/mapIncidentModal.html',
+                    controller: 'mapIncidentModalCtrl',
+                    resolve: {
+                        incident : function(){return incident;}
+                    }
+            });
+
+            modalInstance.result.then((function(selectedItem) {
+                $scope.selected = selectedItem;
+            }), function() {
+                console.log('Modal dismissed at: ' + new Date);
+            });
+        };
+
         getCrisis($rootScope);
+        getSyslog();
         initMap($rootScope);
     }
 ]);

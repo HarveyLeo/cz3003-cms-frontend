@@ -102,7 +102,7 @@
                                                 <div id="map-label-accident" class="pad box-pane-right bg-green col-md-3">
                                                     <div class="map-label-number"></div>
                                                     <span>
-                                                        <img src="images/accident-pin.png" />
+                                                        <img src="images/Traffic Accident-pin.png" />
                                                         Accident
                                                     </span>
                                                 </div>
@@ -110,7 +110,7 @@
                                                 <div id="map-label-fire" class="pad box-pane-right bg-green col-md-3">
                                                     <div class="map-label-number"></div>
                                                     <span>
-                                                        <img src="images/fire-pin.png" />
+                                                        <img src="images/Fire-pin.png" />
                                                         Fire
                                                     </span>
                                                 </div>
@@ -118,7 +118,7 @@
                                                 <div id="map-label-dengue" class="pad box-pane-right bg-green col-md-3">
                                                     <div class="map-label-number"></div>
                                                     <span>
-                                                        <img src="images/gas_leak-pin.png" />
+                                                        <img src="images/Gas Leak-pin.png" />
                                                         Dengue
                                                     </span>
                                                 </div>
@@ -126,6 +126,33 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-info">
+                            <div class="box-header with-border ng-scope">
+                                <i class="fa fa-file-text"></i>
+                                <h3 class="box-title">System Log</h3>
+                            </div>
+
+                            <div class="box-body ng-scope">
+                                <div class="table-responsive">
+                                    <table id="syslog" class="table no-margin">
+                                        <thead ng-hide="$root.systemLogs &amp;&amp; $root.systemLogs.length!=0" class="">
+                                        <tr>
+                                            <th>Message</th>
+                                            <th>Time</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="syslog-body">
+
+                                        </tbody>
+                                    </table>
+                                </div><!-- /.table-responsive -->
                             </div>
                         </div>
                     </div>

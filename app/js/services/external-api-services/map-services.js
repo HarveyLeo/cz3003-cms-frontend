@@ -17,7 +17,7 @@ var incidentMarkers = {
 };
 
 
-function initMap($rootScope, callback) {
+function initMap($scope, callback) {
     /**
      * 0 for all
      * 1 for accident
@@ -25,7 +25,7 @@ function initMap($rootScope, callback) {
      * 3 for gas
      * 4 for riot
      */
-    $rootScope.mapFilter = 0;
+    $scope.mapFilter = 0;
     setTimeout(function () {
         var container = document.getElementById('crisis-google-map');
 
@@ -58,7 +58,7 @@ function initMap($rootScope, callback) {
             }, 300);
 
             if (callback) {
-                callback($rootScope);
+                callback($scope);
             }
 
         }

@@ -19,7 +19,7 @@ cmsApp.config(['$stateProvider', '$urlRouterProvider', 'USER_ROLES',
             .state('public', {
                 url:'/public',
                 controller: 'publicCtrl',
-                templateUrl: 'partials/public.html'
+                templateUrl: 'partials/public/public.html'
             })
             .state('operator', {
                 url: '/operator',

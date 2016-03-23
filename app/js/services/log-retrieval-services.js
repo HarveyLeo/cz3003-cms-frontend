@@ -1,3 +1,5 @@
+"use strict";
+
 cmsServices.factory('LogRetrievalService',['$http',
     function($http) {
         var logService = {};

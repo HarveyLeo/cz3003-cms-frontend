@@ -16,20 +16,10 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label>Incident Type:</label>
-                            <select class="form-control" style="width: 100%;">
+                            <select class="form-control" style="width: 100%;" ng-model="incidentDetails.incident_type">
                                 <option ng-repeat="type in incidentTypes">{{type}}</option>
                             </select>
                         </div><!-- /.form-group -->
-                        <div class="form-group">
-                            <label>Incident Name:</label>
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-warning"></i>
-                                </div>
-                                <input type="text" class="form-control">
-                            </div><!-- /.input group -->
-
-                        </div><!-- /.form group -->
                         <div class="bootstrap-timepicker">
                             <div class="form-group">
                                 <label>Time:</label>
@@ -37,7 +27,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-clock-o"></i>
                                     </div>
-                                    <input type="text" class="form-control timepicker">
+                                    <input type="text" class="form-control timepicker" ng-model="incidentTime">
                                 </div><!-- /.input group -->
                             </div><!-- /.form group -->
                         </div>
@@ -47,7 +37,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-location-arrow"></i>
                                 </div>
-                                <input type="text" class="form-control">
+                                <input id="autocomplete" type="text" class="form-control" ng-model="incidentDetails.incident_address">
                             </div>
                         </div><!-- /.form group -->
                         <div class="form-group">
@@ -56,7 +46,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-user"></i>
                                 </div>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" ng-model="incidentDetails.incident_contactName">
                             </div>
 
                         </div><!-- /.form group -->
@@ -67,13 +57,21 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-phone"></i>
                                 </div>
-                                <input id="phoneInput" type="text" class="form-control" data-inputmask='"mask": "9999 9999"' />
+                                <input id="phoneInput" type="text" class="form-control"
+                                       data-inputmask='"mask": "9999 9999"' ng-model="incidentDetails.incident_contactNo">
                             </div><!-- /.input group -->
                         </div><!-- /.form group -->
                         <div class="form-group">
                             <label>Description (optional):</label>
-                            <textarea class="form-control"></textarea>
+                            <textarea class="form-control" ng-model="incidentDetails.incident_description"></textarea>
                         </div><!-- /.form group -->
+                        <div class="row">
+                            <div class="col-md-5"></div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-primary btn-block btn-flat" ng-click="submitNewIncident(incidentDetails)">Submit</button>
+                            </div>
+                            <div class="col-md-5"></div>
+                        </div>
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->
             </div><!-- /.col (left) -->
@@ -83,6 +81,7 @@
 
 </div><!-- /.content-wrapper -->
 
+
 <script>
     $(function () {
         $(".timepicker").timepicker({
@@ -90,4 +89,14 @@
         });
         $("#phoneInput").inputmask();
     });
+    function initAutocomplete() {
+        var autocomplete;
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+                /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+                {types: ['geocode']});
+    }
 </script>
+
+

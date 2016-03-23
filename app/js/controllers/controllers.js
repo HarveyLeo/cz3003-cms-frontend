@@ -5,7 +5,7 @@
 "use strict";
 
 var cmsControllers = angular.module('cmsControllers', [
-    'cmsServices',
+    'cmsServices'
 ]);
 
 cmsControllers.constant('AUTH_EVENTS', {
@@ -31,77 +31,93 @@ cmsControllers.controller('appCtrl', ['$scope', 'USER_ROLES', 'AuthService',
         $scope.currentUser = null;
         $scope.userRoles = USER_ROLES;
         $scope.isAuthorized = AuthService.isAuthorized;
+        $scope.incidentTypes = ['Traffic Accident', 'Fire', 'Gas Leak', 'Riot'];
 
         $scope.setCurrentUser = function (user) {
             $scope.currentUser = user;
         };
+
     }
 ]);
 
-cmsControllers.controller('loginCtrl', ['$scope', '$rootScope', 'AUTH_EVENTS', 'AuthService',
-    function($scope, $rootScope, AUTH_EVENTS, AuthService){
+cmsControllers.controller('loginCtrl', ['$scope', '$rootScope', 'AUTH_EVENTS', 'AuthService','$state',
+    function($scope, $rootScope, AUTH_EVENTS, AuthService, $state){
         $scope.credentials = {
-            username: '',
-            password: ''
+            user_email: '',
+            user_password: ''
         };
         $scope.login = function(credentials) {
             AuthService.login(credentials).then(
                 function(user){
                     $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                     $scope.setCurrentUser(user);
+                    var userRole = user.user_role;
+                    if (userRole === "operator") {
+                        $state.go('operator.create-new-incident');
+                    } else if (userRole === "manager") {
+                        $state.go('manager');
+                    } else if (userRole === "agency") {
+                        $state.go('agency');
+                    }
                 },
                 function(){
                     $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+                    console.log("login failure");
                 }
             );
         };
     }
 ]);
 
-cmsControllers.controller('mapIncidentModalCtrl',
-    function($scope, $uibModalInstance, incident){
-        $scope.incident = incident;
-        $scope.close = function(){$uibModalInstance.close();}
-    }
-);
+cmsControllers.controller('createNewIncidentCtrl', ['$scope','FormService',
+    function($scope, FormService) {
+            $scope.incidentDetails = {
+            incident_timestamp: '1458380218',
+            incident_type: '',
+            incident_address: '',
+            incident_longitude: '1213',
+            incident_latitude: '5645',
+            incident_contactName: '',
+            incident_contactNo: '',
+            incident_description: '',
+            incident_status:'',
+            agency:'NEA',
+            operator: ''
+        };
+        $scope.submitNewIncident = function(incidentDetails) {
+            console.log($scope.currentUser);
+            $scope.incidentDetails.operator = $scope.currentUser.user_id;
 
-cmsControllers.controller('publicCtrl',['$scope','$rootScope','$uibModal',
-    function($scope, $rootScope, $uibModal){
-        if (!$scope.NEAAPIInitialized) {
-            initNEAAPI($scope);
-            $scope.NEAAPIInitialized = true;
-        }
-
-        $rootScope.openMapModal = function(incident) {
-
-            console.log(incident);
-
-            var modalInstance;
-            modalInstance = $uibModal.open({
-                    animation: true,
-                    templateUrl: 'partials/mapIncidentModal.html',
-                    controller: 'mapIncidentModalCtrl',
-                    resolve: {
-                        incident : function(){return incident;}
-                    }
+            FormService.submit(incidentDetails).then(function(data) {
+                console.log(data);
+                $scope.response = data;
+                $scope.showAlert();
+            }, function() {
+                console.log("error");
+                $scope.response = "error";
             });
+        };
+    }
+]);
 
-            modalInstance.result.then((function(selectedItem) {
-                $scope.selected = selectedItem;
-            }), function() {
-                console.log('Modal dismissed at: ' + new Date);
+cmsControllers.controller('updateIncidentCtrl', ['$scope','IncidentService','$stateParams',
+    function($scope, IncidentService, $stateParams) {
+        $scope.incidentID = $stateParams.incidentID;
+        $scope.getAllIncidents = function() {
+            IncidentService.getAllIncidents().then(function(data) {
+                $scope.allIncidents = data;
+            }, function() {
+                console.log("error: getting all incidents");
             });
         };
 
-        getCrisis($rootScope);
-        getSyslog();
-        initMap($rootScope);
+        $scope.getIncidentbyID = function(id) {
+            IncidentService.getIncidentbyID(id).then(function(data) {
+                $scope.incident = data;
+                console.log(data);
+            }, function() {
+                console.log("error: getting all incidents");
+            });
+        };
     }
 ]);
-
-cmsControllers.controller('createNewIncidentCtrl', ['$scope',
-    function($scope) {
-        $scope.incidentTypes = ['Type A', 'Type B', 'Type C'];
-    }
-]);
-

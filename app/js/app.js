@@ -10,6 +10,7 @@ var cmsApp = angular.module('cmsApp',[
     'cmsControllers'
 ]);
 
+
 cmsApp.config(['$stateProvider', '$urlRouterProvider', 'USER_ROLES',
     function($stateProvider, $urlRouterProvider, USER_ROLES){
         $urlRouterProvider.when('/operator', '/operator/create-new-incident');
@@ -17,7 +18,6 @@ cmsApp.config(['$stateProvider', '$urlRouterProvider', 'USER_ROLES',
         $stateProvider
             .state('public', {
                 url:'/public',
-                controller: 'publicCtrl',
                 templateUrl: 'partials/public.html'
             })
             .state('operator', {
@@ -31,14 +31,23 @@ cmsApp.config(['$stateProvider', '$urlRouterProvider', 'USER_ROLES',
             .state('operator.create-new-incident', {
                 url:'/create-new-incident',
                 templateUrl: 'partials/operator.create-new-incident.html',
-                controller: 'createNewIncidentCtrl'//,
+                controller: 'createNewIncidentCtrl',
+                data: {
+                    authorizedRoles: [USER_ROLES.operator]
+                }
+            })
+            .state('operator.update-incident', {
+                url:'/update-incident',
+                templateUrl: 'partials/operator.update-incident.html',
+                controller: 'updateIncidentCtrl'//,
                 //data: {
                 //    authorizedRoles: [USER_ROLES.operator]
                 //}
             })
-            .state('operator.update-incident', {
-                url:'/update-incident',
-                templateUrl: 'partials/operator.update-incident.html'//,
+            .state('operator.update-incident.edit', {
+                url:'/update-incident/:incidentID',
+                templateUrl: 'partials/operator.update-incident.edit.html',
+                controller: 'updateIncidentCtrl'//,
                 //data: {
                 //    authorizedRoles: [USER_ROLES.operator]
                 //}
@@ -58,8 +67,8 @@ cmsApp.config(['$stateProvider', '$urlRouterProvider', 'USER_ROLES',
     }
 ]);
 
-cmsApp.run(['$rootScope', 'AUTH_EVENTS', 'AuthService',
-    function ($rootScope, AUTH_EVENTS, AuthService) {
+cmsApp.run(['$rootScope', 'AUTH_EVENTS', 'AuthService','$window','$state',
+    function ($rootScope, AUTH_EVENTS, AuthService, $window, $state) {
         $rootScope.$on('$stateChangeStart', function (event, next) {
             if (next.data !== undefined) {
                 var authorizedRoles = next.data.authorizedRoles;
@@ -68,9 +77,11 @@ cmsApp.run(['$rootScope', 'AUTH_EVENTS', 'AuthService',
                     if (AuthService.isAuthenticated()) {
                         // user is not allowed
                         $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+                        $window.alert("You don't have access to the page.");
                     } else {
                         // user is not logged in
                         $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+                        $state.go('login');
                     }
                 }
             }

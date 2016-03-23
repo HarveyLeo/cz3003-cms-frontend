@@ -65,7 +65,7 @@ function initMap($rootScope, callback) {
     }, 600);
 }
 
-function resetMarkers($rootScope, responseData) {
+function resetMarkers($scope, responseData) {
     var container = document.getElementById('crisis-google-map');
 
     if (container != null) {
@@ -98,12 +98,12 @@ function resetMarkers($rootScope, responseData) {
             riot: []
         };
 
-        var incidentList = $rootScope.incidents;
+        var incidentList = $scope.incidents;
 
         for (var i = 0; i < responseData.length; i++) {
             var incident = responseData[i];
             //console.log(incident);
-            if ($rootScope.isPublic && incident.incident_status == 'initiated') {
+            if ($scope.isPublic && incident.incident_status == 'initiated') {
                 continue;
             }
             var marker = new google.maps.Marker({
@@ -140,9 +140,9 @@ function resetMarkers($rootScope, responseData) {
 
                 console.log(latLng.lat().toFixed(4));
 
-                for (var j = 0 ;j<$rootScope.incidents.length;j++){
-                    if(parseFloat($rootScope.incidents[j].incident_latitude).toFixed(4) == latLng.lat().toFixed(4) && parseFloat($rootScope.incidents[j].incident_longitude).toFixed(4) == latLng.lng().toFixed(4)){
-                        $rootScope.openMapModal($rootScope.incidents[j]);
+                for (var j = 0 ;j<$scope.incidents.length;j++){
+                    if(parseFloat($scope.incidents[j].incident_latitude).toFixed(4) == latLng.lat().toFixed(4) && parseFloat($scope.incidents[j].incident_longitude).toFixed(4) == latLng.lng().toFixed(4)){
+                        $scope.openMapModal($scope.incidents[j]);
                         break;
                     }
 
@@ -157,7 +157,7 @@ function resetMarkers($rootScope, responseData) {
         };
 
         $("div#map-label-all").click(function () {
-            $rootScope.mapFilter = 0;
+            $scope.mapFilter = 0;
             toggleMarkers(incidentMarkers.accident, true);
             toggleMarkers(incidentMarkers.fire, true);
             toggleMarkers(incidentMarkers.gas, true);
@@ -167,7 +167,7 @@ function resetMarkers($rootScope, responseData) {
         });
 
         $("div#map-label-accident").click(function () {
-            $rootScope.mapFilter = 1;
+            $scope.mapFilter = 1;
             toggleMarkers(incidentMarkers.accident, true);
             toggleMarkers(incidentMarkers.fire, false);
             toggleMarkers(incidentMarkers.gas, false);
@@ -177,7 +177,7 @@ function resetMarkers($rootScope, responseData) {
         }).find("div.map-label-number").text(incidents.accident.length);
 
         $("div#map-label-fire").click(function () {
-            $rootScope.mapFilter = 2;
+            $scope.mapFilter = 2;
             toggleMarkers(incidentMarkers.accident, false);
             toggleMarkers(incidentMarkers.fire, true);
             toggleMarkers(incidentMarkers.gas, false);
@@ -187,7 +187,7 @@ function resetMarkers($rootScope, responseData) {
         }).find("div.map-label-number").text(incidents.fire.length);
 
         $("div#map-label-gas").click(function () {
-            $rootScope.mapFilter = 3;
+            $scope.mapFilter = 3;
             toggleMarkers(incidentMarkers.accident, false);
             toggleMarkers(incidentMarkers.fire, false);
             toggleMarkers(incidentMarkers.gas, true);
@@ -197,7 +197,7 @@ function resetMarkers($rootScope, responseData) {
         }).find("div.map-label-number").text(incidents.gas.length);
 
         $("div#map-label-riot").click(function () {
-            $rootScope.mapFilter = 4;
+            $scope.mapFilter = 4;
             toggleMarkers(incidentMarkers.accident, false);
             toggleMarkers(incidentMarkers.fire, false);
             toggleMarkers(incidentMarkers.gas, false);
@@ -206,7 +206,7 @@ function resetMarkers($rootScope, responseData) {
             $(this).addClass("active");
         }).find("div.map-label-number").text(incidents.riot.length);
 
-        switch ($rootScope.mapFilter) {
+        switch ($scope.mapFilter) {
             case 0: // all
                 $("div#map-label-all").click();
                 break;

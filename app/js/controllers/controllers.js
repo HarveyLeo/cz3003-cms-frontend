@@ -47,8 +47,8 @@ cmsControllers.controller('mapIncidentModalCtrl',
     }
 );
 
-cmsControllers.controller('publicCtrl',['$scope','$rootScope','$uibModal',
-    function($scope, $rootScope, $uibModal){
+cmsControllers.controller('publicCtrl',['$scope','$rootScope','$uibModal','IncidentRetrievalService',
+    function($scope, $rootScope, $uibModal, IncidentRetrievalService){
         if (!$scope.NEAAPIInitialized) {
             initNEAAPI($scope);
             $scope.NEAAPIInitialized = true;
@@ -75,7 +75,16 @@ cmsControllers.controller('publicCtrl',['$scope','$rootScope','$uibModal',
             });
         };
 
-        getCrisis($rootScope);
+        $scope.getIncidentsForMap = function() {
+            IncidentRetrievalService.getAllIncidents().then(function(data) {
+                $scope.incidents = data;
+                resetMarkers($scope, data);
+                $(".crisis").text(data.length);
+            }, function() {
+                console.log("error: getting all incidents");
+            });
+        };
+
         getSyslog();
         initMap($rootScope);
     }
@@ -110,8 +119,8 @@ cmsControllers.controller('loginCtrl', ['$scope', '$rootScope', 'AUTH_EVENTS', '
     }
 ]);
 
-cmsControllers.controller('createNewIncidentCtrl', ['$scope','FormService',
-    function($scope, FormService) {
+cmsControllers.controller('createNewIncidentCtrl', ['$scope','IncidentCreationService',
+    function($scope, IncidentCreationService) {
             $scope.incidentDetails = {
             incident_timestamp: '1458380218',
             incident_type: '',
@@ -129,7 +138,7 @@ cmsControllers.controller('createNewIncidentCtrl', ['$scope','FormService',
             console.log($scope.currentUser);
             $scope.incidentDetails.operator = $scope.currentUser.user_id;
 
-            FormService.submit(incidentDetails).then(function(data) {
+            IncidentCreationService.submit(incidentDetails).then(function(data) {
                 console.log(data);
                 $scope.response = data;
                 $scope.showAlert();
@@ -141,11 +150,11 @@ cmsControllers.controller('createNewIncidentCtrl', ['$scope','FormService',
     }
 ]);
 
-cmsControllers.controller('updateIncidentCtrl', ['$scope','IncidentService','$stateParams',
-    function($scope, IncidentService, $stateParams) {
+cmsControllers.controller('updateIncidentCtrl', ['$scope','IncidentRetrievalService','$stateParams',
+    function($scope, IncidentRetrievalService, $stateParams) {
         $scope.incidentID = $stateParams.incidentID;
         $scope.getAllIncidents = function() {
-            IncidentService.getAllIncidents().then(function(data) {
+            IncidentRetrievalService.getAllIncidents().then(function(data) {
                 $scope.allIncidents = data;
             }, function() {
                 console.log("error: getting all incidents");
@@ -153,7 +162,7 @@ cmsControllers.controller('updateIncidentCtrl', ['$scope','IncidentService','$st
         };
 
         $scope.getIncidentbyID = function(id) {
-            IncidentService.getIncidentbyID(id).then(function(data) {
+            IncidentRetrievalService.getIncidentbyID(id).then(function(data) {
                 $scope.incident = data;
                 console.log(data);
             }, function() {

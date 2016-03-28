@@ -10,12 +10,12 @@
             </div><!-- /.form-group -->
             <div class="bootstrap-timepicker">
                 <div class="form-group">
-                    <label>Time:</label>
+                    <label>Date & Time:</label>
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-clock-o"></i>
                         </div>
-                        <input type="text" class="form-control timepicker" ng-model="incidentTime">
+                        <input type="text" class="form-control timepicker" ng-model="incident.incident_timestamp">
                     </div><!-- /.input group -->
                 </div><!-- /.form group -->
             </div>
@@ -45,8 +45,7 @@
                     <div class="input-group-addon">
                         <i class="fa fa-phone"></i>
                     </div>
-                    <input id="phoneInput" type="text" class="form-control"
-                           data-inputmask='"mask": "9999 9999"' ng-model="incidentDetails.incident_contactNo">
+                    <input type="text" class="form-control" ng-model="incident.incident_contactNo">
                 </div><!-- /.input group -->
             </div><!-- /.form group -->
             <div class="form-group">
@@ -56,11 +55,14 @@
             <div class="row">
                 <div class="col-md-5"></div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-primary btn-block btn-flat" ng-click="submitNewIncident(incidentDetails)">Update</button>
+                    <button type="button" class="btn btn-primary btn-block btn-flat" ng-click="updateIncident()">Update</button>
                 </div>
                 <div class="col-md-5"></div>
             </div>
         </div><!-- /.box-body -->
+        <div class="callout callout-success" ng-show="showSuccess">
+            <h4><i class="icon fa fa-check"></i> Successfully updated!</h4>
+        </div>
     </div><!-- /.box -->
 </div>
 

@@ -13,6 +13,16 @@ cmsServices.factory('IncidentRetrievalService',['$http',
             });
         };
 
+        incidentService.getInitiatedIncidents = function() {
+            return $http({
+                method: 'GET',
+                url: 'http://cms-torophp.rhcloud.com/incident/status/initiated/'
+            }).then(function (res) {
+
+                return res.data;
+            });
+        };
+
         incidentService.getIncidentbyID = function(id) {
             return $http({
                 method: 'GET',
@@ -45,3 +55,21 @@ cmsServices.factory('IncidentCreationService',['$http',
     }
 ]);
 
+
+cmsServices.factory('IncidentUpdateService',['$http',
+    function($http) {
+        var formService = {};
+        formService.update = function(incident) {
+            console.log(incident);
+            return $http({
+                method: 'PUT',
+                url: 'http://cms-torophp.rhcloud.com/incident/' + incident.incident_id,
+                data: $.param(incident),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (res) {
+                return res.data;
+            });
+        };
+        return formService;
+    }
+]);

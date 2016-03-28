@@ -17,7 +17,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Search..." ng-model="searchText">
                                 <span class="input-group-btn">
-                                    <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                                    <button name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
                                 </span>
                             </div><!-- /.input group -->
                         </div><!-- /.form group -->
@@ -30,12 +30,12 @@
                                 <th>Status</th>
                                 <th style="width:10px">Edit</th>
                             </tr>
-                            <tr ng-repeat="i in allIncidents | filter:searchText">
+                            <tr ng-repeat="i in allIncidents | filter: searchText">
                                 <td>{{i.incident_type}}</td>
                                 <td>{{i.incident_contactName}}</td>
                                 <td>{{i.incident_contactNo}}</td>
                                 <td>{{i.incident_status}}</td>
-                                <td><button class="btn btn-sm btn-default"  ui-sref=".edit({incidentID:i.incident_id})"><i class="fa fa-pencil"></i></button></td>
+                                <td><button class="btn btn-sm btn-default"  ui-sref=".edit({incidentID:i.incident_id})" ng-disabled="i.incident_status !== 'INITIATED'"><i class="fa fa-pencil"></i></button></td>
                             </tr>
                         </table>
                     </div>

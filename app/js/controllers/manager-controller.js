@@ -71,7 +71,7 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
 
         $scope.initMap = function() {
             initMap($scope);
-        }
+        };
 
         $scope.openToDo = function(pending_incident) {
             console.log(pending_incident);
@@ -91,7 +91,7 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
             }), function() {
                 console.log('Modal dismissed at: ' + new Date);
             });
-        }
+        };
 
         $scope.getToDoList = function() {
             IncidentRetrievalService.getAllIncidents().then(function(data) {

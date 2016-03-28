@@ -4,6 +4,7 @@ cmsControllers.controller('mapIncidentModalCtrl',
     function($scope, $uibModalInstance, incident){
         $scope.incident = incident;
         $scope.close = function(){$uibModalInstance.close();}
+        $scope.confirm = function(){};
     }
 );
 
@@ -37,9 +38,18 @@ cmsControllers.controller('publicCtrl',['$scope', '$uibModal','IncidentRetrieval
 
         $scope.getIncidentsForMap = function() {
             IncidentRetrievalService.getAllIncidents().then(function(data) {
-                $scope.incidents = data;
-                resetMarkers($scope, data);
-                $(".crisis").text(data.length);
+
+                var results = [];
+
+                for(var i = 0;i<data.length;i++){
+                    if(data[i].incident_status == "Confirmed"){
+                        results.push(data[i]);
+                    }
+                }
+
+                $scope.incidents = results;
+                resetMarkers($scope, results);
+                $(".crisis").text(results.length);
             }, function() {
                 console.log("error: getting all incidents");
             });

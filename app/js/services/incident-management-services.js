@@ -8,6 +8,7 @@ cmsServices.factory('IncidentRetrievalService',['$http',
                 method: 'GET',
                 url: 'http://cms-torophp.rhcloud.com/incident/'
             }).then(function (res) {
+
                 return res.data;
             });
         };
@@ -17,7 +18,8 @@ cmsServices.factory('IncidentRetrievalService',['$http',
                 method: 'GET',
                 url: 'http://cms-torophp.rhcloud.com/incident/' + id
             }).then(function (res) {
-                console.log(res);
+                //console.log(res);
+
                 return res.data;
             });
         };

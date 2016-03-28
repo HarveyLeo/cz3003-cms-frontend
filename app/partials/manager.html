@@ -1,4 +1,4 @@
-<div id="divMain" class="skin-blue sidebar-mini">
+<div id="divMain" class="skin-blue sidebar-mini" ng-init="getIncidentsForMap(); getSystemLog(); initMap();getToDoList()">
     <div class="wrapper">
         <header class="main-header">
             <!-- Logo -->
@@ -187,8 +187,15 @@
                             </div><!-- /.box-header -->
                             <div class="box-body">
                                 <ul class="todo-list">
-                                    <li ng-repeat="">
+                                    <li ng-repeat="pending_incident in pending_incidents">
+                                        <!-- drag handle -->
+                                      <span class="handle-disabled">
+                                        <i class="fa fa-ellipsis-v"></i>
+                                        <i class="fa fa-ellipsis-v"></i>
+                                      </span>
 
+                                        <span class="ng-scope" ng-click="openToDo(pending_incident)"><span class="text ng-binding ng-scope ng-click-active" style="cursor: pointer">&lt;{{pending_incident.incident_type}}&gt;</span>
+                                            <small class="label label label-danger ng-scope"><i class="fa fa-clock-o"></i> <span >{{pending_incident.incident_timestamp}}</span></small></span>
                                     </li>
                                 </ul>
                             </div><!-- /.box-body -->

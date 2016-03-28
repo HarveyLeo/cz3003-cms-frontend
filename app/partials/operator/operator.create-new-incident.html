@@ -39,7 +39,7 @@
                                 </div>
                                 <input id="location" placeholder="Enter the location" type="text" class="form-control" ng-model="incidentDetails.incident_address">
                             </div>
-                            <div class="input-group" id="map" style="height: 500px;width: 100%">
+                            <div class="input-group" id="map" style="height: 300px;width: 100%">
                             </div>
                         </div><!-- /.form group -->
                         <div class="form-group">
@@ -90,7 +90,7 @@
 <script>
     function initAutocomplete($scope) {
         var map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 1.290270, lng: 103.851959},
+            center: {lat: 1.349627, lng: 103.863029},
             zoom: 12,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });

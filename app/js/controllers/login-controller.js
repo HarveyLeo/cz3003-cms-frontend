@@ -7,24 +7,32 @@ cmsControllers.controller('loginCtrl', ['$scope', '$rootScope', 'AUTH_EVENTS', '
             user_password: ''
         };
         $scope.login = function(credentials) {
-            AuthService.login(credentials).then(
-                function(user){
-                    $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                    $scope.setCurrentUser(user);
-                    var userRole = user.user_role;
-                    if (userRole === "operator") {
-                        $state.go('operator.create-new-incident');
-                    } else if (userRole === "manager") {
-                        $state.go('manager');
-                    } else if (userRole === "agency") {
-                        $state.go('agency');
+            if (!(credentials.user_email && credentials.user_password)) {
+                $scope.errorMsg = "Your log-in detail is not complete!"
+            } else {
+                AuthService.login(credentials).then(
+                    function(user){
+                        $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                        $scope.errorMsg = "";
+                        $scope.setCurrentUser(user);
+                        var userRole = user.user_role;
+                        if (userRole === "operator") {
+                            $state.go('operator.create-new-incident');
+                        } else if (userRole === "manager") {
+                            $state.go('manager');
+                        } else if (userRole === "agency") {
+                            $state.go('agency');
+                        } else {
+                            $scope.errorMsg = "Incorrect username or password entered";
+                        }
+                    },
+                    function(){
+                        $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+                        $scope.errorMsg = "Unable to establish connection";
                     }
-                },
-                function(){
-                    $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-                    console.log("login failure");
-                }
-            );
+                );
+            }
+
         };
     }
 ]);

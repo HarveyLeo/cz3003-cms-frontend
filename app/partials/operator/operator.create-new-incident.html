@@ -27,7 +27,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-clock-o"></i>
                                     </div>
-                                    <input type="text" class="form-control timepicker" ng-model="incidentTime">
+                                    <input type="text" class="form-control timepicker" id="new_incident_time">
                                 </div><!-- /.input group -->
                             </div><!-- /.form group -->
                         </div>
@@ -150,6 +150,37 @@
             map.fitBounds(bounds);
             map.setZoom(17);
         });
+    }
+
+    function convertToTimestamp () {
+        var time_str = $("#new_incident_time").val();
+
+        var parts = time_str.split(' ');
+        var time_parts = parts[0].split(':');
+
+        var hour = parseInt(time_parts[0]);
+        var minute = parseInt(time_parts[1]);
+
+        if (parts[1] == "PM"){
+            hour += 12;
+        }
+
+        var today = new Date();
+        var day = today.getDate();
+        var month = today.getMonth() + 1;
+        var year = today.getFullYear();
+
+        if(month < 10){
+            month = '0' + month;
+        }
+
+        if(day < 10){
+            day = '0' + day;
+        }
+
+        var result = year + '-' + month + '-' + day + ' ' + hour + ":" + minute + ':00';
+
+        console.log(result);
     }
 
     $(function () {

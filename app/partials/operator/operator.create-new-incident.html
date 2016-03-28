@@ -37,7 +37,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-location-arrow"></i>
                                 </div>
-                                <input id="autocomplete" placeholder="Enter the location" type="text" class="form-control" ng-model="incidentDetails.incident_address">
+                                <input id="location" placeholder="Enter the location" type="text" class="form-control" ng-model="incidentDetails.incident_address">
                             </div>
                             <div class="input-group" id="map" style="height: 500px;width: 100%">
                             </div>
@@ -70,11 +70,14 @@
                         <div class="row">
                             <div class="col-md-5"></div>
                             <div class="col-md-2">
-                                <button type="button" class="btn btn-primary btn-block btn-flat" ng-click="submitNewIncident(incidentDetails)">Submit</button>
+                                <button type="button" class="btn btn-primary btn-block btn-flat" ng-click="submitNewIncident()">Submit</button>
                             </div>
                             <div class="col-md-5"></div>
                         </div>
                     </div><!-- /.box-body -->
+                    <div class="callout callout-success" ng-show="showSuccess">
+                        <h4><i class="icon fa fa-check"></i> Successfully submitted!</h4>
+                    </div>
                 </div><!-- /.box -->
             </div><!-- /.col (left) -->
         </div><!-- /.row -->
@@ -93,9 +96,8 @@
         });
 
         // Create the search box and link it to the UI element.
-        var input = document.getElementById('autocomplete');
+        var input = document.getElementById('location');
         var searchBox = new google.maps.places.SearchBox(input);
-//        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
         // Bias the SearchBox results towards current map's viewport.
         map.addListener('bounds_changed', function() {
@@ -112,8 +114,11 @@
                 return;
             }
 
-            incident_longitude = places[0].geometry.location.lng();
-            incident_latitude = places[0].geometry.location.lat();
+            var longitude = places[0].geometry.location.lng();
+            var latitude = places[0].geometry.location.lat();
+
+            $("#location").data("latitude", latitude);
+            $("#location").data("longitude", longitude);
 
             // Clear out the old markers.
             markers.forEach(function(marker) {
@@ -152,37 +157,6 @@
         });
     }
 
-    function convertToTimestamp () {
-        var time_str = $("#new_incident_time").val();
-
-        var parts = time_str.split(' ');
-        var time_parts = parts[0].split(':');
-
-        var hour = parseInt(time_parts[0]);
-        var minute = parseInt(time_parts[1]);
-
-        if (parts[1] == "PM"){
-            hour += 12;
-        }
-
-        var today = new Date();
-        var day = today.getDate();
-        var month = today.getMonth() + 1;
-        var year = today.getFullYear();
-
-        if(month < 10){
-            month = '0' + month;
-        }
-
-        if(day < 10){
-            day = '0' + day;
-        }
-
-        var result = year + '-' + month + '-' + day + ' ' + hour + ":" + minute + ':00';
-
-        console.log(result);
-    }
-
     $(function () {
         $(".timepicker").timepicker({
             showInputs: false
@@ -191,7 +165,6 @@
 
         initAutocomplete();
     });
-
 
 </script>
 

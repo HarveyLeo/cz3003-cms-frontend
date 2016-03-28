@@ -85,7 +85,7 @@
 
 
 <script>
-    function initAutocomplete() {
+    function initAutocomplete($scope) {
         var map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 1.290270, lng: 103.851959},
             zoom: 12,
@@ -111,6 +111,9 @@
             if (places.length == 0) {
                 return;
             }
+
+            incident_longitude = places[0].geometry.location.lng();
+            incident_latitude = places[0].geometry.location.lat();
 
             // Clear out the old markers.
             markers.forEach(function(marker) {

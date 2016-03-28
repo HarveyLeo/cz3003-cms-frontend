@@ -6,13 +6,13 @@ cmsControllers.controller('createNewIncidentCtrl', ['$scope','IncidentCreationSe
             incident_timestamp: '1458380218',
             incident_type: '',
             incident_address: '',
-            incident_longitude: '1213',
-            incident_latitude: '5645',
+            incident_longitude: '',
+            incident_latitude: '',
             incident_contactName: '',
             incident_contactNo: '',
             incident_description: '',
             incident_status:'',
-            agency:'NEA',
+            agency:'',
             operator: ''
         };
         $scope.submitNewIncident = function(incidentDetails) {

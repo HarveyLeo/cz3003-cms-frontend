@@ -12,7 +12,7 @@ cmsControllers.controller('createNewIncidentCtrl', ['$scope','IncidentCreationSe
             incident_contactName: '',
             incident_contactNo: '',
             incident_description: '',
-            incident_status:'',
+            incident_status:'INITIATED',
             agency:'',
             operator: ''
         };
@@ -71,8 +71,8 @@ cmsControllers.controller('createNewIncidentCtrl', ['$scope','IncidentCreationSe
                         incident_contactName: '',
                         incident_contactNo: '',
                         incident_description: '',
-                        incident_status: '',
-                        agency_name: '',
+                        incident_status: 'INITIATED',
+                        agency: '',
                         operator: ''
                     };
                 }, 2000);
@@ -91,47 +91,34 @@ cmsControllers.controller('updateIncidentCtrl', ['$scope','IncidentRetrievalServ
     'IncidentUpdateService','$state','$timeout',
     function($scope, IncidentRetrievalService, $stateParams, IncidentUpdateService, $state, $timeout) {
         $scope.incidentID = $stateParams.incidentID;
-        $scope.incident = {
-            incident_timestamp: '',
-            incident_type: '',
-            incident_address: '',
-            incident_longitude: '',
-            incident_latitude: '',
-            incident_contactName: '',
-            incident_contactNo: '',
-            incident_description: '',
-            incident_status: '',
-            agency_name: '',
-            operator: ''
-        };
 
         $scope.getAllIncidents = function() {
             IncidentRetrievalService.getAllIncidents().then(function(data) {
                 $scope.allIncidents = data;
             }, function() {
-                console.log("error: getting all incidents");
+                console.log("error: get all incidents");
             });
         };
 
         $scope.getIncidentbyID = function(id) {
             IncidentRetrievalService.getIncidentbyID(id).then(function(data) {
                 $scope.incident = data;
-                console.log(data);
             }, function() {
-                console.log("error: getting all incidents");
+                console.log("error: get an incident");
             });
         };
 
         $scope.updateIncident = function() {
+
             IncidentUpdateService.update($scope.incident).then(function(data) {
                 $scope.showSuccess = true;
                 $timeout(function() {
                     $scope.showSuccess = false;
-                    $state.go('operator.update-incident');
+                    $state.go('operator.update-incident',{}, {reload: true});
                 }, 2000);
                 console.log(data);
             }, function() {
-                console.log("error: getting all incidents");
+                console.log("error: update an incident");
             });
         }
     }

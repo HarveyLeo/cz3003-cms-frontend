@@ -24,10 +24,7 @@ cmsApp.config(['$stateProvider', '$urlRouterProvider', 'USER_ROLES',
             .state('operator', {
                 url: '/operator',
                 abstract: true,
-                templateUrl: 'partials/operator/operator.html'//,
-                //data: {
-                //    authorizedRoles: [USER_ROLES.operator]
-                //}
+                templateUrl: 'partials/operator/operator.html'
             })
             .state('operator.create-new-incident', {
                 url:'/create-new-incident',
@@ -40,23 +37,23 @@ cmsApp.config(['$stateProvider', '$urlRouterProvider', 'USER_ROLES',
             .state('operator.update-incident', {
                 url:'/update-incident',
                 templateUrl: 'partials/operator/operator.update-incident.html',
-                controller: 'updateIncidentCtrl'//,
-                //data: {
-                //    authorizedRoles: [USER_ROLES.operator]
-                //}
+                controller: 'updateIncidentCtrl',
+                data: {
+                    authorizedRoles: [USER_ROLES.operator]
+                }
             })
             .state('operator.update-incident.edit', {
                 url:'/update-incident/:incidentID',
                 templateUrl: 'partials/operator/operator.update-incident.edit.html',
-                controller: 'updateIncidentCtrl'//,
-                //data: {
-                //    authorizedRoles: [USER_ROLES.operator]
-                //}
+                controller: 'updateIncidentCtrl',
+                data: {
+                    authorizedRoles: [USER_ROLES.operator]
+                }
             })
             .state('manager', {
                 url: '/manager',
                 templateUrl: 'partials/manager.html',
-                controller: 'managerCtrl',
+                controller: 'managerCtrl'//,
                 //data: {
                 //    authorizedRoles: [USER_ROLES.manager]
                 //}

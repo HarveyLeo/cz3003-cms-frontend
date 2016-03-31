@@ -14,7 +14,7 @@ var cmsApp = angular.module('cmsApp',[
 cmsApp.config(['$stateProvider', '$urlRouterProvider', 'USER_ROLES',
     function($stateProvider, $urlRouterProvider, USER_ROLES){
         $urlRouterProvider.when('/operator', '/operator/create-new-incident');
-        // $urlRouterProvider.otherwise('/public');
+        $urlRouterProvider.otherwise('/public');
         $stateProvider
             .state('public', {
                 url:'/public',

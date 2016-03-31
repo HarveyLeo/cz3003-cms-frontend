@@ -152,9 +152,9 @@
                             </div>
 
                             <div class="box-footer">
-                                <div class="form-group pull-right">
-                                    <label id="cb-label">
-                                        <input class="icheckbox_minimal-red" type="checkbox" id="pendingOnly" ng-model="config.showPendingOnly">
+                                <div class="checkbox pull-right">
+                                    <label>
+                                        <input type="checkbox" ng-model="config.showPendingOnly">
                                         Show <small class="label label-danger">Pending</small> crises only
                                     </label>
                                 </div>
@@ -164,12 +164,7 @@
 
                     </div>
 
-
                 </div>
-
-
-
-
             </section>
 
         </div>
@@ -189,10 +184,6 @@
             else {
                 $("#divMain").toggleClass("sidebar-open");
             }
-        });
-
-        $("#pendingOnly").iCheck({
-            checkboxClass: 'icheckbox_minimal-red'
         });
 
     });

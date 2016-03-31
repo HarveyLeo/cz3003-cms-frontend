@@ -1,7 +1,8 @@
 "use strict";
 
-cmsControllers.controller('agencyCtrl', ['$scope','FeedbackSubmissionService','IncidentRetrievalService','$timeout','FeedbackRetrievalService',
-    function($scope, FeedbackSubmissionService, IncidentRetrievalService, $timeout, FeedbackRetrievalService){
+cmsControllers.controller('agencyCtrl', ['$scope','FeedbackSubmissionService','IncidentRetrievalService',
+    '$timeout','FeedbackRetrievalService','$state',
+    function($scope, FeedbackSubmissionService, IncidentRetrievalService, $timeout, FeedbackRetrievalService, $state){
         
         $scope.config = {
             currentPage: 0,
@@ -40,6 +41,7 @@ cmsControllers.controller('agencyCtrl', ['$scope','FeedbackSubmissionService','I
                             feedback_status: "",
                             feedback_timestamp: ""
                         };
+                        $state.go('agency',{}, {reload: true});
                     }, 2000);
                     console.log(data);
                 }, function() {

@@ -1,10 +1,26 @@
 "use strict";
 
 cmsControllers.controller('mapIncidentModalCtrl',
-    function($scope, $uibModalInstance, incident){
+    function($scope, $uibModalInstance, incident,IncidentUpdateService){
         $scope.incident = incident;
         $scope.close = function(){$uibModalInstance.close();}
-        $scope.confirm = function(){};
+        $scope.confirm = function(){
+            incident.incident_status = "APPROVED";
+
+            IncidentUpdateService.update(incident).then(function(data){
+                console.log(data);
+                location.reload();
+            });
+        };
+
+        $scope.reject = function() {
+            incident.incident_status = "REJECTED";
+
+            IncidentUpdateService.update(incident).then(function(data){
+                console.log(data);
+                location.reload();
+            });
+        }
     }
 );
 
@@ -42,7 +58,7 @@ cmsControllers.controller('publicCtrl',['$scope', '$uibModal','IncidentRetrieval
                 var results = [];
 
                 for(var i = 0;i<data.length;i++){
-                    if(data[i].incident_status == "Confirmed"){
+                    if(data[i].incident_status == "APPROVED"){
                         results.push(data[i]);
                     }
                 }

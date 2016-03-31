@@ -31,6 +31,16 @@ cmsServices.factory('IncidentRetrievalService',['$http',
                 return res.data;
             });
         };
+
+        incidentService.getIncidentsByAgency = function(agency_abbr) {
+            return $http({
+                method: 'GET',
+                url: 'http://cms-torophp.rhcloud.com/incident/agency/' + agency_abbr
+            }).then(function (res) {
+                return res.data;
+            });
+        };
+
         return incidentService;
     }
 ]);

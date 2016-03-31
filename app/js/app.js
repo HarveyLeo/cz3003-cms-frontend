@@ -14,12 +14,20 @@ var cmsApp = angular.module('cmsApp',[
 cmsApp.config(['$stateProvider', '$urlRouterProvider', 'USER_ROLES',
     function($stateProvider, $urlRouterProvider, USER_ROLES){
         $urlRouterProvider.when('/operator', '/operator/create-new-incident');
-        $urlRouterProvider.otherwise('/public');
+        // $urlRouterProvider.otherwise('/public');
         $stateProvider
             .state('public', {
                 url:'/public',
                 controller: 'publicCtrl',
                 templateUrl: 'partials/public/public.html'
+            })
+            .state('agency', {
+                url:'/agency',
+                controller: 'agencyCtrl',
+                templateUrl: 'partials/agency.html',
+                data: {
+                    authorizedRoles: [USER_ROLES.agency]
+                }
             })
             .state('operator', {
                 url: '/operator',
@@ -87,4 +95,14 @@ cmsApp.run(['$rootScope', 'AUTH_EVENTS', 'AuthService','$window','$state',
         });
     }
 ]);
+
+cmsApp.filter('startFrom', function() {
+
+    return function(input, start) {
+
+        if (!input || !input.length) { return; }
+        start = +start;
+        return input.slice(start);
+    }
+});
 

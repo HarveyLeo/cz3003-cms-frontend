@@ -28,50 +28,47 @@
             </section>
 
             <section class="content">
+                <!-- Info boxes -->
                 <div class="row">
-                     <div class="infobox col-md-3 col-sm-6 col-xs-12">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="info-box">
-                            <span class="info-box-icon bg-aqua">
-                                <img src="images/crisis.png" />
-                            </span>
+                            <span class="info-box-icon bg-aqua"><i class="ion ion-android-warning"></i></span>
                             <div class="info-box-content">
-                                <span class="info-box-text">Current Crisis</span>
-                                <span class="info-box-number crisis">1</span>
-                            </div>
-                        </div>
-                     </div>
-
-                    <div class="infobox col-md-3 col-sm-6 col-xs-12">
+                                <span class="info-box-text">Current Crises</span>
+                                <span class="info-box-number crisis"></span>
+                            </div><!-- /.info-box-content -->
+                        </div><!-- /.info-box -->
+                    </div><!-- /.col -->
+                    <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="info-box">
-                            <span class="info-box-icon bg-red">
-                                <img src="images/weather.png" />
-                            </span>
+                            <span class="info-box-icon bg-red"><i class="ion ion-ios-cloudy-night"></i></span>
                             <div class="info-box-content">
-                                <span class="info-box-text">WEATHER FORECAST</span>
-                                <span class="info-box-number weather" id="api-weather">1</span>
-                            </div>
-                        </div>
-                    </div>
+                                <span class="info-box-text">Weather Forecast</span>
+                                <span class="info-box-number weather" id="api-weather"></span>
+                            </div><!-- /.info-box-content -->
+                        </div><!-- /.info-box -->
+                    </div><!-- /.col -->
 
-                    <div class="infobox col-md-3 col-sm-6 col-xs-12">
+                    <!-- fix for small devices only -->
+                    <div class="clearfix visible-sm-block"></div>
+
+                    <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="info-box">
-                            <span class="info-box-icon bg-green">
-                                <img src="images/psi.png" />
-                            </span>
+                            <span class="info-box-icon bg-green"><i class="ion ion-ios-speedometer"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">PSI</span>
                                 <span class="info-box-number psi" id="api-psi">
-                                    <span class="national">"National:" <div>1</div></span>
-                                    <span class="central">"Central:" <div>1</div></span>
+                                    <span class="national">"National:" <div></div></span>
+                                    <span class="central">"Central:" <div></div></span>
                                     <span class="north">"North:" <div></div></span>
                                     <span class="south">"South:" <div></div></span>
                                     <span class="west">"West:" <div></div></span>
                                     <span class="east">"East:" <div></div></span>
                                 </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            </div><!-- /.info-box-content -->
+                        </div><!-- /.info-box -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
 
                 <div class="row">
                     <div class="col-md-12">

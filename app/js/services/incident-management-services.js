@@ -32,12 +32,11 @@ cmsServices.factory('IncidentRetrievalService',['$http',
             });
         };
 
-        incidentService.getAllAgencies = function() {
+        incidentService.getIncidentsByAgency = function(agency_abbr) {
             return $http({
                 method: 'GET',
-                url: 'http://cms-torophp.rhcloud.com/agency/'
+                url: 'http://cms-torophp.rhcloud.com/incident/agency/' + agency_abbr
             }).then(function (res) {
-
                 return res.data;
             });
         };
@@ -82,3 +81,4 @@ cmsServices.factory('IncidentUpdateService',['$http',
         return formService;
     }
 ]);
+

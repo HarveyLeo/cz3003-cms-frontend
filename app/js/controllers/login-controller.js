@@ -14,6 +14,7 @@ cmsControllers.controller('loginCtrl', ['$scope', '$rootScope', 'AUTH_EVENTS', '
                     function(user){
                         $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
                         $scope.errorMsg = "";
+                        console.log(user);
                         $scope.setCurrentUser(user);
                         var userRole = user.user_role;
                         if (userRole === "operator") {

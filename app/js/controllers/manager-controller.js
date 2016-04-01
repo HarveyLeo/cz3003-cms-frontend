@@ -1,5 +1,5 @@
-cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetrievalService', 'LogRetrievalService','$uibModal', 'IncidentUpdateService',
-    function($scope, $stateParams, IncidentRetrievalService, LogRetrievalService, $uibModal, IncidentUpdateService) {
+cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetrievalService', 'LogRetrievalService','$uibModal',
+    function($scope, $stateParams, IncidentRetrievalService, LogRetrievalService, $uibModal) {
 
         $scope.incidentID = $stateParams.incidentID;
         $scope.getAllIncidents = function() {
@@ -7,14 +7,6 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
                 $scope.allIncidents = data;
             }, function() {
                 console.log("error: getting all incidents");
-            });
-        };
-
-        $scope.getAllAgencies = function() {
-            IncidentRetrievalService.getAllAgencies().then(function(data) {
-                $scope.allAgencies = data;
-            }, function() {
-                console.log("error: getting all agencies");
             });
         };
 
@@ -54,7 +46,7 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
                 var results = [];
 
                 for(var i = 0;i<data.length;i++){
-                    if(data[i].incident_status == "APPROVED"){
+                    if(data[i].incident_status == "Confirmed"){
                         results.push(data[i]);
                     }
                 }
@@ -82,7 +74,7 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
         };
 
         $scope.openToDo = function(pending_incident) {
-            //console.log(pending_incident);
+            console.log(pending_incident);
 
             var modalInstance;
             modalInstance = $uibModal.open({
@@ -117,11 +109,11 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
                 for (var i = 0 ; i < incidents.length;i++) {
                     //console.log(incidents[i]);
 
-                    if (incidents[i].incident_status == "APPROVED") {
+                    if (incidents[i].incident_status == "Confirmed") {
                         confirmed_incidents.push(incidents[i]);
-                    } else if (incidents[i].incident_status == "INITIATED") {
+                    } else if (incidents[i].incident_status == "Pending") {
                         pending_incidents.push(incidents[i]);
-                    } else if(incidents[i].incident_status == "CLOSED") {
+                    } else if(incidents[i].incident_status == "Completed") {
                         completed_incidents.push(incidents[i]);
                     }
                 }

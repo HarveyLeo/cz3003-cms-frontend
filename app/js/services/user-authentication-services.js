@@ -46,3 +46,14 @@ cmsServices.service('Session', function () {
     };
 });
 
+// cmsServices.factory('AgencyService', ['$http',
+//
+//     function($http){
+//         var agencyService = {};
+//
+//         agencyService.getAgencyDetails
+//
+//     }
+//
+// ]);
+

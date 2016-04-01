@@ -46,7 +46,7 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
                 var results = [];
 
                 for(var i = 0;i<data.length;i++){
-                    if(data[i].incident_status == "Confirmed"){
+                    if(data[i].incident_status == "APPROVED"){
                         results.push(data[i]);
                     }
                 }
@@ -104,16 +104,16 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
                 var pending_incidents = [];
                 var completed_incidents = [];
 
-                incidents[3].incident_status = "Pending";
+                incidents[3].incident_status = "INITIATED";
 
                 for (var i = 0 ; i < incidents.length;i++) {
                     //console.log(incidents[i]);
 
-                    if (incidents[i].incident_status == "Confirmed") {
+                    if (incidents[i].incident_status == "APPROVED") {
                         confirmed_incidents.push(incidents[i]);
-                    } else if (incidents[i].incident_status == "Pending") {
+                    } else if (incidents[i].incident_status == "INITIATED") {
                         pending_incidents.push(incidents[i]);
-                    } else if(incidents[i].incident_status == "Completed") {
+                    } else if(incidents[i].incident_status == "APPROVED") {
                         completed_incidents.push(incidents[i]);
                     }
                 }

@@ -42,7 +42,7 @@ cmsControllers.controller('publicCtrl',['$scope', '$uibModal','IncidentRetrieval
                 var results = [];
 
                 for(var i = 0;i<data.length;i++){
-                    if(data[i].incident_status == "Confirmed"){
+                    if(data[i].incident_status == "APPROVED"){
                         results.push(data[i]);
                     }
                 }

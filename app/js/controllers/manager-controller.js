@@ -51,19 +51,27 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
         $scope.getIncidentsForMap = function() {
             IncidentRetrievalService.getAllIncidents().then(function(data) {
 
-                var results = [], closed_incidents = [];
+                var results = [], closed_incidents = [], pending_incidents = [];
 
                 for(var i = 0;i<data.length;i++){
                     if(data[i].incident_status == "APPROVED"){
                         results.push(data[i]);
-                    } else if(data[i].incident_status == "CLOSED" || data[i].incident_status == "INITIATED") {
+                    } else if(data[i].incident_status == "CLOSED") {
                         closed_incidents.push(data[i]);
+                    } else if(data[i].incident_status == "INITIATED") {
+                        pending_incidents.push(data[i]);
                     }
                 }
 
                 $scope.incidents = data;
                 $scope.approved_incidents = results;
+                $scope.pending_incidents = pending_incidents;
                 $scope.closed_incidents = closed_incidents;
+
+                $(".current-crisis").text(results.length);
+                $(".undeclared-crisis").text(pending_incidents.length);
+                $(".solved-crisis").text(closed_incidents.length);
+
                 resetMarkers($scope, results);
                 $(".crisis").text(results.length);
             }, function() {
@@ -119,44 +127,42 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
             })
         }
 
-        $scope.getToDoList = function() {
-            IncidentRetrievalService.getAllIncidents().then(function(data) {
-
-                //console.log(data);
-
-                var incidents = data;
-
-                var confirmed_incidents = [];
-                var pending_incidents = [];
-                var completed_incidents = [];
-
-                incidents[3].incident_status = "INITIATED";
-
-                for (var i = 0 ; i < incidents.length;i++) {
-                    //console.log(incidents[i]);
-
-                    if (incidents[i].incident_status == "APPROVED") {
-                        confirmed_incidents.push(incidents[i]);
-                    } else if (incidents[i].incident_status == "INITIATED") {
-                        pending_incidents.push(incidents[i]);
-                    } else if(incidents[i].incident_status == "APPROVED") {
-                        completed_incidents.push(incidents[i]);
-                    }
-                }
-
-                $(".current-crisis").text(confirmed_incidents.length);
-                $(".undeclared-crisis").text(pending_incidents.length);
-                $(".solved-crisis").text(completed_incidents.length);
-
-                $scope.pending_incidents = pending_incidents;
-                $scope.completed_incidents = completed_incidents;
-                $scope.confirmed_incidents = confirmed_incidents;
-
-            }, function() {
-                console.log("error: getting all incidents");
-            });
-
-
-        }
+        //$scope.getToDoList = function() {
+        //    IncidentRetrievalService.getAllIncidents().then(function(data) {
+        //
+        //        //console.log(data);
+        //
+        //        var incidents = data;
+        //
+        //        var confirmed_incidents = [];
+        //        var pending_incidents = [];
+        //        var completed_incidents = [];
+        //
+        //        for (var i = 0 ; i < incidents.length;i++) {
+        //            //console.log(incidents[i]);
+        //
+        //            if (incidents[i].incident_status == "APPROVED") {
+        //                confirmed_incidents.push(incidents[i]);
+        //            } else if (incidents[i].incident_status == "INITIATED") {
+        //                pending_incidents.push(incidents[i]);
+        //            } else if(incidents[i].incident_status == "CLOSED") {
+        //                completed_incidents.push(incidents[i]);
+        //            }
+        //        }
+        //
+        //        $(".current-crisis").text(confirmed_incidents.length);
+        //        $(".undeclared-crisis").text(pending_incidents.length);
+        //        $(".solved-crisis").text(completed_incidents.length);
+        //
+        //        $scope.pending_incidents = pending_incidents;
+        //        $scope.completed_incidents = completed_incidents;
+        //        $scope.confirmed_incidents = confirmed_incidents;
+        //
+        //    }, function() {
+        //        console.log("error: getting all incidents");
+        //    });
+        //
+        //
+        //}
     }
 ]);

@@ -63,7 +63,7 @@
                     <div class="infobox col-md-3 col-sm-6 col-xs-12">
                         <div class="info-box">
                             <span class="info-box-icon bg-aqua">
-                                <img src="images/crisis.png" />
+                                <img src="../images/crisis.png" />
                             </span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Current Crisis</span>
@@ -170,11 +170,10 @@
                             </div>
                             <div class="box-body">
                                 <div class="box collapsed-box"
-                                     ng-repeat="i in closed_incidents">
+                                     ng-repeat="i in pending_incidents">
                                     <div class="box-header with-border">
                                         <h3 class="box-title">
-                                            <small ng-show="i.incident_status === 'CLOSED'" class="label label-success ">Solved</small>
-                                            <small ng-show="i.incident_status !== 'CLOSED'" class="label label-danger ">Pending</small>
+                                            <small class="label label-danger ">Pending</small>
                                             {{i.incident_type}} @{{i.incident_address}}
                                         </h3>
                                         <div class="box-tools pull-right">
@@ -208,7 +207,7 @@
                                             </tbody>
                                         </table>
                                     </div><!-- /.box-body -->
-                                    <div class="box-footer" display="none" ng-show="i.incident_status == 'INITIATED'">
+                                    <div class="box-footer" display="none">
 
                                         <div class="form-group">
                                             <label for="agency-select-{{i.incident_id}}">Select Agency</label>
@@ -226,6 +225,46 @@
                                         <button id="confirm-{{i.incident_id}}" type="button" class="btn btn-success pull-right" ng-click="confirm(i)" ng-show="i.selected">Confirm</button>
 
                                     </div>
+                                </div><!-- /.box -->
+
+                                <div class="box collapsed-box"
+                                     ng-repeat="i in closed_incidents">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">
+                                            <small class="label label-success ">Closed</small>
+                                            {{i.incident_type}} @{{i.incident_address}}
+                                        </h3>
+                                        <div class="box-tools pull-right">
+                                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div><!-- /.box-header -->
+                                    <div class="box-body" style="display: none;">
+                                        <table class="table table-hover">
+                                            <tbody>
+                                            <tr>
+                                                <th>Type:</th>
+                                                <td>{{i.incident_type}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Location:</th>
+                                                <td>{{i.incident_address}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Date & Time:</th>
+                                                <td>{{i.incident_timestamp}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Contact:</th>
+                                                <td>{{i.incident_contactName}} ({{i.incident_contactNo}})</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Description:</th>
+                                                <td>{{i.incident_description}}</td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div><!-- /.box-body -->
                                 </div><!-- /.box -->
                             </div>
                         </div>

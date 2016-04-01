@@ -153,7 +153,7 @@ function resetMarkers($scope, responseData) {
             }
         };
 
-        $("div#map-label-all").click(function () {
+        $("div #map-label-all").click(function () {
             $scope.mapFilter = 0;
             toggleMarkers(incidentMarkers.accident, true);
             toggleMarkers(incidentMarkers.fire, true);
@@ -163,7 +163,7 @@ function resetMarkers($scope, responseData) {
             $(this).addClass("active");
         });
 
-        $("div#map-label-accident").click(function () {
+        $("div #map-label-accident").click(function () {
             $scope.mapFilter = 1;
             toggleMarkers(incidentMarkers.accident, true);
             toggleMarkers(incidentMarkers.fire, false);
@@ -173,7 +173,7 @@ function resetMarkers($scope, responseData) {
             $(this).addClass("active");
         }).find("span.map-label-number").text(incidents.accident.length);
 
-        $("div#map-label-fire").click(function () {
+        $("div #map-label-fire").click(function () {
             $scope.mapFilter = 2;
             toggleMarkers(incidentMarkers.accident, false);
             toggleMarkers(incidentMarkers.fire, true);
@@ -183,7 +183,7 @@ function resetMarkers($scope, responseData) {
             $(this).addClass("active");
         }).find("span.map-label-number").text(incidents.fire.length);
 
-        $("div#map-label-gas").click(function () {
+        $("div #map-label-gas").click(function () {
             $scope.mapFilter = 3;
             toggleMarkers(incidentMarkers.accident, false);
             toggleMarkers(incidentMarkers.fire, false);
@@ -193,7 +193,7 @@ function resetMarkers($scope, responseData) {
             $(this).addClass("active");
         }).find("span.map-label-number").text(incidents.gas.length);
 
-        $("div#map-label-riot").click(function () {
+        $("div #map-label-riot").click(function () {
             $scope.mapFilter = 4;
             toggleMarkers(incidentMarkers.accident, false);
             toggleMarkers(incidentMarkers.fire, false);

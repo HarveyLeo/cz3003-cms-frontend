@@ -3,21 +3,19 @@
 cmsControllers.controller('mapIncidentModalCtrl',
     function($scope, $uibModalInstance, incident){
         $scope.incident = incident;
-        $scope.close = function(){$uibModalInstance.close();}
+        $scope.close = function(){$uibModalInstance.close();};
         $scope.confirm = function(){};
     }
 );
 
-cmsControllers.controller('publicCtrl',['$scope', '$uibModal','IncidentRetrievalService', 'LogRetrievalService',
-    function($scope, $uibModal, IncidentRetrievalService, LogRetrievalService){
+cmsControllers.controller('publicCtrl',['$scope', '$uibModal','IncidentRetrievalService',
+    function($scope, $uibModal, IncidentRetrievalService){
         if (!$scope.NEAAPIInitialized) {
             initNEAAPI($scope);
             $scope.NEAAPIInitialized = true;
         }
 
         $scope.openMapModal = function(incident) {
-
-            console.log(incident);
 
             var modalInstance;
             modalInstance = $uibModal.open({
@@ -53,16 +51,6 @@ cmsControllers.controller('publicCtrl',['$scope', '$uibModal','IncidentRetrieval
                 $(".crisis").text(results.length);
             }, function() {
                 console.log("error: getting all incidents");
-            });
-        };
-
-        $scope.getSystemLog = function() {
-            LogRetrievalService.getAllLogs().then(function(data) {
-                for(var i = 0;i < data.length;i++){
-                    $("#syslog-body").append("<tr><td>"+ data[i].message +"</td><td>"+ data[i].timestamp +"</td></tr>");
-                }
-            }, function() {
-                console.log("error: getting all logs");
             });
         };
 

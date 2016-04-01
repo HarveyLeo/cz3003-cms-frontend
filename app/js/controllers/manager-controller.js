@@ -1,5 +1,6 @@
-cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetrievalService', 'LogRetrievalService','$uibModal','AgencyService','IncidentUpdateService',
-    function($scope, $stateParams, IncidentRetrievalService, LogRetrievalService, $uibModal,AgencyService, IncidentUpdateService) {
+cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetrievalService',
+    '$uibModal','AgencyService','IncidentUpdateService', '$state',
+    function($scope, $stateParams, IncidentRetrievalService, $uibModal,AgencyService, IncidentUpdateService, $state) {
 
         $scope.incidentID = $stateParams.incidentID;
         $scope.getAllIncidents = function() {
@@ -115,17 +116,17 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
             incident.incident_status = "REJECTED";
             IncidentUpdateService.update(incident).then(function(data) {
                 console.log(data);
-                location.reload();
+                $state.go('manager',{}, {reload: true});
             })
-        }
+        };
 
         $scope.confirm = function (incident) {
             incident.incident_status = "APPROVED";
             IncidentUpdateService.update(incident).then(function(data) {
                 console.log(data);
-                location.reload();
+                $state.go('manager',{}, {reload: true});
             })
-        }
+        };
 
         //$scope.getToDoList = function() {
         //    IncidentRetrievalService.getAllIncidents().then(function(data) {

@@ -53,6 +53,8 @@ cmsControllers.controller('createNewIncidentCtrl', ['$scope','IncidentCreationSe
             $scope.incidentDetails.operator = $scope.currentUser.user_id;
             $scope.incidentDetails.incident_latitude = $("#location").data("latitude");
             $scope.incidentDetails.incident_longitude = $("#location").data("longitude");
+            $scope.incidentDetails.incident_address = $("#location").data("address");
+            
             $scope.convertToTimestamp();
 
             IncidentCreationService.submit($scope.incidentDetails).then(function(data) {

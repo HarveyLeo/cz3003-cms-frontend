@@ -282,11 +282,14 @@ function initAutocomplete() {
             return;
         }
 
+        console.log(places);
+
         var longitude = places[0].geometry.location.lng();
         var latitude = places[0].geometry.location.lat();
 
         $("#location").data("latitude", latitude);
         $("#location").data("longitude", longitude);
+        $("#location").data("address", places[0].formatted_address);
 
         // Clear out the old markers.
         markers.forEach(function(marker) {

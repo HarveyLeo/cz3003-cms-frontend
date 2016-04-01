@@ -47,6 +47,7 @@ cmsControllers.controller('publicCtrl',['$scope', '$uibModal','IncidentRetrieval
                     }
                 }
 
+                console.log(results);
                 $scope.incidents = results;
                 resetMarkers($scope, results);
                 $(".crisis").text(results.length);

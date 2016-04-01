@@ -171,7 +171,7 @@ function resetMarkers($scope, responseData) {
             toggleMarkers(incidentMarkers.riot, false);
             $("div.map-label").removeClass("active");
             $(this).addClass("active");
-        }).find("div.map-label-number").text(incidents.accident.length);
+        }).find("span.map-label-number").text(incidents.accident.length);
 
         $("div#map-label-fire").click(function () {
             $scope.mapFilter = 2;
@@ -181,7 +181,7 @@ function resetMarkers($scope, responseData) {
             toggleMarkers(incidentMarkers.riot, false);
             $("div.map-label").removeClass("active");
             $(this).addClass("active");
-        }).find("div.map-label-number").text(incidents.fire.length);
+        }).find("span.map-label-number").text(incidents.fire.length);
 
         $("div#map-label-gas").click(function () {
             $scope.mapFilter = 3;
@@ -191,7 +191,7 @@ function resetMarkers($scope, responseData) {
             toggleMarkers(incidentMarkers.riot, false);
             $("div.map-label").removeClass("active");
             $(this).addClass("active");
-        }).find("div.map-label-number").text(incidents.gas.length);
+        }).find("span.map-label-number").text(incidents.gas.length);
 
         $("div#map-label-riot").click(function () {
             $scope.mapFilter = 4;
@@ -201,7 +201,7 @@ function resetMarkers($scope, responseData) {
             toggleMarkers(incidentMarkers.riot, true);
             $("div.map-label").removeClass("active");
             $(this).addClass("active");
-        }).find("div.map-label-number").text(incidents.riot.length);
+        }).find("span.map-label-number").text(incidents.riot.length);
 
         switch ($scope.mapFilter) {
             case 0: // all

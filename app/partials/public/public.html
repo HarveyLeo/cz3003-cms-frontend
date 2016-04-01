@@ -89,79 +89,52 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row" style="margin: 0px">
-                                        <div id="map-label-container" style="text-align: center">
-                                            <div id="map-label" class="pad box-pane-right bg-green">
-                                                <div class="map-label active col-md-3" id="map-label-all">
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div id="map-label-all" class="col-md-2 col-xs-12">
+                                            <div class="description-block border-right">
+                                                <div class="description-block border-right text-green" style="margin-top: 18px">
                                                     <span>Show All</span>
-                                                </div>
+                                                </div><!-- /.description-block -->
+                                            </div><!-- /.description-block -->
+                                        </div><!-- /.col -->
+                                        <div id="map-label-accident" class="col-md-2 col-sm-6 col-xs-12">
+                                            <div class="description-block border-right">
+                                                <span><img src="images/Traffic Accident-pin.png" />Accident</span>
+                                                &nbsp;
+                                                <span class="label bg-yellow map-label-number"></span>
+                                            </div><!-- /.description-block -->
+                                        </div><!-- /.col -->
+                                        <div id="map-label-fire" class="col-md-2 col-sm-6 col-xs-12">
+                                            <div class="description-block border-right">
+                                                <span><img src="images/Fire-pin.png" />Fire</span>
+                                                &nbsp;
+                                                <span class="label bg-red map-label-number"></span>
+                                            </div><!-- /.description-block -->
+                                        </div><!-- /.col -->
+                                        <div id="map-label-gas" class="col-md-2 col-sm-6 col-xs-12">
+                                            <div class="description-block border-right">
+                                                <span><img src="images/Gas Leak-pin.png" />Gas Leak</span>
+                                                &nbsp;
+                                                <span class="label bg-gray map-label-number"></span>
+                                            </div><!-- /.description-block -->
+                                        </div><!-- /.col -->
+                                        <div id="map-label-riot" class="col-md-2 col-sm-6 col-xs-12">
+                                            <div class="description-block border-right">
+                                                <span><img src="images/Riot-pin.png" />Riot</span>
+                                                &nbsp;
+                                                <span class="label bg-blue map-label-number"></span>
+                                            </div><!-- /.description-block -->
+                                        </div><!-- /.col -->
+                                        <div class="col-md-1"></div>
+                                    </div><!-- /.row -->
 
-                                                <div id="map-label-accident" class="pad box-pane-right bg-green col-md-2">
-                                                    <div class="map-label-number"></div>
-                                                    <span>
-                                                        <img src="images/Traffic Accident-pin.png" />
-                                                        Accident
-                                                    </span>
-                                                </div>
-
-                                                <div id="map-label-fire" class="pad box-pane-right bg-green col-md-2">
-                                                    <div class="map-label-number"></div>
-                                                    <span>
-                                                        <img src="images/Fire-pin.png" />
-                                                        Fire
-                                                    </span>
-                                                </div>
-
-                                                <div id="map-label-gas" class="pad box-pane-right bg-green col-md-2">
-                                                    <div class="map-label-number"></div>
-                                                    <span>
-                                                        <img src="images/Gas Leak-pin.png" />
-                                                        Gas Leak
-                                                    </span>
-                                                </div>
-
-                                                <div id="map-label-riot" class="pad box-pane-right bg-green col-md-2">
-                                                    <div class="map-label-number"></div>
-                                                    <span>
-                                                        <img src="images/Riot-pin.png" />
-                                                        Riot
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="box box-info">
-                            <div class="box-header with-border ng-scope">
-                                <i class="fa fa-file-text"></i>
-                                <h3 class="box-title">System Log</h3>
-                            </div>
-
-                            <div class="box-body ng-scope">
-                                <div class="table-responsive">
-                                    <table id="syslog" class="table no-margin">
-                                        <thead ng-hide="$root.systemLogs &amp;&amp; $root.systemLogs.length!=0">
-                                        <tr>
-                                            <th>Message</th>
-                                            <th>Time</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody id="syslog-body">
-
-                                        </tbody>
-                                    </table>
-                                </div><!-- /.table-responsive -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </section>
         </div>
 

@@ -1,4 +1,4 @@
-<div id="divMain" class="skin-blue sidebar-mini" ng-init="getIncidentsForMap(); getSystemLog(); initMap();getToDoList()">
+<div id="divMain" class="skin-blue sidebar-mini" ng-init="getIncidentsForMap(); getSystemLog(); initMap();getAllAgencies()">
     <div class="wrapper">
         <header class="main-header">
             <!-- Logo -->
@@ -163,52 +163,96 @@
                             </div>
                         </div>
 
-                        <div class="box box-info">
-                            <div class="box-header with-border ng-scope">
-                                <i class="fa fa-file-text"></i>
-                                <h3 class="box-title">Crisis Log</h3>
-                            </div>
-
-                            <div class="box-body ng-scope">
-                                <div class="table-responsive">
-                                    <table id="syslog" class="table no-margin">
-                                        <thead ng-hide="$root.systemLogs &amp;&amp; $root.systemLogs.length!=0" class="">
-                                        <tr>
-                                            <th>Message</th>
-                                            <th>Time</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody id="syslog-body">
-
-                                        </tbody>
-                                    </table>
-                                </div><!-- /.table-responsive -->
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-5">
                         <div class="box box-primary">
                             <div class="box-header">
                                 <i class="ion ion-clipboard"></i>
-                                <h3 class="box-title">To Do List</h3>
-                            </div><!-- /.box-header -->
+                                <h3 class="box-title">Crisis Logs</h3>
+                            </div>
                             <div class="box-body">
-                                <ul class="todo-list">
-                                    <li ng-repeat="pending_incident in pending_incidents">
-                                        <!-- drag handle -->
-                                      <span class="handle-disabled">
-                                        <i class="fa fa-ellipsis-v"></i>
-                                        <i class="fa fa-ellipsis-v"></i>
-                                      </span>
+                                <div class="box collapsed-box"
+                                     ng-repeat="i in closed_incidents">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">
+                                            <small ng-show="i.incident_status === 'CLOSED'" class="label label-success ">Solved</small>
+                                            <small ng-show="i.incident_status !== 'CLOSED'" class="label label-danger ">Pending</small>
+                                            {{i.incident_type}} @{{i.incident_address}}
+                                        </h3>
+                                        <div class="box-tools pull-right">
+                                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div><!-- /.box-header -->
+                                    <div class="box-body" style="display: none;">
+                                        <table class="table table-hover">
+                                            <tbody>
+                                            <tr>
+                                                <th>Type:</th>
+                                                <td>{{i.incident_type}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Location:</th>
+                                                <td>{{i.incident_address}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Date & Time:</th>
+                                                <td>{{i.incident_timestamp}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Contact:</th>
+                                                <td>{{i.incident_contactName}} ({{i.incident_contactNo}})</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Description:</th>
+                                                <td>{{i.incident_description}}</td>
+                                            </tr>
 
-                                        <span class="ng-scope" ng-click="openToDo(pending_incident)"><span class="text ng-binding ng-scope ng-click-active" style="cursor: pointer">&lt;{{pending_incident.incident_type}}&gt;</span>
-                                            <small class="label label label-danger ng-scope"><i class="fa fa-clock-o"></i> <span >{{pending_incident.incident_timestamp}}</span></small></span>
-                                    </li>
-                                </ul>
-                            </div><!-- /.box-body -->
+                                            </tbody>
+                                        </table>
+                                    </div><!-- /.box-body -->
+                                    <div class="box-footer" display="none" ng-show="i.incident_status == 'INITIATED'">
+
+                                        <div class="form-group">
+                                            <label for="agency-select-{{i.incident_id}}">Select Agency</label>
+                                            <select id="agency-select-{{i.incident_id}}" class="form-control" ng-model="i.selected">
+                                                <option value="">
+
+                                                </option>
+                                                <option ng-repeat="agency in allAgencies" value="{{agency.agency_abbreviation}}">
+                                                    {{agency.agency_name}}
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <button type="button" class="btn btn-danger pull-left" ng-click="reject(i)">Reject</button>
+                                        <button id="confirm-{{i.incident_id}}" type="button" class="btn btn-success pull-right" ng-click="confirm(i)" ng-show="i.selected">Confirm</button>
+
+                                    </div>
+                                </div><!-- /.box -->
+                            </div>
                         </div>
                     </div>
+
+                    <!--<div class="col-lg-5">-->
+                        <!--<div class="box box-primary">-->
+                            <!--<div class="box-header">-->
+                                <!--<i class="ion ion-clipboard"></i>-->
+                                <!--<h3 class="box-title">To Do List</h3>-->
+                            <!--</div>&lt;!&ndash; /.box-header &ndash;&gt;-->
+                            <!--<div class="box-body">-->
+                                <!--<ul class="todo-list">-->
+                                    <!--<li ng-repeat="pending_incident in pending_incidents">-->
+                                        <!--&lt;!&ndash; drag handle &ndash;&gt;-->
+                                      <!--<span class="handle-disabled">-->
+                                        <!--<i class="fa fa-ellipsis-v"></i>-->
+                                        <!--<i class="fa fa-ellipsis-v"></i>-->
+                                      <!--</span>-->
+
+                                        <!--<span class="ng-scope" ng-click="openToDo(pending_incident)"><span class="text ng-binding ng-scope ng-click-active" style="cursor: pointer">&lt;{{pending_incident.incident_type}}&gt;</span>-->
+                                            <!--<small class="label label label-danger ng-scope"><i class="fa fa-clock-o"></i> <span >{{pending_incident.incident_timestamp}}</span></small></span>-->
+                                    <!--</li>-->
+                                <!--</ul>-->
+                            <!--</div>&lt;!&ndash; /.box-body &ndash;&gt;-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </div>
             </section>
         </div>

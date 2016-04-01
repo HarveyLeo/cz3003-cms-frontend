@@ -39,7 +39,9 @@
         <div class="col-md-6">
             <div class="box box-success">
                 <select id="agency-select" class="form-control">
-                    <option ng-repeat=""></option>
+                    <option ng-repeat="agency in allAgencies" value="agency_abbreviation">
+                        {{agency_name}}
+                    </option>
                 </select>
             </div>
         </div>

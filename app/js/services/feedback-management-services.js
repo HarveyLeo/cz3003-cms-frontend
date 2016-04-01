@@ -47,6 +47,6 @@ cmsServices.factory('AgencyService',['$http',
             });
         };
 
-        return feedbackService;
+        return agencyService;
     }
 ]);

@@ -1,10 +1,18 @@
-cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetrievalService', 'LogRetrievalService','$uibModal',
-    function($scope, $stateParams, IncidentRetrievalService, LogRetrievalService, $uibModal) {
+cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetrievalService', 'LogRetrievalService','$uibModal','AgencyService','IncidentUpdateService',
+    function($scope, $stateParams, IncidentRetrievalService, LogRetrievalService, $uibModal,AgencyService, IncidentUpdateService) {
 
         $scope.incidentID = $stateParams.incidentID;
         $scope.getAllIncidents = function() {
             IncidentRetrievalService.getAllIncidents().then(function(data) {
                 $scope.allIncidents = data;
+            }, function() {
+                console.log("error: getting all incidents");
+            });
+        };
+
+        $scope.getAllAgencies = function() {
+            AgencyService.getAllAgencies().then(function(data) {
+                $scope.allAgencies = data;
             }, function() {
                 console.log("error: getting all incidents");
             });
@@ -43,15 +51,19 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
         $scope.getIncidentsForMap = function() {
             IncidentRetrievalService.getAllIncidents().then(function(data) {
 
-                var results = [];
+                var results = [], closed_incidents = [];
 
                 for(var i = 0;i<data.length;i++){
                     if(data[i].incident_status == "APPROVED"){
                         results.push(data[i]);
+                    } else if(data[i].incident_status == "CLOSED" || data[i].incident_status == "INITIATED") {
+                        closed_incidents.push(data[i]);
                     }
                 }
 
-                $scope.incidents = results;
+                $scope.incidents = data;
+                $scope.approved_incidents = results;
+                $scope.closed_incidents = closed_incidents;
                 resetMarkers($scope, results);
                 $(".crisis").text(results.length);
             }, function() {
@@ -59,15 +71,13 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
             });
         };
 
-        $scope.getSystemLog = function() {
-            LogRetrievalService.getAllLogs().then(function(data) {
-                for(var i = 0;i < data.length;i++){
-                    $("#syslog-body").append("<tr><td>"+ data[i].message +"</td><td>"+ data[i].timestamp +"</td></tr>");
-                }
-            }, function() {
-                console.log("error: getting all logs");
-            });
-        };
+        //$scope.getIncidentsLog = function() {
+        //    IncidentRetrievalService.getAllIncidents().then(function(data) {
+        //       var results = [];
+        //
+        //        for(var i = 0;i<data.length)
+        //    });
+        //};
 
         $scope.initMap = function() {
             initMap($scope);
@@ -92,6 +102,22 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
                 console.log('Modal dismissed at: ' + new Date);
             });
         };
+
+        $scope.reject = function(incident){
+            incident.incident_status = "REJECTED";
+            IncidentUpdateService.update(incident).then(function(data) {
+                console.log(data);
+                location.reload();
+            })
+        }
+
+        $scope.confirm = function (incident) {
+            incident.incident_status = "APPROVED";
+            IncidentUpdateService.update(incident).then(function(data) {
+                console.log(data);
+                location.reload();
+            })
+        }
 
         $scope.getToDoList = function() {
             IncidentRetrievalService.getAllIncidents().then(function(data) {

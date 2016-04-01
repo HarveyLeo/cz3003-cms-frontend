@@ -137,9 +137,9 @@ function resetMarkers($scope, responseData) {
 
                 console.log(latLng.lat().toFixed(4));
 
-                for (var j = 0 ;j<$scope.incidents.length;j++){
-                    if(parseFloat($scope.incidents[j].incident_latitude).toFixed(4) == latLng.lat().toFixed(4) && parseFloat($scope.incidents[j].incident_longitude).toFixed(4) == latLng.lng().toFixed(4)){
-                        $scope.openMapModal($scope.incidents[j]);
+                for (var j = 0 ;j<$scope.approved_incidents.length;j++){
+                    if(parseFloat($scope.approved_incidents[j].incident_latitude).toFixed(4) == latLng.lat().toFixed(4) && parseFloat($scope.approved_incidents[j].incident_longitude).toFixed(4) == latLng.lng().toFixed(4)){
+                        $scope.openMapModal($scope.approved_incidents[j]);
                         break;
                     }
 

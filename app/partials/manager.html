@@ -302,13 +302,20 @@
                                 <div class="box-header with-border">
                                     <i class="fa fa-calendar"></i>
                                     <h3 class="box-title">Timeline</h3>
+
+                                    <div class="box-tools pull-right">
+                                        <ul class="pagination pagination-sm inline">
+                                            <li><button class="btn btn-sm btn-default btn-flat" ng-disabled="config.currentPage == 0" ng-click="config.currentPage=config.currentPage-1"> Prev </button></li>
+                                            <li><button class="btn btn-sm btn-default btn-flat" ng-disabled="config.currentPage >= assignedIncidents.length/config.pageSize - 1" ng-click="config.currentPage=config.currentPage+1"> Next </button></li>
+                                        </ul>
+                                    </div>
                                 </div>
 
                                 <div class="box-body">
                                     <ul class="timeline">
 
                                         <!-- timeline time label -->
-                                        <li class="time-label" ng-repeat-start="feedback in allFeedbacks">
+                                        <li class="time-label" ng-repeat-start="feedback in allFeedbacks | startFrom: config.currentPage*config.pageSize | limitTo: config.pageSize">
                                             <span class="bg-red">
                                                 {{feedback.date}}
                                             </span>
@@ -322,14 +329,10 @@
                                             <div class="timeline-item">
                                                 <span class="time"><i class="fa fa-clock-o"></i>{{feedback.time}}</span>
 
-                                                <h3 class="timeline-header"><a href="#">Agency {{feedback.feedback_agency}} <span ng-if="feedback.feedback_status == 'PENDING'">enters a new feedback</span><span ng-if="feedback.feedback_status == 'REVIEWED'">reviews the feedback</span></a></h3>
+                                                <h3 class="timeline-header" ng-click="openMapModal(feedback.incident)"><a>Agency {{feedback.feedback_agency}} <span ng-if="feedback.feedback_status == 'PENDING'">enters a new feedback</span><span ng-if="feedback.feedback_status == 'REVIEWED'">reviews the feedback</span></a></h3>
 
                                                 <div class="timeline-body">
                                                     {{feedback.feedback_description}}
-                                                </div>
-
-                                                <div class="timeline-footer">
-                                                    <a class="btn btn-info btn-xs" ng-click="openMapModal(feedback.incident)">View Details</a>
                                                 </div>
                                             </div>
                                         </li>
@@ -345,14 +348,10 @@
                                             <div class="timeline-item">
                                                 <span class="time"><i class="fa fa-clock-o"></i> {{feedback.incident.time}}</span>
 
-                                                <h3 class="timeline-header"><a href="#">Incident  {{feedback.incident.incident_type}}@{{feedback.incident.incident_address}} is <span ng-if="feedback.incident.incident_status == 'INITIATED'">added</span><span ng-if="feedback.incident.incident_status == 'APPROVED'">approved</span><span ng-if="feedback.incident.incident_status == 'REJECTED'">rejected</span></a></h3>
+                                                <h3 class="timeline-header" ng-click="openMapModal(feedback.incident)"><a>Incident  {{feedback.incident.incident_type}}@{{feedback.incident.incident_address}} is <span ng-if="feedback.incident.incident_status == 'INITIATED'">added</span><span ng-if="feedback.incident.incident_status == 'APPROVED'">approved</span><span ng-if="feedback.incident.incident_status == 'REJECTED'">rejected</span></a></h3>
 
                                                 <div class="timeline-body">
                                                     {{feedback.incident.incident_description}}
-                                                </div>
-
-                                                <div class="timeline-footer">
-                                                    <a class="btn btn-info btn-xs" ng-click="openMapModal(feedback.incident)">View Details</a>
                                                 </div>
                                             </div>
                                         </li>
@@ -360,66 +359,6 @@
 
 
                                     </ul>
-
-                                        <!-- END timeline item -->
-
-                                        <!-- timeline item -->
-                                        <!--<li class="time-label">-->
-                                                <!--<span class="bg-red">-->
-                                                    <!--10 Feb 2014-->
-                                                <!--</span>-->
-                                        <!--</li>-->
-                                        <!--<li>-->
-                                            <!--&lt;!&ndash; timeline icon &ndash;&gt;-->
-                                            <!--<i class="fa fa-plus bg-blue"></i>-->
-                                            <!--<div class="timeline-item">-->
-                                                <!--<span class="time"><i class="fa fa-clock-o"></i> 12:05</span>-->
-
-                                                <!--<h3 class="timeline-header"><a href="#">Incident XXX is added</a></h3>-->
-
-                                                <!--<div class="timeline-body">-->
-                                                    <!--...-->
-                                                    <!--Content goes here-->
-                                                <!--</div>-->
-
-                                                <!--<div class="timeline-footer">-->
-                                                    <!--<a class="btn btn-primary btn-xs">Button</a>-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                        <!--</li>-->
-                                        <!--&lt;!&ndash; END timeline item &ndash;&gt;-->
-
-                                        <!--&lt;!&ndash; timeline time label &ndash;&gt;-->
-                                        <!--<li class="time-label">-->
-                                            <!--<span class="bg-red">-->
-                                                <!--10 Feb 2014-->
-                                            <!--</span>-->
-                                        <!--</li>-->
-                                        <!--&lt;!&ndash; /.timeline-label &ndash;&gt;-->
-
-                                        <!--&lt;!&ndash; timeline item &ndash;&gt;-->
-                                        <!--<li>-->
-                                            <!--&lt;!&ndash; timeline icon &ndash;&gt;-->
-                                            <!--<i class="fa fa-times bg-blue"></i>-->
-                                            <!--<div class="timeline-item">-->
-                                                <!--<span class="time"><i class="fa fa-clock-o"></i> 12:05</span>-->
-
-                                                <!--<h3 class="timeline-header"><a href="#">Incident XXX is cancelled</a></h3>-->
-
-                                                <!--<div class="timeline-body">-->
-                                                    <!--...-->
-                                                    <!--Content goes here-->
-                                                <!--</div>-->
-
-                                                <!--<div class="timeline-footer">-->
-                                                    <!--<a class="btn btn-primary btn-xs">Button</a>-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                        <!--</li>-->
-                                        <!--&lt;!&ndash; END timeline item &ndash;&gt;-->
-
-
-                                    <!--</ul>-->
                                 </div>
                             </div>
                         </div>
@@ -540,10 +479,16 @@
                             <div class="box-header">
                                 <i class="ion ion-clipboard"></i>
                                 <h3 class="box-title">Feedback Log</h3>
+                                <div class="box-tools pull-right">
+                                    <ul class="pagination pagination-sm inline">
+                                        <li><button class="btn btn-sm btn-default btn-flat" ng-disabled="feedbackConfig.currentPage == 0" ng-click="feedbackConfig.currentPage=feedbackConfig.currentPage-1"> Prev </button></li>
+                                        <li><button class="btn btn-sm btn-default btn-flat" ng-disabled="feedbackConfig.currentPage >= assignedIncidents.length/feedbackConfig.pageSize - 1" ng-click="feedbackConfig.currentPage=feedbackConfig.currentPage+1"> Next </button></li>
+                                    </ul>
+                                </div>
                             </div>
                             <div class="box-body">
                                 <div class="box collapsed-box"
-                                     ng-repeat="feedback in pendingFeedbacks">
+                                     ng-repeat="feedback in pendingFeedbacks | startFrom: feedbackConfig.currentPage*feedbackConfig.pageSize | limitTo: feedbackConfig.pageSize">
                                     <div class="box-header with-border">
                                         <h3 class="box-title">
                                             <small class="label label-danger ">Pending</small>

@@ -3,6 +3,17 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
     function($scope, $stateParams, IncidentRetrievalService, $uibModal,AgencyService, IncidentUpdateService, $state, FeedbackRetrievalService, FeedbackSubmissionService) {
 
         $scope.incidentID = $stateParams.incidentID;
+
+        $scope.config = {
+            currentPage: 0,
+            pageSize: 4
+        };
+
+        $scope.feedbackConfig = {
+            currentPage: 0,
+            pageSize: 4
+        };
+
         $scope.getAllIncidents = function() {
             IncidentRetrievalService.getAllIncidents().then(function(data) {
 

@@ -1,15 +1,72 @@
 cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetrievalService',
-    '$uibModal','AgencyService','IncidentUpdateService', '$state',
-    function($scope, $stateParams, IncidentRetrievalService, $uibModal,AgencyService, IncidentUpdateService, $state) {
+    '$uibModal','AgencyService','IncidentUpdateService', '$state', 'FeedbackRetrievalService', 'FeedbackSubmissionService',
+    function($scope, $stateParams, IncidentRetrievalService, $uibModal,AgencyService, IncidentUpdateService, $state, FeedbackRetrievalService, FeedbackSubmissionService) {
 
         $scope.incidentID = $stateParams.incidentID;
         $scope.getAllIncidents = function() {
             IncidentRetrievalService.getAllIncidents().then(function(data) {
+
+                for (var i in data) {
+                    var incident = data[i];
+                    var datetime = incident.incident_timestamp.split(" ");
+
+                    incident.date = datetime[0];
+                    incident.time = datetime[1];
+                }
+
                 $scope.allIncidents = data;
             }, function() {
                 console.log("error: getting all incidents");
             });
         };
+
+        $scope.getAllFeedbacks = function() {
+            FeedbackRetrievalService.getAllFeedbacks().then(function(data) {
+
+                var pendingFeedbacks = [], reviewedFeedbacks = [];
+
+                if($scope.allIncidents != null) {
+
+                    for (var i in data) {
+                        var feedback = data[i];
+                        for (var j in $scope.allIncidents) {
+                            var incident = $scope.allIncidents[j];
+                            if (incident.incident_id == feedback.incident_id) {
+                                feedback["incident"] = incident;
+                                //console.log(incident);
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                //console.log(data);
+
+                for (var i in data) {
+
+                    var feedback = data[i];
+
+                    if (feedback.feedback_status == "PENDING") {
+                        pendingFeedbacks.push(feedback);
+                    } else if (feedback.feedback_status == "REVIEWED") {
+                        reviewedFeedbacks.push(feedback);
+                    }
+
+                    var datetime = feedback.feedback_timestamp.split(" ");
+                    feedback.date = datetime[0];
+                    feedback.time = datetime[1];
+                }
+
+                $scope.allFeedbacks = data;
+                $scope.pendingFeedbacks = pendingFeedbacks;
+                $scope.reviewedFeedbacks = reviewedFeedbacks;
+
+                //console.log(pendingFeedbacks);
+
+            }, function() {
+                console.log("error: getting all feedbacks");
+            })
+        }
 
         $scope.getAllAgencies = function() {
             AgencyService.getAllAgencies().then(function(data) {
@@ -128,42 +185,13 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
             })
         };
 
-        //$scope.getToDoList = function() {
-        //    IncidentRetrievalService.getAllIncidents().then(function(data) {
-        //
-        //        //console.log(data);
-        //
-        //        var incidents = data;
-        //
-        //        var confirmed_incidents = [];
-        //        var pending_incidents = [];
-        //        var completed_incidents = [];
-        //
-        //        for (var i = 0 ; i < incidents.length;i++) {
-        //            //console.log(incidents[i]);
-        //
-        //            if (incidents[i].incident_status == "APPROVED") {
-        //                confirmed_incidents.push(incidents[i]);
-        //            } else if (incidents[i].incident_status == "INITIATED") {
-        //                pending_incidents.push(incidents[i]);
-        //            } else if(incidents[i].incident_status == "CLOSED") {
-        //                completed_incidents.push(incidents[i]);
-        //            }
-        //        }
-        //
-        //        $(".current-crisis").text(confirmed_incidents.length);
-        //        $(".undeclared-crisis").text(pending_incidents.length);
-        //        $(".solved-crisis").text(completed_incidents.length);
-        //
-        //        $scope.pending_incidents = pending_incidents;
-        //        $scope.completed_incidents = completed_incidents;
-        //        $scope.confirmed_incidents = confirmed_incidents;
-        //
-        //    }, function() {
-        //        console.log("error: getting all incidents");
-        //    });
-        //
-        //
-        //}
+        $scope.review = function (feedback) {
+            feedback.feedback_status = "REVIEWED";
+
+            FeedbackSubmissionService.update(feedback).then(function(data) {
+                console.log(data);
+                $state.go('manager',{}, {reload: true});
+            })
+        }
     }
 ]);

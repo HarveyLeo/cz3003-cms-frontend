@@ -14,6 +14,17 @@ cmsServices.factory('FeedbackSubmissionService',['$http',
             });
         };
 
+        feedbackService.update = function(formdata) {
+            return $http({
+                method: 'PUT',
+                url: 'http://cms-torophp.rhcloud.com/feedback/' + formdata.feedback_id,
+                data: $.param(formdata),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }).then(function (res) {
+                return res.data;
+            });
+        };
+
         return feedbackService;
     }
 ]);
@@ -21,6 +32,16 @@ cmsServices.factory('FeedbackSubmissionService',['$http',
 cmsServices.factory('FeedbackRetrievalService',['$http',
     function($http) {
         var feedbackService = {};
+
+        feedbackService.getAllFeedbacks = function() {
+            return $http({
+                method: 'GET',
+                url: 'http://cms-torophp.rhcloud.com/feedback/'
+            }).then(function (res) {
+                return res.data;
+            });
+        };
+
         feedbackService.getFeedbackByIncident = function(incident_id) {
             return $http({
                 method: 'GET',

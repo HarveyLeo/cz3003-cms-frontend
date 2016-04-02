@@ -1,4 +1,4 @@
-<div id="divMain" class="skin-blue sidebar-mini" ng-init="getIncidentsForMap(); getSystemLog(); initMap();getAllAgencies()">
+<div id="divMain" class="skin-blue sidebar-mini" ng-init="getAllIncidents();getIncidentsForMap(); getSystemLog(); initMap();getAllAgencies();getAllFeedbacks();">
     <div class="wrapper">
         <header class="main-header">
             <!-- Logo -->
@@ -308,9 +308,9 @@
                                     <ul class="timeline">
 
                                         <!-- timeline time label -->
-                                        <li class="time-label">
+                                        <li class="time-label" ng-repeat-start="feedback in allFeedbacks">
                                             <span class="bg-red">
-                                                10 Feb 2014
+                                                {{feedback.date}}
                                             </span>
                                         </li>
                                         <!-- /.timeline-label -->
@@ -320,13 +320,12 @@
                                             <!-- timeline icon -->
                                             <i class="fa fa-comment bg-blue"></i>
                                             <div class="timeline-item">
-                                                <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                                                <span class="time"><i class="fa fa-clock-o"></i>{{feedback.time}}</span>
 
-                                                <h3 class="timeline-header"><a href="#">Agency XXX enters a new feedback</a></h3>
+                                                <h3 class="timeline-header"><a href="#">Agency {{feedback.feedback_agency}} <span ng-if="feedback.feedback_status == 'PENDING'">enters a new feedback</span><span ng-if="feedback.feedback_status == 'REVIEWED'">reviews the feedback</span></a></h3>
 
                                                 <div class="timeline-body">
-                                                    ...
-                                                    Content goes here
+                                                    {{feedback.feedback_description}}
                                                 </div>
 
                                                 <div class="timeline-footer">
@@ -334,78 +333,22 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <!-- END timeline item -->
 
-                                        <!-- timeline time label -->
                                         <li class="time-label">
-                                            <span class="bg-red">
-                                                10 Feb 2014
-                                            </span>
+                                                <span class="bg-red">
+                                                    {{feedback.incident.date}}
+                                                </span>
                                         </li>
-                                        <!-- /.timeline-label -->
-
-                                        <!-- timeline item -->
-                                        <li>
-                                            <!-- timeline icon -->
-                                            <i class="fa fa-check bg-blue"></i>
-                                            <div class="timeline-item">
-                                                <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                                                <h3 class="timeline-header"><a href="#">Crisis XXX is resolved</a></h3>
-
-                                                <div class="timeline-body">
-                                                    ...
-                                                    Content goes here
-                                                </div>
-
-                                                <div class="timeline-footer">
-                                                    <a class="btn btn-primary btn-xs">Button</a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <!-- END timeline item -->
-
-                                        <!-- timeline item -->
-                                        <li>
+                                        <li ng-repeat-end>
                                             <!-- timeline icon -->
                                             <i class="fa fa-plus bg-blue"></i>
                                             <div class="timeline-item">
-                                                <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                                                <span class="time"><i class="fa fa-clock-o"></i> {{feedback.incident.time}}</span>
 
-                                                <h3 class="timeline-header"><a href="#">Incident XXX is added</a></h3>
-
-                                                <div class="timeline-body">
-                                                    ...
-                                                    Content goes here
-                                                </div>
-
-                                                <div class="timeline-footer">
-                                                    <a class="btn btn-primary btn-xs">Button</a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <!-- END timeline item -->
-
-                                        <!-- timeline time label -->
-                                        <li class="time-label">
-                                            <span class="bg-red">
-                                                10 Feb 2014
-                                            </span>
-                                        </li>
-                                        <!-- /.timeline-label -->
-
-                                        <!-- timeline item -->
-                                        <li>
-                                            <!-- timeline icon -->
-                                            <i class="fa fa-times bg-blue"></i>
-                                            <div class="timeline-item">
-                                                <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                                                <h3 class="timeline-header"><a href="#">Incident XXX is cancelled</a></h3>
+                                                <h3 class="timeline-header"><a href="#">Incident  {{feedback.incident.incident_type}}@{{feedback.incident.incident_address}} is <span ng-if="feedback.incident.incident_status == 'INITIATED'">added</span><span ng-if="feedback.incident.incident_status == 'APPROVED'">approved</span><span ng-if="feedback.incident.incident_status == 'REJECTED'">rejected</span></a></h3>
 
                                                 <div class="timeline-body">
-                                                    ...
-                                                    Content goes here
+                                                    {{feedback.incident.incident_description}}
                                                 </div>
 
                                                 <div class="timeline-footer">
@@ -417,6 +360,66 @@
 
 
                                     </ul>
+
+                                        <!-- END timeline item -->
+
+                                        <!-- timeline item -->
+                                        <!--<li class="time-label">-->
+                                                <!--<span class="bg-red">-->
+                                                    <!--10 Feb 2014-->
+                                                <!--</span>-->
+                                        <!--</li>-->
+                                        <!--<li>-->
+                                            <!--&lt;!&ndash; timeline icon &ndash;&gt;-->
+                                            <!--<i class="fa fa-plus bg-blue"></i>-->
+                                            <!--<div class="timeline-item">-->
+                                                <!--<span class="time"><i class="fa fa-clock-o"></i> 12:05</span>-->
+
+                                                <!--<h3 class="timeline-header"><a href="#">Incident XXX is added</a></h3>-->
+
+                                                <!--<div class="timeline-body">-->
+                                                    <!--...-->
+                                                    <!--Content goes here-->
+                                                <!--</div>-->
+
+                                                <!--<div class="timeline-footer">-->
+                                                    <!--<a class="btn btn-primary btn-xs">Button</a>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</li>-->
+                                        <!--&lt;!&ndash; END timeline item &ndash;&gt;-->
+
+                                        <!--&lt;!&ndash; timeline time label &ndash;&gt;-->
+                                        <!--<li class="time-label">-->
+                                            <!--<span class="bg-red">-->
+                                                <!--10 Feb 2014-->
+                                            <!--</span>-->
+                                        <!--</li>-->
+                                        <!--&lt;!&ndash; /.timeline-label &ndash;&gt;-->
+
+                                        <!--&lt;!&ndash; timeline item &ndash;&gt;-->
+                                        <!--<li>-->
+                                            <!--&lt;!&ndash; timeline icon &ndash;&gt;-->
+                                            <!--<i class="fa fa-times bg-blue"></i>-->
+                                            <!--<div class="timeline-item">-->
+                                                <!--<span class="time"><i class="fa fa-clock-o"></i> 12:05</span>-->
+
+                                                <!--<h3 class="timeline-header"><a href="#">Incident XXX is cancelled</a></h3>-->
+
+                                                <!--<div class="timeline-body">-->
+                                                    <!--...-->
+                                                    <!--Content goes here-->
+                                                <!--</div>-->
+
+                                                <!--<div class="timeline-footer">-->
+                                                    <!--<a class="btn btn-primary btn-xs">Button</a>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</li>-->
+                                        <!--&lt;!&ndash; END timeline item &ndash;&gt;-->
+
+
+                                    <!--</ul>-->
                                 </div>
                             </div>
                         </div>
@@ -540,11 +543,11 @@
                             </div>
                             <div class="box-body">
                                 <div class="box collapsed-box"
-                                     ng-repeat="i in pending_incidents">
+                                     ng-repeat="feedback in pendingFeedbacks">
                                     <div class="box-header with-border">
                                         <h3 class="box-title">
                                             <small class="label label-danger ">Pending</small>
-                                            {{i.incident_type}} @{{i.incident_address}}
+                                            From {{feedback.feedback_agency}} @{{feedback.feedback_timestamp}}
                                         </h3>
                                         <div class="box-tools pull-right">
                                             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
@@ -554,55 +557,30 @@
                                         <table class="table table-hover">
                                             <tbody>
                                             <tr>
-                                                <th>Type:</th>
-                                                <td>{{i.incident_type}}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Location:</th>
-                                                <td>{{i.incident_address}}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Date & Time:</th>
-                                                <td>{{i.incident_timestamp}}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Contact:</th>
-                                                <td>{{i.incident_contactName}} ({{i.incident_contactNo}})</td>
+                                                <th>Incident</th>
+                                                <td>{{feedback.incident.incident_type}} @ {{feedback.incident.incident_address}}</td>
                                             </tr>
                                             <tr>
                                                 <th>Description:</th>
-                                                <td>{{i.incident_description}}</td>
+                                                <td>{{feedback.feedback_description}}</td>
                                             </tr>
 
                                             </tbody>
                                         </table>
                                     </div><!-- /.box-body -->
+
                                     <div class="box-footer" display="none">
 
-                                        <div class="form-group">
-                                            <label for="agency-select-{{i.incident_id}}">Dispatch Agency</label>
-                                            <select id="agency-select-{{i.incident_id}}" class="form-control" ng-model="i.selected">
-                                                <option value="">
-
-                                                </option>
-                                                <option ng-repeat="agency in allAgencies" value="{{agency.agency_abbreviation}}">
-                                                    {{agency.agency_name}}
-                                                </option>
-                                            </select>
-                                        </div>
-
-                                        <button type="button" class="btn btn-danger pull-left" ng-click="reject(i)">Reject</button>
-                                        <button id="confirm-{{i.incident_id}}" type="button" class="btn btn-success pull-right" ng-click="confirm(i)" ng-show="i.selected">Confirm</button>
-
+                                        <button type="button" class="btn btn-success pull-right" ng-click="review(feedback)">Review</button>
                                     </div>
                                 </div><!-- /.box -->
 
                                 <div class="box collapsed-box"
-                                     ng-repeat="i in closed_incidents">
+                                     ng-repeat="feedback in reviewedFeedbacks">
                                     <div class="box-header with-border">
                                         <h3 class="box-title">
-                                            <small class="label label-success ">Closed</small>
-                                            {{i.incident_type}} @{{i.incident_address}}
+                                            <small class="label label-success ">Reviewed</small>
+                                            From {{feedback.feedback_agency}} @{{feedback.feedback_timestamp}}
                                         </h3>
                                         <div class="box-tools pull-right">
                                             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
@@ -612,24 +590,12 @@
                                         <table class="table table-hover">
                                             <tbody>
                                             <tr>
-                                                <th>Type:</th>
-                                                <td>{{i.incident_type}}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Location:</th>
-                                                <td>{{i.incident_address}}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Date & Time:</th>
-                                                <td>{{i.incident_timestamp}}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Contact:</th>
-                                                <td>{{i.incident_contactName}} ({{i.incident_contactNo}})</td>
+                                                <th>Incident</th>
+                                                <td>{{feedback.incident.incident_type}} @ {{feedback.incident.incident_address}}</td>
                                             </tr>
                                             <tr>
                                                 <th>Description:</th>
-                                                <td>{{i.incident_description}}</td>
+                                                <td>{{feedback.feedback_description}}</td>
                                             </tr>
 
                                             </tbody>

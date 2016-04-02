@@ -95,7 +95,7 @@ function resetMarkers($scope, responseData) {
             riot: []
         };
 
-        var incidentList = $scope.incidents;
+        var incidentList = responseData;
 
         for (var i = 0; i < responseData.length; i++) {
             var incident = responseData[i];
@@ -137,9 +137,9 @@ function resetMarkers($scope, responseData) {
 
                 console.log(latLng.lat().toFixed(4));
 
-                for (var j = 0 ;j<$scope.approved_incidents.length;j++){
-                    if(parseFloat($scope.approved_incidents[j].incident_latitude).toFixed(4) == latLng.lat().toFixed(4) && parseFloat($scope.approved_incidents[j].incident_longitude).toFixed(4) == latLng.lng().toFixed(4)){
-                        $scope.openMapModal($scope.approved_incidents[j]);
+                for (var j = 0 ;j<responseData.length;j++){
+                    if(parseFloat(responseData[j].incident_latitude).toFixed(4) == latLng.lat().toFixed(4) && parseFloat(responseData[j].incident_longitude).toFixed(4) == latLng.lng().toFixed(4)){
+                        $scope.openMapModal(responseData[j]);
                         break;
                     }
 

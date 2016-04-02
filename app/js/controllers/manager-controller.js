@@ -120,15 +120,20 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
         $scope.getIncidentsForMap = function() {
             IncidentRetrievalService.getAllIncidents().then(function(data) {
 
-                var results = [], closed_incidents = [], pending_incidents = [];
+                var results = [], closed_incidents = [], pending_incidents = [], approved_incidents = [], rejected_incidents = [];
 
                 for(var i = 0;i<data.length;i++){
                     if(data[i].incident_status == "APPROVED"){
                         results.push(data[i]);
+                        approved_incidents.push(data[i]);
                     } else if(data[i].incident_status == "CLOSED") {
                         closed_incidents.push(data[i]);
                     } else if(data[i].incident_status == "INITIATED") {
                         pending_incidents.push(data[i]);
+                        results.push(data[i]);
+
+                    } else if (data[i].incident_status == "REJECTED") {
+                        rejected_incidents.push(data[i]);
                     }
                 }
 
@@ -136,8 +141,9 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
                 $scope.approved_incidents = results;
                 $scope.pending_incidents = pending_incidents;
                 $scope.closed_incidents = closed_incidents;
+                $scope.rejected_incidents = rejected_incidents;
 
-                $(".current-crisis").text(results.length);
+                $(".current-crisis").text(approved_incidents.length);
                 $(".undeclared-crisis").text(pending_incidents.length);
                 $(".solved-crisis").text(closed_incidents.length);
 
@@ -159,6 +165,22 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
         $scope.initMap = function() {
             initMap($scope);
         };
+
+        $scope.showInitiatedIncidents = function() {
+            resetMarkers($scope, $scope.pending_incidents);
+        }
+
+        $scope.showApprovedIncidents = function() {
+            resetMarkers($scope, $scope.approved_incidents);
+        }
+
+        $scope.showRejectedIncidents = function() {
+            resetMarkers($scope, $scope.rejected_incidents);
+        }
+
+        $scope.showClosedIncidents = function() {
+            resetMarkers($scope, $scope.closed_incidents);
+        }
 
         $scope.openToDo = function(pending_incident) {
             console.log(pending_incident);

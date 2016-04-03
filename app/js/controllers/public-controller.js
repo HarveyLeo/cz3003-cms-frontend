@@ -17,8 +17,20 @@ cmsControllers.controller('publicCtrl',['$scope', '$uibModal','IncidentRetrieval
 
         $scope.config = {
             currentPage: 0,
-            pageSize: 4
+            pageSize: 5
         };
+
+        $scope.curDate = "1";
+        $scope.updateDate = function(incident) {
+
+            console.log($scope.curDate);
+            if (incident.date != $scope.curDate) {
+                $scope.curDate = incident.date;
+                return true;
+            } else {
+                return false;
+            }
+        }
 
         $scope.getAllIncidents = function() {
             IncidentRetrievalService.getAllIncidents().then(function(data) {

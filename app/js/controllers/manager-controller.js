@@ -6,13 +6,23 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
 
         $scope.config = {
             currentPage: 0,
-            pageSize: 4
+            pageSize: 5
         };
 
         $scope.feedbackConfig = {
             currentPage: 0,
-            pageSize: 4
+            pageSize: 5
         };
+
+        $scope.curDate = "1";
+        $scope.updateDate = function(feedback) {
+            if (feedback.date != $scope.curDate) {
+                $scope.curDate = feedback.date;
+                return true;
+            } else {
+                return false;
+            }
+        }
 
         $scope.getAllIncidents = function() {
             IncidentRetrievalService.getAllIncidents().then(function(data) {

@@ -316,7 +316,7 @@
 
                                         <!-- timeline time label -->
                                         <li class="time-label" ng-repeat-start="feedback in allFeedbacks | startFrom: config.currentPage*config.pageSize | limitTo: config.pageSize">
-                                            <span class="bg-red">
+                                            <span class="bg-red" ng-show="updateDate(feedback) || $index == 0">
                                                 {{feedback.date}}
                                             </span>
                                         </li>
@@ -337,11 +337,6 @@
                                             </div>
                                         </li>
 
-                                        <li class="time-label">
-                                                <span class="bg-red">
-                                                    {{feedback.incident.date}}
-                                                </span>
-                                        </li>
                                         <li ng-repeat-end>
                                             <!-- timeline icon -->
                                             <i class="fa fa-plus bg-blue"></i>

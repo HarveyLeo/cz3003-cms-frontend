@@ -1,4 +1,4 @@
-<div id="divMain" class="skin-blue sidebar-mini" ng-init="getAllIncidents();getAllFeedbacks();getIncidentsForMap(); getSystemLog(); initMap();">
+<div id="divMain" class="skin-blue sidebar-mini" ng-init="getAllIncidents();getIncidentsForMap(); getSystemLog(); initMap();getAllFeedbacks();">
     <div class="wrapper">
         <header class="main-header">
             <!-- Logo -->
@@ -152,49 +152,25 @@
                                 <div class="box-body">
                                     <ul class="timeline">
 
-                                        <!-- timeline time label -->
-                                        <li class="time-label" ng-repeat-start="feedback in allFeedbacks | startFrom: config.currentPage*config.pageSize | limitTo: config.pageSize">
-                                            <span class="bg-red">
-                                                {{feedback.date}}
-                                            </span>
-                                        </li>
-                                        <!-- /.timeline-label -->
-
-                                        <!-- timeline item -->
-                                        <li>
-                                            <!-- timeline icon -->
-                                            <i class="fa fa-comment bg-blue"></i>
-                                            <div class="timeline-item">
-                                                <span class="time"><i class="fa fa-clock-o"></i>{{feedback.time}}</span>
-
-                                                <h3 class="timeline-header" ng-click="openMapModal(feedback.incident)"><a>Agency {{feedback.feedback_agency}} <span ng-if="feedback.feedback_status == 'PENDING'">enters a new feedback</span><span ng-if="feedback.feedback_status == 'REVIEWED'">reviews the feedback</span></a></h3>
-
-                                                <div class="timeline-body">
-                                                    {{feedback.feedback_description}}
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        <li class="time-label">
-                                                <span class="bg-red">
-                                                    {{feedback.incident.date}}
+                                        <li class="time-label" ng-repeat-start="incident in allIncidents | startFrom: config.currentPage*config.pageSize | limitTo: config.pageSize">
+                                                <span class="bg-red" ng-show="updateDate(incident) || $index == 0">
+                                                    {{incident.date}}
                                                 </span>
                                         </li>
                                         <li ng-repeat-end>
                                             <!-- timeline icon -->
                                             <i class="fa fa-plus bg-blue"></i>
                                             <div class="timeline-item">
-                                                <span class="time"><i class="fa fa-clock-o"></i> {{feedback.incident.time}}</span>
+                                                <span class="time"><i class="fa fa-clock-o"></i> {{incident.time}}</span>
 
-                                                <h3 class="timeline-header" ng-click="openMapModal(feedback.incident)"><a>Incident  {{feedback.incident.incident_type}}@{{feedback.incident.incident_address}} is <span ng-if="feedback.incident.incident_status == 'INITIATED'">added</span><span ng-if="feedback.incident.incident_status == 'APPROVED'">approved</span><span ng-if="feedback.incident.incident_status == 'REJECTED'">rejected</span></a></h3>
+                                                <h3 class="timeline-header" ng-click="openMapModal(incident)"><a>Incident  {{incident.incident_type}}@{{incident.incident_address}} is <span ng-if="incident.incident_status == 'INITIATED'">added</span><span ng-if="incident.incident_status == 'APPROVED'">approved</span><span ng-if="incident.incident_status == 'REJECTED'">rejected</span></a></h3>
 
                                                 <div class="timeline-body">
-                                                    {{feedback.incident.incident_description}}
+                                                    {{incident.incident_description}}
                                                 </div>
                                             </div>
                                         </li>
                                         <!-- END timeline item -->
-
 
                                     </ul>
                                 </div>

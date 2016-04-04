@@ -20,7 +20,7 @@ cmsControllers.controller('loginCtrl', ['$scope', '$rootScope', 'AUTH_EVENTS', '
                         if (userRole === "operator") {
                             $state.go('operator.create-new-incident');
                         } else if (userRole === "manager") {
-                            $state.go('manager');
+                            $state.go('manager.map-and-timeline');
                         } else if (userRole === "agency") {
                             $state.go('agency');
                         } else {

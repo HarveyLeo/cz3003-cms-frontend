@@ -22,7 +22,7 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
             } else {
                 return false;
             }
-        }
+        };
 
         $scope.getAllIncidents = function() {
             IncidentRetrievalService.getAllIncidents().then(function(data) {
@@ -87,7 +87,7 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
             }, function() {
                 console.log("error: getting all feedbacks");
             })
-        }
+        };
 
         $scope.getAllAgencies = function() {
             AgencyService.getAllAgencies().then(function(data) {
@@ -178,19 +178,19 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
 
         $scope.showInitiatedIncidents = function() {
             resetMarkers($scope, $scope.pending_incidents);
-        }
+        };
 
         $scope.showApprovedIncidents = function() {
             resetMarkers($scope, $scope.approved_incidents);
-        }
+        };
 
         $scope.showRejectedIncidents = function() {
             resetMarkers($scope, $scope.rejected_incidents);
-        }
+        };
 
         $scope.showClosedIncidents = function() {
             resetMarkers($scope, $scope.closed_incidents);
-        }
+        };
 
         $scope.openToDo = function(pending_incident) {
             console.log(pending_incident);
@@ -216,7 +216,7 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
             incident.incident_status = "REJECTED";
             IncidentUpdateService.update(incident).then(function(data) {
                 console.log(data);
-                $state.go('manager',{}, {reload: true});
+                $state.go('manager.feedback-log',{}, {reload: true});
             })
         };
 
@@ -224,7 +224,7 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
             incident.incident_status = "APPROVED";
             IncidentUpdateService.update(incident).then(function(data) {
                 console.log(data);
-                $state.go('manager',{}, {reload: true});
+                $state.go('manager.feedback-log',{}, {reload: true});
             })
         };
 
@@ -233,7 +233,7 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
 
             FeedbackSubmissionService.update(feedback).then(function(data) {
                 console.log(data);
-                $state.go('manager',{}, {reload: true});
+                $state.go('manager.feedback-log',{}, {reload: true});
             })
         }
     }

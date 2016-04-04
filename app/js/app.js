@@ -67,24 +67,24 @@ cmsApp.config(['$stateProvider', '$urlRouterProvider', 'USER_ROLES',
             })
             .state('manager.map-and-timeline', {
                 url: '/map-and-timeline',
-                templateUrl: 'partials/manager/manager.map-and-timeline.html'//,
-                // data: {
-                //     authorizedRoles: [USER_ROLES.manager]
-                // }
+                templateUrl: 'partials/manager/manager.map-and-timeline.html',
+                data: {
+                    authorizedRoles: [USER_ROLES.manager]
+                }
             })
             .state('manager.crisis-log', {
                 url: '/crisis-log',
-                templateUrl: 'partials/manager/manager.crisis-log.html'//,
-                // data: {
-                //    authorizedRoles: [USER_ROLES.manager]
-                // }
+                templateUrl: 'partials/manager/manager.crisis-log.html',
+                data: {
+                   authorizedRoles: [USER_ROLES.manager]
+                }
             })
             .state('manager.feedback-log', {
                 url: '/feedback-log',
-                templateUrl: 'partials/manager/manager.feedback-log.html'//,
-                // data: {
-                //     authorizedRoles: [USER_ROLES.manager]
-                // }
+                templateUrl: 'partials/manager/manager.feedback-log.html',
+                data: {
+                    authorizedRoles: [USER_ROLES.manager]
+                }
             })
             .state('login', {
                 url: '/login',

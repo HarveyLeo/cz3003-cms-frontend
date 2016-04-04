@@ -1,0 +1,276 @@
+<div class="row">
+    <div class="col-lg-6 col-sm-12">
+        <div class="box">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <i class="fa fa-map-o"></i>
+                    <h3 class="box-title">Incident Map</h3>
+                </div>
+
+                <div class="box-body">
+                    <div class="form-group">
+                        <label>Incident Date Range:</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class="form-control pull-right" id="reservation">
+                        </div><!-- /.input group -->
+                    </div><!-- /.form group -->
+
+                    <div class="row" style="margin: 0px">
+                        <div id="map-container" >
+                            <div class="pad">
+                                <div id="crisis-google-map" style="height: 450px; position: relative; overflow: hidden;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="map-label-all" class="row nav navbar-nav" style="width: 100%;">
+                        <div class="dropdown notifications-menu">
+                            <a href="" class="description-block border-right text-green dropdown-toggle" data-toggle="dropdown">
+                                <span>Show All</span>
+                            </a><!-- /.description-block -->
+                            <ul class="dropdown-menu" style="width: 100%;">
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+
+                                        <li>
+                                            <a ng-click="showInitiatedIncidents()">
+                                                <i class="fa fa-plus text-blue"></i> New Incoming Incidents
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a ng-click="showApprovedIncidents()">
+                                                <i class="fa fa-spinner text-yellow"></i> Ongoing Incidents/Crises
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a ng-click="showClosedIncidents()">
+                                                <i class="fa fa-check text-green"></i> Resolved Incidents/Crises
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a ng-click="showRejectedIncidents()">
+                                                <i class="fa fa-times text-red"></i> Cancelled Incidents
+                                            </a>
+                                        </li>
+
+
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div><!-- /.description-block -->
+                    </div><!-- /.col -->
+
+                    <div class="row nav navbar-nav" style="width: 100%;">
+                        <div id="map-label-accident" class="col-md-3 col-sm-6 dropdown notifications-menu">
+                            <a href="" class="description-block border-right dropdown-toggle" data-toggle="dropdown">
+                                <span><img src="images/Traffic Accident-pin.png" />Traffic Accident</span>
+                            </a>
+                            <ul class="dropdown-menu" >
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-plus text-blue"></i> New Incoming Incidents
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-spinner text-yellow"></i> Ongoing Incidents/Crises
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-check text-green"></i> Resolved Incidents/Crises
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-times text-red"></i> Cancelled Incidents
+                                            </a>
+                                        </li>
+
+
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div><!-- /.col -->
+                        <div id="map-label-fire" class="col-md-3 col-sm-6 dropdown notifications-menu">
+                            <a href="" class="description-block border-right dropdown-toggle" data-toggle="dropdown">
+                                <span><img src="images/Fire-pin.png" />Fire</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-plus text-blue"></i> New Incoming Incidents
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-spinner text-yellow"></i> Ongoing Incidents/Crises
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-check text-green"></i> Resolved Incidents/Crises
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-times text-red"></i> Cancelled Incidents
+                                            </a>
+                                        </li>
+
+
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div><!-- /.col -->
+                        <div id="map-label-gas" class="col-md-3 col-sm-6 dropdown notifications-menu">
+                            <a href="" class="description-block border-right dropdown-toggle" data-toggle="dropdown">
+                                <span><img src="images/Gas Leak-pin.png" />Gas Leak</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-plus text-blue"></i> New Incoming Incidents
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-spinner text-yellow"></i> Ongoing Incidents/Crises
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-check text-green"></i> Resolved Incidents/Crises
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-times text-red"></i> Cancelled Incidents
+                                            </a>
+                                        </li>
+
+
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div><!-- /.col -->
+                        <div id="map-label-riot" class="col-md-3 col-sm-6 dropdown notifications-menu">
+                            <a href="" class="description-block border-right dropdown-toggle" data-toggle="dropdown">
+                                <span><img src="images/Riot-pin.png" />Riot</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-plus text-blue"></i> New Incoming Incidents
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-spinner text-yellow"></i> Ongoing Incidents/Crises
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-check text-green"></i> Resolved Incidents/Crises
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-times text-red"></i> Cancelled Incidents
+                                            </a>
+                                        </li>
+
+
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+        <div class="box">
+            <div class="box box-warning">
+                <div class="box-header with-border">
+                    <i class="fa fa-calendar"></i>
+                    <h3 class="box-title">Timeline</h3>
+
+                    <div class="box-tools pull-right">
+                        <ul class="pagination pagination-sm inline">
+                            <li><button class="btn btn-sm btn-default btn-flat" ng-disabled="config.currentPage == 0" ng-click="config.currentPage=config.currentPage-1"> Prev </button></li>
+                            <li><button class="btn btn-sm btn-default btn-flat" ng-disabled="config.currentPage >= assignedIncidents.length/config.pageSize - 1" ng-click="config.currentPage=config.currentPage+1"> Next </button></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="box-body">
+                    <ul class="timeline">
+
+                        <!-- timeline time label -->
+                        <li class="time-label" ng-repeat-start="feedback in allFeedbacks | startFrom: config.currentPage*config.pageSize | limitTo: config.pageSize">
+                                            <span class="bg-red" ng-show="updateDate(feedback) || $index == 0">
+                                                {{feedback.date}}
+                                            </span>
+                        </li>
+                        <!-- /.timeline-label -->
+
+                        <!-- timeline item -->
+                        <li>
+                            <!-- timeline icon -->
+                            <i class="fa fa-comment bg-blue"></i>
+                            <div class="timeline-item">
+                                <span class="time"><i class="fa fa-clock-o"></i>{{feedback.time}}</span>
+
+                                <h3 class="timeline-header" ng-click="openMapModal(feedback.incident)"><a>Agency {{feedback.feedback_agency}} <span ng-if="feedback.feedback_status == 'PENDING'">enters a new feedback</span><span ng-if="feedback.feedback_status == 'REVIEWED'">reviews the feedback</span></a></h3>
+
+                                <div class="timeline-body">
+                                    {{feedback.feedback_description}}
+                                </div>
+                            </div>
+                        </li>
+
+                        <li ng-repeat-end>
+                            <!-- timeline icon -->
+                            <i class="fa fa-plus bg-blue"></i>
+                            <div class="timeline-item">
+                                <span class="time"><i class="fa fa-clock-o"></i> {{feedback.incident.time}}</span>
+
+                                <h3 class="timeline-header" ng-click="openMapModal(feedback.incident)"><a>Incident  {{feedback.incident.incident_type}}@{{feedback.incident.incident_address}} is <span ng-if="feedback.incident.incident_status == 'INITIATED'">added</span><span ng-if="feedback.incident.incident_status == 'APPROVED'">approved</span><span ng-if="feedback.incident.incident_status == 'REJECTED'">rejected</span></a></h3>
+
+                                <div class="timeline-body">
+                                    {{feedback.incident.incident_description}}
+                                </div>
+                            </div>
+                        </li>
+                        <!-- END timeline item -->
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

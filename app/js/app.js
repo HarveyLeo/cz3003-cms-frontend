@@ -14,6 +14,7 @@ var cmsApp = angular.module('cmsApp',[
 cmsApp.config(['$stateProvider', '$urlRouterProvider', 'USER_ROLES',
     function($stateProvider, $urlRouterProvider, USER_ROLES){
         $urlRouterProvider.when('/operator', '/operator/create-new-incident');
+        $urlRouterProvider.when('/manager', '/manager/map-and-timeline');
         $urlRouterProvider.otherwise('/public');
         $stateProvider
             .state('public', {
@@ -60,10 +61,29 @@ cmsApp.config(['$stateProvider', '$urlRouterProvider', 'USER_ROLES',
             })
             .state('manager', {
                 url: '/manager',
-                templateUrl: 'partials/manager.html',
-                controller: 'managerCtrl'//,
+                abstract: true,
+                templateUrl: 'partials/manager/manager.html',
+                controller: 'managerCtrl'
+            })
+            .state('manager.map-and-timeline', {
+                url: '/map-and-timeline',
+                templateUrl: 'partials/manager/manager.map-and-timeline.html'//,
+                // data: {
+                //     authorizedRoles: [USER_ROLES.manager]
+                // }
+            })
+            .state('manager.crisis-log', {
+                url: '/crisis-log',
+                templateUrl: 'partials/manager/manager.crisis-log.html'//,
                 // data: {
                 //    authorizedRoles: [USER_ROLES.manager]
+                // }
+            })
+            .state('manager.feedback-log', {
+                url: '/feedback-log',
+                templateUrl: 'partials/manager/manager.feedback-log.html'//,
+                // data: {
+                //     authorizedRoles: [USER_ROLES.manager]
                 // }
             })
             .state('login', {

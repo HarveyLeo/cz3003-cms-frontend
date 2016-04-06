@@ -231,9 +231,9 @@
 
                         <!-- timeline time label -->
                         <li class="time-label" ng-repeat-start="feedback in allFeedbacks | startFrom: config.currentPage*config.pageSize | limitTo: config.pageSize">
-                                            <span class="bg-red" ng-show="updateDate(feedback) || $index == 0">
-                                                {{feedback.date}}
-                                            </span>
+                            <span class="bg-red" ng-show="updateDate(feedback) || $index == 0">
+                                {{feedback.date}}
+                            </span>
                         </li>
                         <!-- /.timeline-label -->
 

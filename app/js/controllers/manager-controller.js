@@ -24,6 +24,16 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
             }
         };
 
+        $scope.crisisDate = "1";
+        $scope.updateIncidentDate = function(incident) {
+            if (incident.date != $scope.crisisDate) {
+                $scope.crisisDate = incident.date;
+                return true;
+            } else {
+                return false;
+            }
+        };
+
         $scope.getAllIncidents = function() {
             IncidentRetrievalService.getAllIncidents().then(function(data) {
 

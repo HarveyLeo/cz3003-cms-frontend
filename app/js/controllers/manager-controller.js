@@ -176,19 +176,66 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
             initMap($scope);
         };
 
-        $scope.showInitiatedIncidents = function() {
-            resetMarkers($scope, $scope.pending_incidents);
+        $scope.showInitiatedIncidents = function(type) {
+            var results = [];
+            if(type == null)
+                resetMarkers($scope, $scope.pending_incidents);
+            else{
+                switch(type) {
+                    case "Traffic Accident":
+                        for (var i=0;i<$scope.pending_incidents.length;i++){
+                            var incident = $scope.pending_incidents[i];
+                            if (incident.incident_type == "Traffic Accident") {
+                                results.add(incident);
+                            }
+
+                            resetMarkers($scope, results);
+                        }
+                        break;
+                    case "Fire":
+                        for (var i=0;i<$scope.pending_incidents.length;i++){
+                            var incident = $scope.pending_incidents[i];
+                            if (incident.incident_type == "Fire") {
+                                results.add(incident);
+                            }
+
+                            resetMarkers($scope, results);
+                        }
+                        break;
+                    case "Gas Leak":
+                        for (var i=0;i<$scope.pending_incidents.length;i++){
+                            var incident = $scope.pending_incidents[i];
+                            if (incident.incident_type == "Gas Leak") {
+                                results.add(incident);
+                            }
+
+                            resetMarkers($scope, results);
+                        }
+                        break;
+                    case "Riot":
+                        for (var i=0;i<$scope.pending_incidents.length;i++){
+                            var incident = $scope.pending_incidents[i];
+                            if (incident.incident_type == "Riot") {
+                                results.add(incident);
+                            }
+
+                            resetMarkers($scope, results);
+                        }
+
+                        break;
+                }
+            }
         };
 
-        $scope.showApprovedIncidents = function() {
+        $scope.showApprovedIncidents = function(type) {
             resetMarkers($scope, $scope.approved_incidents);
         };
 
-        $scope.showRejectedIncidents = function() {
+        $scope.showRejectedIncidents = function(type) {
             resetMarkers($scope, $scope.rejected_incidents);
         };
 
-        $scope.showClosedIncidents = function() {
+        $scope.showClosedIncidents = function(type) {
             resetMarkers($scope, $scope.closed_incidents);
         };
 
@@ -222,6 +269,8 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
 
         $scope.confirm = function (incident) {
             incident.incident_status = "APPROVED";
+            incident.agency = $("#agency-select-" + incident.incident_id).val();
+            incident.agency_name = $("#agency-select-" + incident.incident_id).data("agency");
             IncidentUpdateService.update(incident).then(function(data) {
                 console.log(data);
                 $state.go('manager.feedback-log',{}, {reload: true});

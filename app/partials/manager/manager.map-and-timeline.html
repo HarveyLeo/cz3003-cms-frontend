@@ -67,7 +67,7 @@
 
                     <div class="row nav navbar-nav" style="width: 100%;">
                         <div id="map-label-accident" class="col-md-3 col-sm-6 dropdown notifications-menu">
-                            <a href="" class="description-block border-right dropdown-toggle" data-toggle="dropdown">
+                            <a class="description-block border-right dropdown-toggle" data-toggle="dropdown">
                                 <span><img src="images/Traffic Accident-pin.png" />Traffic Accident</span>
                             </a>
                             <ul class="dropdown-menu" >
@@ -76,22 +76,22 @@
                                     <ul class="menu">
 
                                         <li>
-                                            <a href="#">
+                                            <a ng-click="showInitiatedIncidents('Traffic Accident')">
                                                 <i class="fa fa-plus text-blue"></i> New Incoming Incidents
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a ng-click="showApprovedIncidents('Traffic Accident')">
                                                 <i class="fa fa-spinner text-yellow"></i> Ongoing Incidents/Crises
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a ng-click="showClosedIncidents('Traffic Accident')">
                                                 <i class="fa fa-check text-green"></i> Resolved Incidents/Crises
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a ng-click="showRejectedIncidents('Traffic Accident')">
                                                 <i class="fa fa-times text-red"></i> Cancelled Incidents
                                             </a>
                                         </li>
@@ -111,22 +111,22 @@
                                     <ul class="menu">
 
                                         <li>
-                                            <a href="#">
+                                            <a ng-click="showInitiatedIncidents('Fire')">
                                                 <i class="fa fa-plus text-blue"></i> New Incoming Incidents
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a ng-click="showApprovedIncidents('Fire')">
                                                 <i class="fa fa-spinner text-yellow"></i> Ongoing Incidents/Crises
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a ng-click="showClosedIncidents('Fire')">
                                                 <i class="fa fa-check text-green"></i> Resolved Incidents/Crises
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a ng-click="showRejectedIncidents('Fire')">
                                                 <i class="fa fa-times text-red"></i> Cancelled Incidents
                                             </a>
                                         </li>
@@ -146,22 +146,22 @@
                                     <ul class="menu">
 
                                         <li>
-                                            <a href="#">
+                                            <a ng-click="showInitiatedIncidents('Gas Leak')">
                                                 <i class="fa fa-plus text-blue"></i> New Incoming Incidents
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a ng-click="showApprovedIncidents('Gas Leak')">
                                                 <i class="fa fa-spinner text-yellow"></i> Ongoing Incidents/Crises
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a ng-click="showClosedIncidents('Gas Leak')">
                                                 <i class="fa fa-check text-green"></i> Resolved Incidents/Crises
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a ng-click="showRejectedIncidents('Gas Leak')">
                                                 <i class="fa fa-times text-red"></i> Cancelled Incidents
                                             </a>
                                         </li>
@@ -181,22 +181,22 @@
                                     <ul class="menu">
 
                                         <li>
-                                            <a href="#">
+                                            <a ng-click="showInitiatedIncidents('Riot')">
                                                 <i class="fa fa-plus text-blue"></i> New Incoming Incidents
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a ng-click="showApprovedIncidents('Riot')">
                                                 <i class="fa fa-spinner text-yellow"></i> Ongoing Incidents/Crises
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a ng-click="showClosedIncidents('Riot')">
                                                 <i class="fa fa-check text-green"></i> Resolved Incidents/Crises
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a ng-click="showRejectedIncidents('Riot')">
                                                 <i class="fa fa-times text-red"></i> Cancelled Incidents
                                             </a>
                                         </li>
@@ -221,7 +221,7 @@
                     <div class="box-tools pull-right">
                         <ul class="pagination pagination-sm inline">
                             <li><button class="btn btn-sm btn-default btn-flat" ng-disabled="config.currentPage == 0" ng-click="config.currentPage=config.currentPage-1"> Prev </button></li>
-                            <li><button class="btn btn-sm btn-default btn-flat" ng-disabled="config.currentPage >= assignedIncidents.length/config.pageSize - 1" ng-click="config.currentPage=config.currentPage+1"> Next </button></li>
+                            <li><button class="btn btn-sm btn-default btn-flat" ng-disabled="config.currentPage >= allFeedbacks.length/config.pageSize - 1" ng-click="config.currentPage=config.currentPage+1"> Next </button></li>
                         </ul>
                     </div>
                 </div>

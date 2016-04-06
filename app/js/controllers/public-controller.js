@@ -30,7 +30,7 @@ cmsControllers.controller('publicCtrl',['$scope', '$uibModal','IncidentRetrieval
             } else {
                 return false;
             }
-        }
+        };
 
         $scope.getAllIncidents = function() {
             IncidentRetrievalService.getAllIncidents().then(function(data) {
@@ -95,7 +95,7 @@ cmsControllers.controller('publicCtrl',['$scope', '$uibModal','IncidentRetrieval
             }, function() {
                 console.log("error: getting all feedbacks");
             })
-        }
+        };
 
         $scope.openMapModal = function(incident) {
 
@@ -138,7 +138,7 @@ cmsControllers.controller('publicCtrl',['$scope', '$uibModal','IncidentRetrieval
 
         $scope.initMap = function() {
             initMap($scope);
-        }
+        };
 
 
     }

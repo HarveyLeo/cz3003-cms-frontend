@@ -1,4 +1,4 @@
-<div class="row" ng-init="getAllIncidents();getIncidentsForMap(); getSystemLog();getAllAgencies();">
+<div class="row" ng-init="getAllIncidents();getIncidentsForMap(); getAllAgencies();">
     <div class="col-lg-6 col-sm-12">
         <div class="box box-primary">
             <div class="box-header">
@@ -65,7 +65,7 @@
                      ng-repeat="i in approved_incidents">
                     <div class="box-header with-border">
                         <h3 class="box-title">
-                            <small class="label label-success ">Approved</small>
+                            <small class="label label-danger ">Ongoing</small>
                             {{i.incident_type}} @{{i.incident_address}}
                         </h3>
                         <div class="box-tools pull-right">
@@ -101,7 +101,7 @@
                     </div><!-- /.box-body -->
                     <div class="box-footer" display="none">
 
-                        <button id="close-{{i.incident_id}}" type="button" class="btn btn-success pull-right" ng-click="complete(i)">Completed</button>
+                        <button id="close-{{i.incident_id}}" type="button" class="btn btn-success pull-right" ng-click="complete(i)"><i class="fa fa-check"></i> Resolved</button>
 
                     </div>
                 </div><!-- /.box -->
@@ -109,7 +109,7 @@
                      ng-repeat="i in closed_incidents">
                     <div class="box-header with-border">
                         <h3 class="box-title">
-                            <small class="label label-success ">Closed</small>
+                            <small class="label label-success">Resolved</small>
                             {{i.incident_type}} @{{i.incident_address}}
                         </h3>
                         <div class="box-tools pull-right">
@@ -149,7 +149,7 @@
                      ng-repeat="i in rejected_incidents">
                     <div class="box-header with-border">
                         <h3 class="box-title">
-                            <small class="label label-danger ">Rejected</small>
+                            <small class="label label-info ">Cancelled</small>
                             {{i.incident_type}} @{{i.incident_address}}
                         </h3>
                         <div class="box-tools pull-right">

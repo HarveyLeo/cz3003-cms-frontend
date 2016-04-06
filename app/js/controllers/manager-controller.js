@@ -164,13 +164,6 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
             });
         };
 
-        //$scope.getIncidentsLog = function() {
-        //    IncidentRetrievalService.getAllIncidents().then(function(data) {
-        //       var results = [];
-        //
-        //        for(var i = 0;i<data.length)
-        //    });
-        //};
 
         $scope.initMap = function() {
             initMap($scope);
@@ -263,7 +256,7 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
             incident.incident_status = "CLOSED";
             IncidentUpdateService.update(incident).then(function(data) {
                 console.log(data);
-                $state.go('manager.feedback-log',{}, {reload: true});
+                $state.go('manager.crisis-log',{}, {reload: true});
             })
         };
 
@@ -292,6 +285,6 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
                 console.log(data);
                 $state.go('manager.feedback-log',{}, {reload: true});
             })
-        }
+        };
     }
 ]);

@@ -159,11 +159,12 @@
                                         </li>
                                         <li ng-repeat-end>
                                             <!-- timeline icon -->
-                                            <i class="fa fa-exclamation bg-blue"></i>
+                                            <i ng-if="incident.incident_status == 'APPROVED'" class="fa fa-exclamation bg-red"></i>
+                                            <i ng-if="incident.incident_status == 'CLOSED'" class="fa fa-check bg-green"></i>
                                             <div class="timeline-item">
                                                 <span class="time"><i class="fa fa-clock-o"></i> {{incident.time}}</span>
 
-                                                <h3 class="timeline-header" ng-click="openMapModal(incident)"><a>Incident  {{incident.incident_type}}@{{incident.incident_address}} is <span ng-if="incident.incident_status == 'CLOSED'">completed</span><span ng-if="incident.incident_status == 'APPROVED'">approved</span></a></h3>
+                                                <span class="timeline-header"><a  ng-click="openMapModal(incident)">{{incident.incident_type}} @ {{incident.incident_address}} </a>is <span ng-if="incident.incident_status == 'CLOSED'">resolved</span><span ng-if="incident.incident_status == 'APPROVED'">declared</span></span>
 
                                                 <div class="timeline-body">
                                                     {{incident.incident_description}}

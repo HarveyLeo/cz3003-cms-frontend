@@ -259,6 +259,14 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
             });
         };
 
+        $scope.complete = function(incident){
+            incident.incident_status = "CLOSED";
+            IncidentUpdateService.update(incident).then(function(data) {
+                console.log(data);
+                $state.go('manager.feedback-log',{}, {reload: true});
+            })
+        };
+
         $scope.reject = function(incident){
             incident.incident_status = "REJECTED";
             IncidentUpdateService.update(incident).then(function(data) {

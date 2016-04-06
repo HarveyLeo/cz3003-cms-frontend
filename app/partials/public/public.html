@@ -152,7 +152,7 @@
                                 <div class="box-body">
                                     <ul class="timeline">
 
-                                        <li class="time-label" ng-repeat-start="incident in allIncidents | startFrom: config.currentPage*config.pageSize | limitTo: config.pageSize">
+                                        <li class="time-label" ng-repeat-start="incident in allIncidents | startFrom: config.currentPage*config.pageSize | limitTo: config.pageSize" ng-hide="incident.incident_status == 'REJECTED' || incident.incident_status=='INITIATED'">
                                                 <span class="bg-red" ng-show="updateDate(incident) || $index == 0">
                                                     {{incident.date}}
                                                 </span>
@@ -163,7 +163,7 @@
                                             <div class="timeline-item">
                                                 <span class="time"><i class="fa fa-clock-o"></i> {{incident.time}}</span>
 
-                                                <h3 class="timeline-header" ng-click="openMapModal(incident)"><a>Incident  {{incident.incident_type}}@{{incident.incident_address}} is <span ng-if="incident.incident_status == 'INITIATED'">added</span><span ng-if="incident.incident_status == 'APPROVED'">approved</span><span ng-if="incident.incident_status == 'REJECTED'">rejected</span></a></h3>
+                                                <h3 class="timeline-header" ng-click="openMapModal(incident)"><a>Incident  {{incident.incident_type}}@{{incident.incident_address}} is <span ng-if="incident.incident_status == 'CLOSED'">completed</span><span ng-if="incident.incident_status == 'APPROVED'">approved</span></a></h3>
 
                                                 <div class="timeline-body">
                                                     {{incident.incident_description}}

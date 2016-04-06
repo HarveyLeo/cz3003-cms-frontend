@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-init="getAllIncidents();getIncidentsForMap(); getSystemLog();getAllAgencies();">
     <div class="col-lg-6 col-sm-12">
         <div class="box box-primary">
             <div class="box-header">
@@ -10,7 +10,7 @@
                      ng-repeat="i in pending_incidents">
                     <div class="box-header with-border">
                         <h3 class="box-title">
-                            <small class="label label-danger ">Pending</small>
+                            <small class="label label-warning ">Pending</small>
                             {{i.incident_type}} @{{i.incident_address}}
                         </h3>
                         <div class="box-tools pull-right">
@@ -49,12 +49,9 @@
                         <div class="form-group">
                             <label for="agency-select-{{i.incident_id}}">Dispatch Agency</label>
                             <select id="agency-select-{{i.incident_id}}" class="form-control" ng-model="i.selected">
-                                <option value="">
-
-                                </option>
+                                <option value=""></option>
                                 <option ng-repeat="agency in allAgencies" value="{{agency.agency_abbreviation}}" data-agency="{{agency.agency_name}}">
-                                    {{agency.agency_name}}
-                                </option>
+                                {{agency.agency_name}}</option>
                             </select>
                         </div>
 
@@ -64,6 +61,50 @@
                     </div>
                 </div><!-- /.box -->
 
+                <div class="box collapsed-box"
+                     ng-repeat="i in approved_incidents">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            <small class="label label-success ">Approved</small>
+                            {{i.incident_type}} @{{i.incident_address}}
+                        </h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body" style="display: none;">
+                        <table class="table table-hover">
+                            <tbody>
+                            <tr>
+                                <th>Type:</th>
+                                <td>{{i.incident_type}}</td>
+                            </tr>
+                            <tr>
+                                <th>Location:</th>
+                                <td>{{i.incident_address}}</td>
+                            </tr>
+                            <tr>
+                                <th>Date & Time:</th>
+                                <td>{{i.incident_timestamp}}</td>
+                            </tr>
+                            <tr>
+                                <th>Contact:</th>
+                                <td>{{i.incident_contactName}} ({{i.incident_contactNo}})</td>
+                            </tr>
+                            <tr>
+                                <th>Description:</th>
+                                <td>{{i.incident_description}}</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div><!-- /.box-body -->
+                    <div class="box-footer" display="none">
+
+                        <button id="close-{{i.incident_id}}" type="button" class="btn btn-success pull-right" ng-click="complete(i)">Completed</button>
+
+                    </div>
+                </div><!-- /.box -->
                 <div class="box collapsed-box"
                      ng-repeat="i in closed_incidents">
                     <div class="box-header with-border">
@@ -102,6 +143,64 @@
                             </tbody>
                         </table>
                     </div><!-- /.box-body -->
+                </div><!-- /.box -->
+
+                <div class="box collapsed-box"
+                     ng-repeat="i in rejected_incidents">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            <small class="label label-danger ">Rejected</small>
+                            {{i.incident_type}} @{{i.incident_address}}
+                        </h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body" style="display: none;">
+                        <table class="table table-hover">
+                            <tbody>
+                            <tr>
+                                <th>Type:</th>
+                                <td>{{i.incident_type}}</td>
+                            </tr>
+                            <tr>
+                                <th>Location:</th>
+                                <td>{{i.incident_address}}</td>
+                            </tr>
+                            <tr>
+                                <th>Date & Time:</th>
+                                <td>{{i.incident_timestamp}}</td>
+                            </tr>
+                            <tr>
+                                <th>Contact:</th>
+                                <td>{{i.incident_contactName}} ({{i.incident_contactNo}})</td>
+                            </tr>
+                            <tr>
+                                <th>Description:</th>
+                                <td>{{i.incident_description}}</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div><!-- /.box-body -->
+                    <!--<div class="box-footer" display="none">-->
+
+                        <!--<div class="form-group">-->
+                            <!--<label for="agency-select-{{i.incident_id}}">Dispatch Agency</label>-->
+                            <!--<select id="agency-select-{{i.incident_id}}" class="form-control" ng-model="i.selected">-->
+                                <!--<option value="">-->
+
+                                <!--</option>-->
+                                <!--<option ng-repeat="agency in allAgencies" value="{{agency.agency_abbreviation}}" data-agency="{{agency.agency_name}}">-->
+                                    <!--{{agency.agency_name}}-->
+                                <!--</option>-->
+                            <!--</select>-->
+                        <!--</div>-->
+
+                        <!--<button type="button" class="btn btn-danger pull-left" ng-click="reject(i)">Reject</button>-->
+                        <!--<button id="confirm-{{i.incident_id}}" type="button" class="btn btn-success pull-right" ng-click="confirm(i)" ng-show="i.selected">Confirm</button>-->
+
+                    <!--</div>-->
                 </div><!-- /.box -->
             </div>
         </div>

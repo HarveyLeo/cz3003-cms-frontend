@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-init="getAllIncidents();getIncidentsForMap(); getSystemLog(); getAllAgencies();getAllFeedbacks();">
 
     <div class="col-lg-6 col-sm-12">
         <div class="box box-default">
@@ -8,7 +8,7 @@
                 <div class="box-tools pull-right">
                     <ul class="pagination pagination-sm inline">
                         <li><button class="btn btn-sm btn-default btn-flat" ng-disabled="feedbackConfig.currentPage == 0" ng-click="feedbackConfig.currentPage=feedbackConfig.currentPage-1"> Prev </button></li>
-                        <li><button class="btn btn-sm btn-default btn-flat" ng-disabled="feedbackConfig.currentPage >= assignedIncidents.length/feedbackConfig.pageSize - 1" ng-click="feedbackConfig.currentPage=feedbackConfig.currentPage+1"> Next </button></li>
+                        <li><button class="btn btn-sm btn-default btn-flat" ng-disabled="feedbackConfig.currentPage >= pendingFeedbacks.length/feedbackConfig.pageSize - 1" ng-click="feedbackConfig.currentPage=feedbackConfig.currentPage+1"> Next </button></li>
                     </ul>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                 </div><!-- /.box -->
 
                 <div class="box collapsed-box"
-                     ng-repeat="feedback in reviewedFeedbacks">
+                     ng-repeat="feedback in reviewedFeedbacks" ng-hide="config.showPendingOnly">
                     <div class="box-header with-border">
                         <h3 class="box-title">
                             <small class="label label-success ">Reviewed</small>
@@ -73,6 +73,17 @@
                         </table>
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->
+
+
+            </div>
+
+            <div class="box-footer">
+                <div class="checkbox pull-right">
+                    <label>
+                        <input type="checkbox" ng-model="config.showPendingOnly">
+                        Show <small class="label label-danger">Pending</small> crises only
+                    </label>
+                </div>
             </div>
         </div>
     </div>

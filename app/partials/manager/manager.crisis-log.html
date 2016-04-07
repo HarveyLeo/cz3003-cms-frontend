@@ -6,22 +6,23 @@
                 <h3 class="box-title">Crisis Log</h3>
                 <div class="box-tools pull-right">
                     <ul class="pagination pagination-sm inline">
-                        <li><button class="btn btn-sm btn-default btn-flat" ng-disabled="config.currentPage == 0" ng-click="config.currentPage=config.currentPage-1"> Prev </button></li>
-                        <li><button class="btn btn-sm btn-default btn-flat" ng-disabled="config.currentPage >= allIncidents.length/config.pageSize - 1" ng-click="config.currentPage=config.currentPage+1"> Next </button></li>
+                        <li><button class="btn btn-sm btn-default btn-flat" ng-disabled="incidentConfig.currentPage == 0" ng-click="incidentConfig.currentPage=incidentConfig.currentPage-1"> Prev </button></li>
+                        <li><button class="btn btn-sm btn-default btn-flat" ng-disabled="incidentConfig.currentPage >= allIncidents.length/incidentConfig.pageSize - 1" ng-click="incidentConfig.currentPage=incidentConfig.currentPage+1"> Next </button></li>
                     </ul>
                 </div>
             </div>
             <div class="box-body">
                 <div class="box collapsed-box"
-                     ng-repeat="i in allIncidents | startFrom: config.currentPage*config.pageSize | limitTo: config.pageSize">
+                     ng-repeat="i in allIncidents | startFrom: incidentConfig.currentPage*incidentConfig.pageSize | limitTo: incidentConfig.pageSize"
+                     ng-hide="(incidentConfig.showPendingOnly && (i.incident_status == 'CLOSED' || i.incident_status == 'REJECTED'))">
                     <div class="box-header with-border">
                         <h3 class="box-title">
-                            <small class="label label-warning" ng-if="i.incident_status == 'INITIATED'">Pending</small>
-                            <small class="label label-success" ng-if="i.incident_status == 'APPROVED'">Approved</small>
-                            <small class="label label-info" ng-if="i.incident_status == 'CLOSED'">Completed</small>
-                            <small class="label label-danger" ng-if="i.incident_status == 'REJECTED'">Rejected</small>
+                            <small class="label label-warning" ng-if="i.incident_status == 'INITIATED'">Reported</small>
+                            <small class="label label-danger" ng-if="i.incident_status == 'APPROVED'">Declared</small>
+                            <small class="label label-success" ng-if="i.incident_status == 'CLOSED'">Resolved</small>
+                            <small class="label label-primary" ng-if="i.incident_status == 'REJECTED'">Cancelled</small>
 
-                            {{i.incident_type}} @{{i.incident_address}}
+                            {{i.incident_type}} @ {{i.incident_address}}
                         </h3>
                         <div class="box-tools pull-right">
                             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
@@ -50,6 +51,10 @@
                                 <th>Description:</th>
                                 <td>{{i.incident_description}}</td>
                             </tr>
+                            <tr>
+                                <th>Dispatched Agency:</th>
+                                <td>{{i.agency_name}}</td>
+                            </tr>
 
                             </tbody>
                         </table>
@@ -76,6 +81,14 @@
 
                     </div>
                 </div><!-- /.box -->
+                <div class="box-footer">
+                    <div class="checkbox pull-right">
+                        <label>
+                            <input type="checkbox" ng-model="incidentConfig.showPendingOnly">
+                            Show <small class="label label-warning">Reported</small> or <small class="label label-danger">Declared</small> crises only
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

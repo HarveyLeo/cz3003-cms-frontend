@@ -4,14 +4,16 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
 
         $scope.incidentID = $stateParams.incidentID;
 
-        $scope.config = {
+        $scope.incidentConfig = {
             currentPage: 0,
-            pageSize: 5
+            pageSize: 10,
+            showPendingOnly: false
         };
 
         $scope.feedbackConfig = {
             currentPage: 0,
-            pageSize: 5
+            pageSize: 10,
+            showPendingOnly: false
         };
 
         $scope.curDate = "1";

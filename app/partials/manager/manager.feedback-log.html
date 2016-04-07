@@ -14,6 +14,7 @@
             </div>
             <div class="box-body">
                 <div class="box collapsed-box"
+                     ng-hide="feedback.feedback_status == 'REVIEWED' && feedbackConfig.showPendingOnly"
                      ng-repeat="feedback in allFeedbacks | startFrom: feedbackConfig.currentPage*feedbackConfig.pageSize | limitTo: feedbackConfig.pageSize">
                     <div class="box-header with-border">
                         <h3 class="box-title">
@@ -44,44 +45,15 @@
 
                     <div class="box-footer" display="none" ng-if="feedback.feedback_status == 'PENDING'">
 
-                        <button type="button" class="btn btn-success pull-right" ng-click="review(feedback)">Review</button>
+                        <button type="button" class="btn btn-success pull-right" ng-click="review(feedback)"><i class="fa fa-check-square-o"></i> Review</button>
                     </div>
                 </div><!-- /.box -->
-
-                <!--<div class="box collapsed-box"-->
-                     <!--ng-repeat="feedback in reviewedFeedbacks" ng-hide="config.showPendingOnly">-->
-                    <!--<div class="box-header with-border">-->
-                        <!--<h3 class="box-title">-->
-                            <!--<small class="label label-success ">Reviewed</small>-->
-                            <!--From {{feedback.feedback_agency}} @{{feedback.feedback_timestamp}}-->
-                        <!--</h3>-->
-                        <!--<div class="box-tools pull-right">-->
-                            <!--<button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>-->
-                        <!--</div>-->
-                    <!--</div>&lt;!&ndash; /.box-header &ndash;&gt;-->
-                    <!--<div class="box-body" style="display: none;">-->
-                        <!--<table class="table table-hover">-->
-                            <!--<tbody>-->
-                            <!--<tr>-->
-                                <!--<th>Incident</th>-->
-                                <!--<td>{{feedback.incident.incident_type}} @ {{feedback.incident.incident_address}}</td>-->
-                            <!--</tr>-->
-                            <!--<tr>-->
-                                <!--<th>Description:</th>-->
-                                <!--<td>{{feedback.feedback_description}}</td>-->
-                            <!--</tr>-->
-
-                            <!--</tbody>-->
-                        <!--</table>-->
-                    <!--</div>&lt;!&ndash; /.box-body &ndash;&gt;-->
-                <!--</div>&lt;!&ndash; /.box &ndash;&gt;-->
-            </div>
 
             <div class="box-footer">
                 <div class="checkbox pull-right">
                     <label>
-                        <input type="checkbox" ng-model="config.showPendingOnly">
-                        Show <small class="label label-danger">Pending</small> crises only
+                        <input type="checkbox" ng-model="feedbackConfig.showPendingOnly">
+                        Show <small class="label label-danger">Pending</small> feedback only
                     </label>
                 </div>
             </div>

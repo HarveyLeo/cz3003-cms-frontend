@@ -12,7 +12,7 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
 
         $scope.feedbackConfig = {
             currentPage: 0,
-            pageSize: 10,
+            pageSize: 5,
             showPendingOnly: false
         };
 

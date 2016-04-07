@@ -220,8 +220,8 @@
 
                     <div class="box-tools pull-right">
                         <ul class="pagination pagination-sm inline">
-                            <li><button class="btn btn-sm btn-default btn-flat" ng-disabled="config.currentPage == 0" ng-click="config.currentPage=config.currentPage-1"> Prev </button></li>
-                            <li><button class="btn btn-sm btn-default btn-flat" ng-disabled="config.currentPage >= allFeedbacks.length/config.pageSize - 1" ng-click="config.currentPage=config.currentPage+1"> Next </button></li>
+                            <li><button class="btn btn-sm btn-default btn-flat" ng-disabled="feedbackConfig.currentPage == 0" ng-click="feedbackConfig.currentPage=feedbackConfig.currentPage-1"> Prev </button></li>
+                            <li><button class="btn btn-sm btn-default btn-flat" ng-disabled="feedbackConfig.currentPage >= allFeedbacks.length/feedbackConfig.pageSize - 1" ng-click="feedbackConfig.currentPage=feedbackConfig.currentPage+1"> Next </button></li>
                         </ul>
                     </div>
                 </div>
@@ -230,7 +230,7 @@
                     <ul class="timeline">
 
                         <!-- timeline time label -->
-                        <li class="time-label" ng-repeat-start="feedback in allFeedbacks | startFrom: config.currentPage*config.pageSize | limitTo: config.pageSize">
+                        <li class="time-label" ng-repeat-start="feedback in allFeedbacks | startFrom: feedbackConfig.currentPage*feedbackConfig.pageSize | limitTo: feedbackConfig.pageSize">
                             <span class="bg-red" ng-show="updateDate(feedback) || $index == 0">
                                 {{feedback.date}}
                             </span>

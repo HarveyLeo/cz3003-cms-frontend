@@ -1,0 +1,60 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="close()"><span aria-hidden="true">×</span></button>
+    <h3 style="padding-left: 10px;"><i class="fa fa-file-text-o margin-r-5"></i>{{incident.incident_type}}</h3>
+</div>
+<div class="modal-body" ng-init="getAllAgencies();">
+
+    <div class="box-body">
+        <table class="table table-hover">
+            <tbody>
+            <tr>
+                <th>Incident Type:</th>
+                <td>{{incident.incident_type}}</td>
+            </tr>
+            <tr>
+                <th>Location:</th>
+                <td>{{incident.incident_address}}</td>
+            </tr>
+            <tr>
+                <th>Date & Time:</th>
+                <td>{{incident.incident_timestamp}}</td>
+            </tr>
+            <tr ng-hide="!incident.incident_description">
+                <th>Description:</th>
+                <td>{{incident.incident_description}}</td>
+            </tr>
+            <tr ng-hide="!incident.agency_name">
+                <th>Dispatched Agency:</th>
+                <td>{{incident.agency_name}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div><!-- /.box-body -->
+    <div class="box-footer" display="none" ng-if="incident.incident_status == 'INITIATED'">
+
+        <div class="form-group">
+            <label for="agency-select-{{incident.incident_id}}">Dispatch Agency</label>
+            <select id="agency-select-{{incident.incident_id}}" class="form-control" ng-model="incident.selected">
+                <option ng-repeat="agency in allAgencies" value="{{agency.agency_abbreviation}}" data-agency="{{agency.agency_name}}">
+                    {{agency.agency_name}}</option>
+            </select>
+        </div>
+
+        <button type="button" class="btn btn-danger pull-left" ng-click="reject(incident)">Cancel</button>
+        <button id="confirm-{{incident.incident_id}}" type="button" class="btn btn-success pull-right" ng-click="confirm(incident)" ng-show="incident.selected">Confirm</button>
+    </div>
+
+    <div ng-if="incident.incident_status == 'APPROVED'" >
+        <button id="close-{{incident.incident_id}}"
+                type="button"
+                class="btn btn-success center-block"
+                ng-click="complete(incident)">
+            <i class="fa fa-check"></i> Resolved
+        </button>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger pull-right" ng-click="close()">Close</button>
+</div>
+

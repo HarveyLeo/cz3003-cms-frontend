@@ -12,7 +12,7 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
 
         $scope.feedbackConfig = {
             currentPage: 0,
-            pageSize: 5,
+            pageSize: 10,
             showPendingOnly: false
         };
 
@@ -105,7 +105,7 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
             AgencyService.getAllAgencies().then(function(data) {
                 $scope.allAgencies = data;
             }, function() {
-                console.log("error: getting all incidents");
+                console.log("error: getting all agencies");
             });
         };
 
@@ -120,13 +120,11 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
 
         $scope.openMapModal = function(incident) {
 
-            console.log(incident);
-
             var modalInstance;
             modalInstance = $uibModal.open({
                 animation: true,
-                templateUrl: 'partials/public/public.map-incident-modal.html',
-                controller: 'mapIncidentModalCtrl',
+                templateUrl: 'partials/manager/manager.map-incident-modal.html',
+                controller: 'mapIncidentModalCtrlForManager',
                 resolve: {
                     incident : function(){return incident;}
                 }
@@ -244,25 +242,7 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
             resetMarkers($scope, $scope.closed_incidents);
         };
 
-        $scope.openToDo = function(pending_incident) {
-            console.log(pending_incident);
 
-            var modalInstance;
-            modalInstance = $uibModal.open({
-                animation: true,
-                templateUrl: 'partials/public/public.map-pending-incident-modal.html',
-                controller: 'mapIncidentModalCtrl',
-                resolve: {
-                    incident : function(){return pending_incident;}
-                }
-            });
-
-            modalInstance.result.then((function(selectedItem) {
-                $scope.selected = selectedItem;
-            }), function() {
-                console.log('Modal dismissed at: ' + new Date);
-            });
-        };
 
         $scope.complete = function(incident){
             incident.incident_status = "CLOSED";
@@ -285,7 +265,6 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
             incident.agency = $("#agency-select-" + incident.incident_id).val();
             incident.agency_name = $("#agency-select-" + incident.incident_id).data("agency");
             IncidentUpdateService.update(incident).then(function(data) {
-                console.log(data);
                 $state.go('manager.feedback-log',{}, {reload: true});
             })
         };
@@ -300,3 +279,45 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
         };
     }
 ]);
+
+cmsControllers.controller('mapIncidentModalCtrlForManager',
+    function($scope, incident, $uibModalInstance, AgencyService, IncidentUpdateService, $state){
+
+        $scope.incident = incident;
+
+        $scope.close = function(){
+            $uibModalInstance.close();
+        };
+
+        $scope.getAllAgencies = function() {
+            AgencyService.getAllAgencies().then(function(data) {
+                $scope.allAgencies = data;
+            }, function() {
+                console.log("error: getting all agencies");
+            });
+        };
+
+        $scope.confirm = function (incident) {
+            incident.incident_status = "APPROVED";
+            incident.agency = $("#agency-select-" + incident.incident_id).val();
+            incident.agency_name = $("#agency-select-" + incident.incident_id).data("agency");
+            IncidentUpdateService.update(incident).then(function(data) {
+                $state.go('manager.map-and-timeline',{}, {reload: true});
+            })
+        };
+
+        $scope.reject = function(incident){
+            incident.incident_status = "REJECTED";
+            IncidentUpdateService.update(incident).then(function(data) {
+                $state.go('manager.map-and-timeline',{}, {reload: true});
+            })
+        };
+
+        $scope.complete = function(incident){
+            incident.incident_status = "CLOSED";
+            IncidentUpdateService.update(incident).then(function(data) {
+                $state.go('manager.map-and-timeline',{}, {reload: true});
+            })
+        };
+    }
+);

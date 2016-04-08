@@ -3,8 +3,9 @@
 cmsControllers.controller('mapIncidentModalCtrl',
     function($scope, $uibModalInstance, incident){
         $scope.incident = incident;
-        $scope.close = function(){$uibModalInstance.close();};
-        $scope.confirm = function(){};
+        $scope.close = function(){
+            $uibModalInstance.close();
+        };
     }
 );
 

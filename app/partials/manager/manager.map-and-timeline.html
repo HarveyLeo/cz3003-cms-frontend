@@ -238,7 +238,7 @@
                         <!-- /.timeline-label -->
 
                         <!-- timeline item -->
-                        <li>
+                        <li ng-repeat-end>
                             <!-- timeline icon -->
                             <i class="fa fa-comment bg-aqua"></i>
                             <div class="timeline-item">
@@ -257,31 +257,6 @@
                             </div>
                         </li>
 
-                        <li ng-repeat-end>
-                            <!-- timeline icon -->
-                            <i ng-if="feedback.incident.incident_status == 'INITIATED'" class="fa fa-plus bg-yellow"></i>
-                            <i ng-if="feedback.incident.incident_status == 'APPROVED'" class="fa fa-exclamation bg-red"></i>
-                            <i ng-if="feedback.incident.incident_status == 'REJECTED'" class="fa fa-times bg-gray"></i>
-                            <i ng-if="feedback.incident.incident_status == 'CLOSED'" class="fa fa-check bg-green"></i>
-                            <div class="timeline-item">
-                                <span class="time"><i class="fa fa-clock-o"></i> {{feedback.incident.time}}</span>
-
-                                <h3 class="timeline-header">
-                                    <a ng-click="openMapModal(feedback.incident)">
-                                        {{feedback.incident.incident_type}} @ {{feedback.incident.incident_address}}
-                                    </a>
-                                        is
-                                    <span ng-if="feedback.incident.incident_status == 'INITIATED'">reported</span>
-                                    <span ng-if="feedback.incident.incident_status == 'APPROVED'">declared</span>
-                                    <span ng-if="feedback.incident.incident_status == 'REJECTED'">cancelled</span>
-                                    <span ng-if="feedback.incident.incident_status == 'CLOSED'">resolved</span>
-                                </h3>
-
-                                <div class="timeline-body">
-                                    {{feedback.incident.incident_description}}
-                                </div>
-                            </div>
-                        </li>
                         <!-- END timeline item -->
                         <li>
                             <i class="fa fa-clock-o bg-gray"></i>

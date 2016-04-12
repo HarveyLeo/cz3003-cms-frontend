@@ -1,4 +1,4 @@
-<div id="divMain" class="skin-blue sidebar-mini" ng-init="getAllIncidents();getIncidentsForMap(); getSystemLog(); initMap();getAllFeedbacks();">
+<div id="divMain" class="skin-blue sidebar-mini" ng-init="getAllIncidents();getIncidentsForMap(); initMap();getAllFeedbacks();">
     <div class="wrapper">
         <header class="main-header">
             <!-- Logo -->
@@ -157,7 +157,7 @@
                                                     {{incident.date}}
                                                 </span>
                                         </li>
-                                        <li ng-repeat-end>
+                                        <li ng-repeat-end ng-hide="incident.incident_status == 'REJECTED' || incident.incident_status=='INITIATED'">
                                             <!-- timeline icon -->
                                             <i ng-if="incident.incident_status == 'APPROVED'" class="fa fa-exclamation bg-red"></i>
                                             <i ng-if="incident.incident_status == 'CLOSED'" class="fa fa-check bg-green"></i>

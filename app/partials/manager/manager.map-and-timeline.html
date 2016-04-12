@@ -254,6 +254,13 @@
                                 <div class="timeline-body">
                                     {{feedback.feedback_description}}
                                 </div>
+
+                                <div class="timeline-item" ng-show="feedback.feedback_status=='PENDING'">
+                                    <button type="button" class="btn btn-danger pull-right" ng-click="review(feedback)"><i class="fa fa-check-square-o"></i> Review</button>
+                                </div>
+                                <div class="timeline-item" ng-show="feedback.feedback_status=='REVIEWED'">
+                                    <button type="button" class="btn btn-success pull-right" disabled><i class="fa fa-check-square-o"></i> Reviewed</button>
+                                </div>
                             </div>
                         </li>
 

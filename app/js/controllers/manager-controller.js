@@ -274,7 +274,7 @@ cmsControllers.controller('managerCtrl', ['$scope','$stateParams','IncidentRetri
 
             FeedbackSubmissionService.update(feedback).then(function(data) {
                 console.log(data);
-                $state.go('manager.feedback-log',{}, {reload: true});
+                // $state.go('manager.feedback-log',{}, {reload: true});
             })
         };
     }

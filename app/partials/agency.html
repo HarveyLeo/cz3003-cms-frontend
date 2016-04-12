@@ -49,14 +49,14 @@
             </section>
 
             <section class="content">
-                <div class="row">
+                <div class="row"  ng-init="getIncidentsByAgency();">
                     <div class="col-md-6">
-                        <div class="box box-danger" ng-init="getIncidentsByAgency();">
+                        <div class="box box-danger">
                             <div class="box-body">
                                 <div class="form-group">
                                     <label>Incident</label>
                                     <select class="form-control" style="width: 100%;" ng-model="feedback.incident_id">
-                                        <option ng-repeat="i in assignedIncidents" value="{{i.incident_id}}">{{i.incident_type}} @{{i.incident_address}}, {{i.incident_timestamp}}</option>
+                                        <option ng-repeat="i in assignedIncidents" value="{{i.incident_id}}" ng-hide="i.incident_status=='CLOSED'">{{i.incident_type}} @{{i.incident_address}}, {{i.incident_timestamp}}</option>
                                     </select>
                                 </div>
 
